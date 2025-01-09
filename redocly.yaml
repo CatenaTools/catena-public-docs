@@ -10,6 +10,8 @@ navbar:
   items:
     - page: example/index.md
       label: Example Doc
+    - page: apis/catena-tools-core.yaml
+      label: Catena API Explorer
 markdown:
   toc:
     depth: 2
