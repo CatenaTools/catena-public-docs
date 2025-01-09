@@ -1,0 +1,20 @@
+extends:
+  - minimal
+links:
+  - href: https://fonts.googleapis.com/css2?family=VT323&display=swap
+  - href: https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap
+seo:
+  title: Catena Tools API
+  description: Catena Tools - Your game backend tool kit. Built by game developers, for game developers to simplify your game's backend workflow.
+navbar:
+  items:
+    - page: example/index.md
+      label: Example Doc
+markdown:
+  toc:
+    depth: 2
+logo:
+  image: images/HorizontalCatenaLogoGradient.png
+  link: /
+footer:
+  copyrightText: Catena Tools 2025

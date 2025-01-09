@@ -1,0 +1,9 @@
+:root .button-tone-brand {
+  background-color: rgb(242, 129, 33);
+  color: var(--text-color-on-color);
+}
+
+:root.dark .button-tone-brand {
+  background-color: rgb(242, 129, 33);
+  color: #fff;
+}
