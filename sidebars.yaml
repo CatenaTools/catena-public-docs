@@ -1,1 +1,3 @@
 - page: example/index.md
+- group: Catena API Explorer
+  page: apis/catena-tools-core.yaml
