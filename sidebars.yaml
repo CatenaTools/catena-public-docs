@@ -1,3 +1,11 @@
-- page: example/index.md
+- page: guides/key-concepts.md
+  label: "Start Here: Key Concepts"
+- group: "Getting Started: How to Run Catena"
+  page: installation/index.md
+  items:
+    - group: "Running Catena Locally"
+      items:
+        - page: installation/docker.md
+        - page: installation/source.md
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml

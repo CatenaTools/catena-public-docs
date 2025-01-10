@@ -8,8 +8,10 @@ seo:
   description: Catena Tools - Your game backend tool kit. Built by game developers, for game developers to simplify your game's backend workflow.
 navbar:
   items:
-    - page: example/index.md
-      label: Example Doc
+    - page: guides/key-concepts.md
+      label: "Start Here: Key Concepts"
+    - page: installation/index.md
+      label: "Installing Catena"
     - page: apis/catena-tools-core.yaml
       label: Catena API Explorer
 markdown:
