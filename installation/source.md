@@ -32,7 +32,7 @@
         {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
-    {% tab label="Mac" %}
+    {% tab label="macOS" %}
         {% partial file="/_partials/coming-soon.md" /%}
     {% /tab %}
 
