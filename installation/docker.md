@@ -169,4 +169,4 @@ By default running Docker Compose from Catena’s root directory will run a few 
     - Catena uses [Redis](https://redis.io/) for ephemeral storage, such as a session store. This is not a requirement to run Catena, but we run it alongside Catena in case you decide to use it.
 
 ## What Next?
-By default, Catena is run with an assortment of plugins enabled. We recommend exploring what is possible with our included plugins before experimenting with swapping them out for other modules.
+{% partial file="/_partials/install-catena/what-next.md" /%}
