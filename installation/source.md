@@ -33,7 +33,39 @@
     {% /tab %}
 
     {% tab label="macOS" %}
-        {% partial file="/_partials/coming-soon.md" /%}
+        {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
+
+        ### 2. Installing Required Dependencies
+        #### .NET 8 SDK
+        Catena is built with .NET 8.
+
+        1. Download the installer for the .NET SDK from [this page](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+            1. If you are running an Apple processor, such as an **M1** or an **M3 Pro**, select Arm64
+            2. If you are running an Intel processor, select x64
+        2. Once you have downloaded the SDK Installer, run it
+
+        ### 3. Run Catena
+        1. Open your Terminal
+        2. Update installed workloads
+            1. *Note: This only needs to be run once. The next time you run Catena, you can skip to step 3*
+
+        ```bash
+        sudo dotnet workload update
+        ```
+
+        3. Run Catena using the .NET SDK you installed
+
+        ```bash
+        dotnet run ctc --configEnv Development --project catena-tools-core
+        ```
+
+        4. Check that Catena is running either by using cURL or by sending a request from this page using the provided interactive API. When using the unsafe provider (`PROVIDER_UNSAFE`), you should receive back an empty body and a `catena-session-id` header
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Send Request from This Page
+        {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
     {% tab label="Linux" %}
