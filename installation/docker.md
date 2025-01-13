@@ -1,5 +1,8 @@
 # Running With Docker on Your Machine
 
+## Estimated Time
+Starting from scratch, running Catena on your machine using Docker is estimated to take **10-20 minutes**.
+
 ## What Is Docker?
 Docker is a tool used to create, deploy, and run applications using containers. Containers are similar to virtual machines, but don’t create an entire virtual operating system. When an application is built and packaged into a container alongside it’s dependencies it can be run quickly and reliably from one computing environment to another. For more information about Docker and containers, you can refer to [this piece of documentation from Docker](https://docs.docker.com/get-started/docker-overview/).
 
