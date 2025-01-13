@@ -73,14 +73,14 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
-    {% tab label="Mac" %}
+    {% tab label="macOS" %}
         {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
 
         ### 2. Install Docker
         There are two options for running with Docker, with Docker Desktop or by using Docker Engine directly.
 
         #### Using Docker Desktop
-        [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/) is the easiest way to install Docker onto a Mac, though it requires a paid license for commercial use. If you prefer to register for a license, follow the following instructions. Otherwise, skip to [Using Docker Engine Directly](./docker.md#using-docker-engine-directly-1).
+        [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/) is the easiest way to install Docker onto macOS, though it requires a paid license for commercial use. If you prefer to register for a license, follow the following instructions. Otherwise, skip to [Using Docker Engine Directly](./docker.md#using-docker-engine-directly-1).
 
         1. [Download Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/)
         2. Install Docker
@@ -90,7 +90,7 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         #### Using Docker Engine Directly
         The underlying Docker Engine that Docker Desktop provides is under the Apache License and is free to use. If you prefer to use Docker for free, you can install Docker Engine directly and run Catena using the following steps.
 
-        1. Install [Homebrew](https://brew.sh), a package manager for Mac
+        1. Install [Homebrew](https://brew.sh), a package manager for macOS
 
         ```bash
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
