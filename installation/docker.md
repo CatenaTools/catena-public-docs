@@ -67,13 +67,13 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         docker compose up
         ```
 
-        3. Check that Catena is running either by using cURL or by sending a request from this page using the provided interactive API. When using the unsafe provider (`PROVIDER_UNSAFE`), you should receive back an empty body and a `catena-session-id` header.
-
-        #### Use cURL
-        {% openapi-code-sample operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        3. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
 
         #### Send Request from This Page
-        {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
     {% tab label="macOS" %}
@@ -142,13 +142,13 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         docker-compose up
         ```
 
-        4. Check that Catena is running either by using cURL or by sending a request from this page using the provided interactive API. When using the unsafe provider (`PROVIDER_UNSAFE`), you should receive back an empty body and a `catena-session-id` header.
-
-        #### Use cURL
-        {% openapi-code-sample operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        4. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
 
         #### Send Request from This Page
-        {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
 
