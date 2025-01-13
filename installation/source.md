@@ -26,13 +26,13 @@ Starting from scratch, running Catena from source on your machine is estimated t
         dotnet run ctc --configEnv Development --project catena-tools-core
         ```
 
-        3. Check that Catena is running either by using cURL or by sending a request from this page using the provided interactive API. When using the unsafe provider (`PROVIDER_UNSAFE`), you should receive back an empty body and a `catena-session-id` header.
-
-        #### Use cURL
-        {% openapi-code-sample operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        3. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
 
         #### Send Request from This Page
-        {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
     {% tab label="macOS" %}
@@ -62,13 +62,13 @@ Starting from scratch, running Catena from source on your machine is estimated t
         dotnet run ctc --configEnv Development --project catena-tools-core
         ```
 
-        4. Check that Catena is running either by using cURL or by sending a request from this page using the provided interactive API. When using the unsafe provider (`PROVIDER_UNSAFE`), you should receive back an empty body and a `catena-session-id` header
-
-        #### Use cURL
-        {% openapi-code-sample operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        4. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
 
         #### Send Request from This Page
-        {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
     {% tab label="Linux" %}
