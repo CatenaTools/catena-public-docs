@@ -1,5 +1,8 @@
 # Running From Source on Your Machine
 
+## Estimated Time
+Starting from scratch, running Catena from source on your machine is estimated to take **<10 minutes**.
+
 ## Installation Instructions
 {% tabs %}
     {% tab label="Windows" %}
