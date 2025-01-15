@@ -1,5 +1,8 @@
 # Running With Docker on Your Machine
 
+## Estimated Time
+Starting from scratch, running Catena on your machine using Docker is estimated to take **10-20 minutes**.
+
 ## What Is Docker?
 Docker is a tool used to create, deploy, and run applications using containers. Containers are similar to virtual machines, but don’t create an entire virtual operating system. When an application is built and packaged into a container alongside it’s dependencies it can be run quickly and reliably from one computing environment to another. For more information about Docker and containers, you can refer to this piece of documentation from Docker.
 
@@ -64,23 +67,23 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         docker compose up
         ```
 
-        3. Check that Catena is running either by using cURL or by sending a request from this page using the provided interactive API. When using the unsafe provider (`PROVIDER_UNSAFE`), you should receive back an empty body and a `catena-session-id` header.
-
-        #### Use cURL
-        {% openapi-code-sample operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        3. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
 
         #### Send Request from This Page
-        {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
-    {% tab label="Mac" %}
+    {% tab label="macOS" %}
         {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
 
         ### 2. Install Docker
         There are two options for running with Docker, with Docker Desktop or by using Docker Engine directly.
 
         #### Using Docker Desktop
-        [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/) is the easiest way to install Docker onto a Mac, though it requires a paid license for commercial use. If you prefer to register for a license, follow the following instructions. Otherwise, skip to [Using Docker Engine Directly](./docker.md#using-docker-engine-directly-1).
+        [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/) is the easiest way to install Docker onto macOS, though it requires a paid license for commercial use. If you prefer to register for a license, follow the following instructions. Otherwise, skip to [Using Docker Engine Directly](./docker.md#using-docker-engine-directly-1).
 
         1. [Download Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/)
         2. Install Docker
@@ -90,7 +93,7 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         #### Using Docker Engine Directly
         The underlying Docker Engine that Docker Desktop provides is under the Apache License and is free to use. If you prefer to use Docker for free, you can install Docker Engine directly and run Catena using the following steps.
 
-        1. Install [Homebrew](https://brew.sh), a package manager for Mac
+        1. Install [Homebrew](https://brew.sh), a package manager for macOS
 
         ```bash
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -139,13 +142,13 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         docker-compose up
         ```
 
-        4. Check that Catena is running either by using cURL or by sending a request from this page using the provided interactive API. When using the unsafe provider (`PROVIDER_UNSAFE`), you should receive back an empty body and a `catena-session-id` header.
-
-        #### Use cURL
-        {% openapi-code-sample operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        4. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
 
         #### Send Request from This Page
-        {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../apis/catena-tools-core.yaml" /%}
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 
 
@@ -169,4 +172,4 @@ By default running Docker Compose from Catena’s root directory will run a few 
     - Catena uses [Redis](https://redis.io/) for ephemeral storage, such as a session store. This is not a requirement to run Catena, but we run it alongside Catena in case you decide to use it.
 
 ## What Next?
-By default, Catena is run with an assortment of plugins enabled. We recommend exploring what is possible with our included plugins before experimenting with swapping them out for other modules.
+{% partial file="/_partials/install-catena/what-next.md" /%}

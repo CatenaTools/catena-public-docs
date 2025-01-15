@@ -1,0 +1,1 @@
+By default, Catena is run with an assortment of plugins enabled. We recommend exploring what is possible with our included plugins before experimenting with swapping them out for other modules.
