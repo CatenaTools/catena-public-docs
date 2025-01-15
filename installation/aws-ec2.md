@@ -1,3 +1,9 @@
+---
+markdown:
+  toc:
+    depth: 3
+---
+
 # Deploying to AWS on a Single EC2 Instance
 
 ## Estimated Time
