@@ -20,4 +20,10 @@ Run Catena With Docker on Your Machine
 
 Alternatively, you can deploy Catena to live environment, such as AWS.
 
+{% cards columns=1 %}
+{% card title="AWS (Single Node)" to="./aws-ec2.md" %}
+Deploy to AWS on a single EC2 Instance
+{% /card %}
+{% /cards %}
+
 {% partial file="/_partials/coming-soon.md" /%}
