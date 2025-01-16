@@ -22,3 +22,9 @@ logo:
   link: /
 footer:
   copyrightText: Catena Tools 2025
+apis:
+  main:
+    root: ./apis/catena-tools-core.yaml
+    decorators:
+      info-description-override:
+        filePath: ./apis/catena-tools-core-description.md
