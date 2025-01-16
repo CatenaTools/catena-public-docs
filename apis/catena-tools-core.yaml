@@ -4,7 +4,13 @@ info:
   version: v1
 servers:
   - url: http://localhost:5000
-    description: Platform URL
+    description: Localhost
+  - url: 'https://{domain}'
+    description: Custom Domain
+    variables:
+      domain:
+        default: your_domain_here
+        description: Your custom domain
 paths:
   /api/v1/accounts:
     post:
@@ -86,22 +92,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/accounts/ids:
-    get:
+    post:
       tags:
         - CatenaAccounts
       summary: GetAccountIds Retrieves a list of account ids. This route is to be used by users
       operationId: catena.catena_accounts.CatenaAccounts_GetAccountIds
-      parameters:
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: offset
-          in: query
-          schema:
-            type: integer
-            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaAccounts.GetAccountIdsRequest'
       responses:
         '200':
           description: Success
@@ -3506,6 +3506,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/steam_diag/user/player_summaries:
+    post:
+      tags:
+        - CatenaSteamDiag
+      operationId: catena.catena_steam_diag.CatenaSteamDiag_AdminUserGetPlayerSummaries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaSteamDiag.AdminUserGetPlayerSummariesRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaSteamDiag.AdminUserGetPlayerSummariesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/titles/generate_presigned_url:
     post:
       tags:
@@ -4554,6 +4577,16 @@ components:
       properties:
         account:
           $ref: '#/components/schemas/Services.CatenaAccounts.Account'
+      additionalProperties: false
+    Services.CatenaAccounts.GetAccountIdsRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
       additionalProperties: false
     Services.CatenaAccounts.GetAccountIdsResponse:
       type: object
@@ -6376,6 +6409,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Services.CatenaSteamDiag.PlayerSummary'
+      additionalProperties: false
+    Services.CatenaSteamDiag.AdminUserGetPlayerSummariesRequest:
+      type: object
+      properties:
+        accountIds:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaSteamDiag.AdminUserGetPlayerSummariesResponse:
+      type: object
+      properties:
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaSteamDiag.AugmentedPlayerSummary'
+      additionalProperties: false
+    Services.CatenaSteamDiag.AugmentedPlayerSummary:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: Augment with account ID from request for correlation
+        steamId:
+          type: integer
+          description: 'Not all information is reported back here, steam ID is 0 when account can''t be mapped'
+          format: int64
+        personaName:
+          type: string
       additionalProperties: false
     Services.CatenaSteamDiag.PlayerSummary:
       type: object
