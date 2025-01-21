@@ -9,6 +9,7 @@
         - page: installation/source.md
     - group: "Deploying Catena"
       items:
+        - page: installation/heroku.md
         - page: installation/aws-ec2.md
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
