@@ -1,15 +1,20 @@
-- page: guides/key-concepts.md
-  label: "Start Here: Key Concepts"
-- group: "Getting Started: How to Run Catena"
-  page: installation/index.md
+- group: "Getting Started"
   items:
-    - group: "Running Catena Locally"
+    - page: guides/key-concepts.md
+      label: "Start Here: Key Concepts"
+    - group: "How to Run Catena"
+      page: installation/index.md
       items:
-        - page: installation/docker.md
-        - page: installation/source.md
-    - group: "Deploying Catena"
+        - group: "Running Catena Locally"
+          items:
+            - page: installation/docker.md
+            - page: installation/source.md
+        - group: "Deploying Catena"
+          items:
+            - page: installation/heroku.md
+            - page: installation/aws-ec2.md
+    - group: "Engine Quickstarts"
       items:
-        - page: installation/heroku.md
-        - page: installation/aws-ec2.md
+        - page: engines/unity/quickstart.md
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
