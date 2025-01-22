@@ -10,8 +10,6 @@ navbar:
   items:
     - page: guides/key-concepts.md
       label: "Start Here: Key Concepts"
-    - page: installation/index.md
-      label: "Installing Catena"
     - page: apis/catena-tools-core.yaml
       label: Catena API Explorer
 markdown:
