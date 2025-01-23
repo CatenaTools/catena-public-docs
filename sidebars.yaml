@@ -13,8 +13,11 @@
           items:
             - page: installation/heroku.md
             - page: installation/aws-ec2.md
-    - group: "Engine Quickstarts"
-      items:
-        - page: engines/unity/quickstart.md
+- group: Unity
+  page: engines/unity/index.md
+  items:
+    - page: engines/unity/quickstart.md
+    - page: engines/unity/authentication.md
+      label: "Authentication"
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
