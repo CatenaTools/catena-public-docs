@@ -1,3 +1,9 @@
+---
+markdown:
+  toc:
+    depth: 3
+---
+
 # Unity - Authentication
 
 {% admonition type="info" name="Before You Get Started" %}
@@ -8,9 +14,9 @@
 Configuring Catena authentication in your Unity project is estimated to take **<10 minutes**.
 
 ## Adding Authentication
-The first real call you'll want to make to Catena is authenticating a player to register a session. Catena supports a variety of authentication providers. For the purposes of this guide, we will be using our "Unsafe" provider, which is used for development workflows.
+The first real call you'll want to make to Catena is authenticating a player to register a session. Catena supports a variety of authentication providers. For the purposes of this guide, we will be using our **UNSAFE** provider, which is used for development workflows.
 
-<!-- TODO: Add link to auth docs -->
+For more information on Authentication in Catena, such as different authentication types, [refer to the Authentication documentation](../../features/authentication/index.md).
 
 ### Logging A Player In
 

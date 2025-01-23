@@ -153,9 +153,7 @@ Docker is a tool used to create, deploy, and run applications using containers. 
 
 
     {% tab label="Linux" %}
-        {% admonition type="info" %}
-            Instructions coming soon!
-        {% /admonition %}
+        {% partial file="/_partials/coming-soon.md" /%}
     {% /tab %}
 {% /tabs %}
 
