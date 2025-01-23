@@ -31,7 +31,7 @@ Copy the `catena-tools-core/CatenaUnitySDK/` directory into the `Assets/Scripts/
     3. Leave **Use Catena Data Cleanup** checked
 
 #### What Is The Catena Entrypoint?
-The Catena Entrypoint is a Singleton class that is used by other Catena components to communicate with the Catena backend.
+The **Catena Entrypoint** component is a Singleton class that is used by other Catena components to communicate with the Catena backend.
 
 This component will make the `GameObject` it's on persist between scenes, so it's best to put it on its own `GameObject` or another `GameObject` you already plan to have persist between scenes.
 
