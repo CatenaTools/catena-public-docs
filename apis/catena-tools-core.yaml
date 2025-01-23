@@ -4900,7 +4900,7 @@ components:
       properties:
         redirectUri:
           type: string
-          description: redirect URI to send the user to if we are dealing with an oauth provider
+          description: Redirect URI for the browser to use if we are authenticating via a website with an OAuth provider. Not returned if authenticating with a game client.
       additionalProperties: false
     Services.CatenaAuthentication.LogoutResponse:
       type: object
