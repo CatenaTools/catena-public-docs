@@ -105,6 +105,7 @@ In order to deploy Catena, you will need to generate an SSH key.
         ```bash
         cd ~/.ssh/
         ssh-keygen -t rsa -b 2048 -m PEM -f catena_deploy_key
+        chmod 600 catena_deploy_key
         ```
     {% /tab %}
 {% /tabs %}
