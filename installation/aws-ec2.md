@@ -94,9 +94,13 @@ To install Terraform, refer to [their installation documentation](https://develo
 In order to deploy Catena, you will need to generate an SSH key.
 
 {% tabs %}
-    {% tab label="Windows" %}
+    {% tab label="Powershell" %}
         ```bash
-        cd %USERPROFILE%/.ssh/
+        # This will fail if the directory exists, but is safe to run to ensure it does exist
+        mkdir $env:USERPROFILE/.ssh/
+
+        # Generate the SSH Key
+        cd $env:USERPROFILE/.ssh/
         ssh-keygen -t rsa -b 2048 -m PEM -f catena_deploy_key
         ```
     {% /tab %}
@@ -119,13 +123,13 @@ Now that you have everything prepped, it's time to actually deploy Catena.
 
 This deployment configuration utilizes [Dokku](https://dokku.com/), which allows us to use Git to make deployments to our AWS Instance.
 
-1. Depending on your operating system, open Windows Command Prompt, Powershell, Terminal, or Command Line.
+1. Depending on your operating system, open Powershell, Terminal, or Command Line.
 2. Navigate to the Catena Infrastructure repository you cloned earlier.
 3. Navigate to the `aws/catena-core/` directory.
 4. Copy `backend.hcl.example` to `backend.hcl` and `vars.tfvars.example` to `vars.tfvars`
 
 {% tabs %}
-    {% tab label="Windows" %}
+    {% tab label="Powershell" %}
         ```bash
         copy backend.hcl.example backend.hcl
         copy vars.tfvars.example vars.tfvars

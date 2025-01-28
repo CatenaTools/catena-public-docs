@@ -24,7 +24,7 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         2. Begin installation
             1. Ensure you select **Use WSL 2 instead of Hyper-V**
         3. Once complete, [start Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/#start-docker-desktop)
-        4. From Windows Command Prompt or Powershell, check that Docker is working correctly
+        4. From Powershell, check that Docker is working correctly
         {% code-snippet file="/_partials/install-catena/validate-docker-installation.md" title="validate-docker-installation" language="bash" /%}
         5. Proceed To [Run Catena](./docker.md#4.-run-catena)
 
@@ -58,7 +58,7 @@ Docker is a tool used to create, deploy, and run applications using containers. 
 
         ### 4. Run Catena
         1. Depending on how you installed Docker, use the corresponding command prompt to navigate to the root directory of the Catena Project:
-            1. **Docker Desktop:** Windows Command Prompt or Powershell
+            1. **Docker Desktop:** Powershell
             2. **Docker Engine:** WSL
                 1. *Note:* To navigate to a drive from WSL, such as your `C:\` drive, you will need to `cd /mnt/c/<YOUR_INSTALLATION_DIRECTORY>`
         2. Use Docker Compose to run the project (this may take a while)
