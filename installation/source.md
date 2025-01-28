@@ -20,7 +20,7 @@ Starting from scratch, running Catena from source on your machine is estimated t
         2. Once you have downloaded the SDK Installer, run it.
 
         ### 3. Run Catena
-        1. Open the Windows Command Prompt or Powershell.
+        1. Open Powershell.
         2. Run Catena using the .NET SDK you installed.
         ```bash
         dotnet run ctc --configEnv Development --project catena-tools-core
