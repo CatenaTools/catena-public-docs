@@ -19,9 +19,13 @@
     - page: engines/unity/quickstart.md
     - page: engines/unity/authentication.md
       label: "Authentication"
+    - page: engines/unity/matchmaking.md
+      label: "Matchmaking"
 - group: Features
   items:
     - page: features/authentication/index.md
       label: "Authentication"
+    - page: features/matchmaking/index.md
+      label: "Matchmaking"
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
