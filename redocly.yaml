@@ -15,6 +15,7 @@ navbar:
     - group: Features
       items:
         - page: features/authentication/index.md
+        - page: features/matchmaking/index.md
     - page: apis/catena-tools-core.yaml
       label: Catena API Explorer
 markdown:
