@@ -13,6 +13,6 @@ The Catena Unity SDK provides an easy way to integrate Catena into your Unity pr
 {% /card %}
 
 ## 3. Matchmaking
-{% card title="Unity Matchmaking" to="./matchmaking.md" %}
+{% card title="Unity Matchmaking" to="./matchmaking/index.md" %}
     Matchmake players together
 {% /card %}

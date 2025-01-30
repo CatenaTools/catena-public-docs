@@ -19,8 +19,13 @@
     - page: engines/unity/quickstart.md
     - page: engines/unity/authentication.md
       label: "Authentication"
-    - page: engines/unity/matchmaking.md
-      label: "Matchmaking"
+    - group: "Matchmaking"
+      page: engines/unity/matchmaking/index.md
+      items:
+        - page: engines/unity/matchmaking/peer-to-peer.md
+    - group: "Supplemental Materials"
+      items:
+        - page: engines/unity/supplemental-materials/mirror.md
 - group: Features
   items:
     - page: features/authentication/index.md

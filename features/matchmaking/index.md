@@ -10,7 +10,7 @@ The Catena Matchmaker is responsible for grouping players or parties together to
 ## Engine Integration
 This page is dedicated to explaining key concepts for matchmaking in Catena. If you are interested in how to integrate matchmaking within a particular game engine, refer to your engine's documentation.
 
-* [Unity - Matchmaking](../../engines/unity/matchmaking.md)
+* [Unity - Matchmaking](../../engines/unity/matchmaking/index.md)
 
 ## How The Matchmaker Works
 
@@ -159,7 +159,7 @@ First, the JSON `key` is the value that **tickets** will need to provide as thei
 Now that you have your matchmaker configured, it's time to integrate the matchmaker with your game engine.
 
 {% cards columns=1 %}
-    {% card title="Unity Matchmaking" to="../../engines/unity/matchmaking.md" %}
+    {% card title="Unity Matchmaking" to="../../engines/unity/matchmaking/index.md" %}
         Integrate the Catena Matchmaker into your Unity Game
     {% /card %}
 {% /cards %}
