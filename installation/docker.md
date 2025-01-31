@@ -153,7 +153,56 @@ Docker is a tool used to create, deploy, and run applications using containers. 
 
 
     {% tab label="Linux" %}
-        {% partial file="/_partials/coming-soon.md" /%}
+        {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
+
+        ### 2. Install Docker
+        There are two options for running with Docker, with Docker Desktop or by using Docker Engine directly.
+
+        #### Using Docker Desktop
+        [Docker Desktop](https://docs.docker.com/desktop/setup/install/linux) is the easiest way to install Docker on Linux, though it requires a paid license for commercial use. If you prefer to register for a license, follow the instructions below. Otherwise, skip to [Using Docker Engine Directly](./docker.md#using-docker-engine-directly).
+
+        1. [Download Docker Desktop](https://docs.docker.com/desktop/setup/install/linux)
+        2. Install Docker
+        3. Launch the Docker Application to finish setting up Docker Desktop
+        4. Proceed to [Run Catena](./docker.md#run-catena-linux)
+
+        #### 2. Using Docker Engine Directly
+        The underlying Docker Engine that Docker Desktop provides is under the Apache License and is free to use. If you prefer to use Docker for free, you can install Docker Engine directly and run Catena using the following steps.
+
+        1. Install [Docker Engine](https://docs.docker.com/engine/install), also known as Docker CE. Follow the steps provided for your Linux flavor.
+
+        2. Check that Docker is working correctly
+
+        ```bash
+        sudo docker run hello-world
+        # Expected output should include:
+        # Hello from Docker!
+        # This message shows that your installation appears to be working correctly.
+
+        sudo docker compose version
+        # Expected output should include something similar to:
+        # Docker Compose version v2.32.1
+        ```
+
+        3. Proceed to [Run Catena](./docker.md#run-catena-linux)
+
+        ### 3. Run Catena (Linux)
+
+        1. Open your Terminal
+        2. Navigate to the root directory of the Catena Project
+        3. Use Docker Compose to run the project (this may take a while)
+
+        ```bash
+        sudo docker compose up
+        ```
+
+        4. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
+
+        #### Send Request from This Page
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 {% /tabs %}
 
