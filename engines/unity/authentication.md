@@ -125,3 +125,8 @@ public class SceneManager : MonoBehaviour
     }
 }
 ```
+
+## What Next?
+Now that you've successfully authenticated a player you can now make authenticated calls against Catena, such as matchmaking players together.
+
+{% partial file="/_partials/unity/matchmaking-card.md" /%}

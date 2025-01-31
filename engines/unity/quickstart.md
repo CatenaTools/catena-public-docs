@@ -71,4 +71,6 @@ catenaEntrypoint.NodeIsHealthy();
 2. Run your project. You should see output in your Console Window indicating that you've successfully made a request to your Catena Backend checking your node's health!
 
 ## What Next?
-Now that you've successfully made your first call, you probably want to achieve something more tangible. You can explore other APIs that the SDK provides to build out additional features for your game.
+Now that you've successfully made your first call, you probably want to achieve something more tangible, such as authenticating a player.
+
+{% partial file="/_partials/unity/authentication-card.md" /%}

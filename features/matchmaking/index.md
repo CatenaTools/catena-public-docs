@@ -96,6 +96,7 @@ There are many possible scenarios for matchmaking across many different genres o
 ```json
 {
     "Catena": {
+        ...
         "Matchmaker": {
             "MatchmakingQueues": {
                 "solo": {
@@ -119,6 +120,7 @@ There are many possible scenarios for matchmaking across many different genres o
             },
             "StatusExpirationMinutes": 15
         }
+        ...
     }
 }
 ```
