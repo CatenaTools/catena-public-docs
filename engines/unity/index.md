@@ -8,6 +8,7 @@ The Catena Unity SDK provides an easy way to integrate Catena into your Unity pr
 {% /card %}
 
 ## 2. Authentication
-{% card title="Unity Authentication" to="./authentication.md" %}
-    Authenticate a player against Catena
-{% /card %}
+{% partial file="/_partials/unity/authentication-card.md" /%}
+
+## 3. Matchmaking
+{% partial file="/_partials/unity/matchmaking-card.md" /%}
