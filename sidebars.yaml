@@ -38,6 +38,14 @@
         - page: engines/unity/supplemental-materials/demo.md
           label: "Demo"
         - page: engines/unity/supplemental-materials/mirror.md
+- group: Unreal
+  page: engines/unreal/index.md
+  items:
+    - page: engines/unreal/quickstart.md
+    - page: engines/unreal/authentication.md
+      label: "Authentication"
+    - page: engines/unreal/matchmaking.md
+      label: "Matchmaking"
 - label: CI/CD
   page: ci_cd/index.md
 - group: Features
