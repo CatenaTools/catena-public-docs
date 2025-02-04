@@ -32,5 +32,7 @@
       label: "Authentication"
     - page: features/matchmaking/index.md
       label: "Matchmaking"
+    - page: features/game-servers/index.md
+      label: "Game Servers"
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml

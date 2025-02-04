@@ -7,6 +7,8 @@ markdown:
 # Catena - Matchmaking
 The Catena Matchmaker is responsible for grouping players or parties together to form games or matches.
 
+It is _not_ responsible for assigning dedicated game servers or fleet management. If you would like to learn more about how Catena handles dedicated game servers, refer to the [Match Broker](../game-servers/index.md) documentation.
+
 ## Engine Integration
 This page is dedicated to explaining key concepts for matchmaking in Catena. If you are interested in how to integrate matchmaking within a particular game engine, refer to your engine's documentation.
 
@@ -163,5 +165,13 @@ Now that you have your matchmaker configured, it's time to integrate the matchma
 {% cards columns=1 %}
     {% card title="Unity Matchmaking" to="../../engines/unity/matchmaking/index.md" %}
         Integrate the Catena Matchmaker into your Unity Game
+    {% /card %}
+{% /cards %}
+
+Alternatively, if you are interested in matchmaking players into dedicated game servers, proceed to the game server documentation.
+
+{% cards columns=1 %}
+    {% card title="Game Servers" to="../game-servers/index.md" %}
+        Configure dedicated game servers with Catena
     {% /card %}
 {% /cards %}
