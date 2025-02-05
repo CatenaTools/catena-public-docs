@@ -52,6 +52,26 @@ heroku login
 # Logged in as example@example.com
 ```
 
+#### 2d. (macOS Only) Upgrade Git
+If you are using macOS, the version of Git you have installed by default is not compatible with Heroku. You must upgrade your installation.
+
+1. [Install Homebrew](https://brew.sh/)
+2. Upgrade Git
+
+```bash
+brew install git
+export PATH=/usr/local/bin:$PATH
+```
+
+3. When you check the Git Version, it should now no longer say "Apple Git" in the version information
+
+```bash
+git --version
+
+# Example Output
+# git version 2.48.1
+```
+
 ### 3. Deploy Catena
 Now that you have everything prepped, it's time to actually deploy Catena.
 
