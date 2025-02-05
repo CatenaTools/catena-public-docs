@@ -13,6 +13,7 @@ Catena supports a variety of Authentication methods designed for games of all ty
 This page is dedicated to explaining key concepts for authentication with Catena. If you are interested in how to authenticate within a particular game engine, refer to your engine's documentation.
 
 * [Unity - Authentication](../../engines/unity/authentication.md)
+* [Unreal - Authentication](../../engines/unreal/authentication.md)
 
 ## Login Types
 
