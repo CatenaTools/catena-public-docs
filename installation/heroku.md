@@ -78,9 +78,9 @@ git remote -v
 # origin  git@github.com:CatenaTools/catena-tools-core.git (push)
 ```
 
-4. Tell Heroku to use the Dotnet buildpack.
+4. Tell Heroku to use Catena's Dotnet buildpack.
 ```bash
-heroku buildpacks:set heroku/dotnet
+heroku buildpacks:set https://github.com/CatenaTools/dotnetcore-buildpack
 ```
 
 5. Configure PostgreSQL and Redis by first creating addons for each and then waiting for each to come online. This may take a few minutes.
@@ -126,7 +126,8 @@ heroku redis:wait
             Catena__Parties__Database__ConnectionString="$connectionString" `
             Catena__Titles__Database__ConnectionString="$connectionString" `
             Catena__ServerReleases__Database__ConnectionString="$connectionString" `
-            Catena__SessionStore__SessionProviderConfigurations__RedisSessionStoreAccessor__ConnectionString="$redisUrl"
+            Catena__SessionStore__SessionProviderConfigurations__RedisSessionStoreAccessor__ConnectionString="$redisUrl" `
+            PROJECT_FILE="catena-tools-core/catena-tools-core.csproj"
         ```
 
     {% /tab %}
@@ -151,6 +152,7 @@ heroku redis:wait
         fi
 
         CONNECTION_STRING="Host=$DB_HOST;Port=$PORT;Database=$DATABASE;Username=$USERNAME;Password=$PASSWORD;"
+        PROJECT_FILE="catena-tools-core/catena-tools-core.csproj"
 
         heroku config:set \
             "Catena__PlatformUrl=$PLATFORM_URL" \
@@ -160,7 +162,8 @@ heroku redis:wait
             "Catena__Parties__Database__ConnectionString=$CONNECTION_STRING" \
             "Catena__Titles__Database__ConnectionString=$CONNECTION_STRING" \
             "Catena__ServerReleases__Database__ConnectionString=$CONNECTION_STRING" \
-            "Catena__SessionStore__SessionProviderConfigurations__RedisSessionStoreAccessor__ConnectionString=$REDIS_URL"
+            "Catena__SessionStore__SessionProviderConfigurations__RedisSessionStoreAccessor__ConnectionString=$REDIS_URL" \
+            "PROJECT_FILE=$PROJECT_FILE"
         ```
 
     {% /tab %}
