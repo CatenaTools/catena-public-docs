@@ -13,6 +13,6 @@ The Catena Unreal SDK provides an easy way to integrate Catena into your Unreal 
 {% /card %}
 
 ## 3. Matchmaking
-{% card title = "Unreal Matchmaking" to="./matchmaking.md" %}
+{% card title="Unreal Matchmaking" to="./matchmaking.md" %}
     Queue for matchmaking with Catena
 {% /card %}
