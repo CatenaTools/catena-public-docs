@@ -25,5 +25,5 @@ logs
 # Environment variables
 .env*
 
-# Rider IDE configs
+# IDEs
 .idea
