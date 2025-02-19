@@ -140,10 +140,9 @@ In this section we will demonstrate how to perform a login.
 We will use the `CommonUser` plugin to kick off the login flow.
 To learn more about the `CommonUser` plugin [you can read this documentation.](https://dev.epicgames.com/documentation/en-us/unreal-engine/common-user-plugin-in-unreal-engine-for-lyra-sample-game#commonusersubsystem)
 
-### 1. Player Login
+For this login request we will be logging in using a test account.
 
-For this login request we will be logging in using a test account. 
-By default, login is performed using a test account.
+### 1. Player Login Using Blueprints
 
 1. Run the editor
 2. Click `Open Level Blueprint`. This can be found in the blueprint button left of the play button.
@@ -153,6 +152,85 @@ By default, login is performed using a test account.
 5. Finally, connect the `Event BeginPlay` exec pin to the input exec pin. Your event graph should look like this:
 ![image](../../images/unreal/quick-start/quick-start-loginBp-graph.png)
 6. Press the Play button.
+
+You will notice in your logs for the `LogOnlineServices` category a response message similar to:
+```LogOnlineServices: Successfully logged in as a test user!```
+
+With that you have successfully performed your first request to Catena!
+
+### 2. Player Login Using C++
+
+1. Run the editor
+2. Click `Tools` -> `New C++ Class`
+3. Choose `Game Mode Base` as the Parent Class
+4. Click `Next`
+5. Name class for your project and set desired path
+6. Click `Create Class`
+7. Open your IDE to the class files you have created.
+   1. You can find your projects `.sln` file in the projects directory.
+   2. Open the `.sln` file with your preferred editor.
+8. Close the UE Editor.
+
+Next we will setup the class to call login when the game is initialized.
+Open up your game mode class header file and add the following code:
+``` c++
+// AMyGameModeBase.h
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/GameModeBase.h"
+#include "MyGameModeBase.generated.h"
+
+UCLASS()
+class CATENAEXAMPLE_API AMyGameModeBase : public AGameModeBase
+{
+	GENERATED_BODY()
+
+public:
+	// AGameModeBase
+	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
+
+private:
+	// Online
+	virtual void OnlineServicesLogin();
+};
+```
+
+Next, open up the .cpp file for this class and add the following code:
+``` c++
+// AMyGameModeBase.cpp
+#include "MyGameModeBase.h"
+
+#include "CommonUser/Public/CommonUserSubsystem.h"
+
+void AMyGameModeBase::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
+{
+	Super::InitGame(MapName, Options, ErrorMessage);
+
+	// Kick off login request
+	OnlineServicesLogin();
+}
+
+
+void AMyGameModeBase::OnlineServicesLogin()
+{
+	UCommonUserSubsystem* CommonUser = GetGameInstance()->GetSubsystem<UCommonUserSubsystem>();
+	if (!CommonUser) { return; }
+
+	// Attempt login. This will use OnlineServicesCatena's login call.
+	CommonUser->TryToLoginForOnlinePlay(0);
+}
+```
+
+Finally, perform the following:
+1. Run the UE editor using your IDE.
+2. Click on `Window` -> `World Settings`
+3. Scroll down the `World Settings` panel until you see the `Game Mode` section.
+4. Click on the `GameMode Overide` selection box and select your game mode class.
+5. Press the `Play` button.
+
+You will notice in your logs for the `LogOnlineServices` category a response message similar to:
+```LogOnlineServices: Successfully logged in as a test user!```
 
 With that you have successfully performed your first request to Catena!
 
