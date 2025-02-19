@@ -234,18 +234,5 @@ You will notice in your logs for the `LogOnlineServices` category a response mes
 
 With that you have successfully performed your first request to Catena!
 
-## Additional Information
-
-### Command-line Arguments
-If you would like, you can pass in command-line arguments when running the engine to configure the user logging in.
-Some available command-line arguments are the following:
-- `-session-id=<sessionId>` - This is the catena session id. This will typically be provided by the Catena launcher. <!-- Does this work for unreal currently? -->
-- `UsernameOverride=<username-override>` - This is the username for the test account you are overriding.
-- Test account usernames start with the word `test` followed by a two digit number, like so `test01`.
-- The default test username is currently set to `test55`.
-
-### Accessing Catena Subsystems
-You can access the Catena subsystems in blueprints by searching for `Get CatenaSubsystem` & `Get CatenaSessionSubsystem`.
-
 ## What Next?
 Now that you've successfully made your first call, you probably want to achieve something more tangible. You can explore other APIs that the SDK provides to build out additional features for your game.
