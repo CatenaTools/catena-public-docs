@@ -226,13 +226,13 @@ Finally, perform the following:
 1. Run the UE editor using your IDE.
 2. Click on `Window` -> `World Settings`
 3. Scroll down the `World Settings` panel until you see the `Game Mode` section.
-4. Click on the `GameMode Overide` selection box and select your game mode class.
+4. Click on the `GameMode Override` selection box and select your game mode class.
 5. Press the `Play` button.
 
 You will notice in your logs for the `LogOnlineServices` category a response message similar to:
 ```LogOnlineServices: Successfully logged in as a test user!```
 
-With that you have successfully performed your first request to Catena!
+<!-- TODO: Add Logout examples here once Logout is implemented. -->
 
 ## What Next?
 Now that you've successfully made your first call, you probably want to achieve something more tangible. You can explore other APIs that the SDK provides to build out additional features for your game.
