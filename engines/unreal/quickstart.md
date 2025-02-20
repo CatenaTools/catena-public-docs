@@ -108,26 +108,26 @@ If you do not have a `Source` folder launch Unreal Engine click on `Tools` -> `N
 This will generate the source code and solution for your project.
 
 The `.build.cs` folder can be found in the following directory `<your_unreal_project_path>/Source/<ProjectName>/<ProjectName>.build.cs`.
-Open the file and add `"CoreOnline"` & `"CommonUser"` to `PublicDependencyModuleNames`.
+Open the file and add `"CoreOnline"`, `"CommonUser"`, and`"OnlineServicesInterface"` to `PublicDependencyModuleNames`.
 Your file will look similar to the following:
 ``` csharp
-
 public class CatenaExample : ModuleRules
 {
-	public CatenaExample(ReadOnlyTargetRules Target) : base(Target)
-	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+    public CatenaExample(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { 
+        PublicDependencyModuleNames.AddRange(new string[] { 
             "Core", 
             "CoreUObject", 
             "Engine", 
             "InputCore", 
             
             // Online features
-            "CoreOnline", 
-            "CommonUser" 
-            });
+            "CoreOnline", // Access for core online features
+            "CommonUser", // CatenaServices dependency for auth
+            "OnlineServicesInterface" // Access for service interfaces
+        });
         
         // Rest of code
     }
