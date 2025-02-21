@@ -2,7 +2,7 @@
 
 In this tutorial we will demonstrate how to utilize Unreal to perform general authentication requests that you can utilize in your own games.
 
-## 1. Login
+## Login
 
 In this section we will demonstrate how to perform a login.
 We will use the `CommonUser` plugin to kick off the login flow.
@@ -137,6 +137,20 @@ You will notice in your logs for the `LogOnlineServices` category a response mes
 ```LogOnlineServices: Successfully logged in as a test user!```
 
 <!-- TODO: Add logout documentation here once we enable support for it. -->
+
+## Logout
+
+### 1. Player Logout Using Blueprints
+
+{% admonition type="info" name="" %}
+Coming Soon!
+{% /admonition %}
+
+### 2. Player Logout Using C++
+
+{% admonition type="info" name="" %}
+Coming Soon!
+{% /admonition %}
 
 ## Additional Information
 
