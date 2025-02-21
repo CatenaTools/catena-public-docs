@@ -52,6 +52,26 @@ heroku login
 # Logged in as example@example.com
 ```
 
+#### 2d. (macOS Only) Upgrade Git
+If you are using macOS, the version of Git you have installed by default is not compatible with Heroku. You must upgrade your installation.
+
+1. [Install Homebrew](https://brew.sh/)
+2. Upgrade Git
+
+```bash
+brew install git
+export PATH=/usr/local/bin:$PATH
+```
+
+3. When you check the Git Version, it should now no longer say "Apple Git" in the version information
+
+```bash
+git --version
+
+# Example Output
+# git version 2.48.1
+```
+
 ### 3. Deploy Catena
 Now that you have everything prepped, it's time to actually deploy Catena.
 
@@ -78,9 +98,9 @@ git remote -v
 # origin  git@github.com:CatenaTools/catena-tools-core.git (push)
 ```
 
-4. Tell Heroku to use the Dotnet buildpack.
+4. Tell Heroku to use Catena's Dotnet buildpack.
 ```bash
-heroku buildpacks:set heroku/dotnet
+heroku buildpacks:set https://github.com/CatenaTools/dotnetcore-buildpack
 ```
 
 5. Configure PostgreSQL and Redis by first creating addons for each and then waiting for each to come online. This may take a few minutes.
@@ -126,41 +146,19 @@ heroku redis:wait
             Catena__Parties__Database__ConnectionString="$connectionString" `
             Catena__Titles__Database__ConnectionString="$connectionString" `
             Catena__ServerReleases__Database__ConnectionString="$connectionString" `
-            Catena__SessionStore__SessionProviderConfigurations__RedisSessionStoreAccessor__ConnectionString="$redisUrl"
+            Catena__SessionStore__SessionProviderConfigurations__RedisSessionStoreAccessor__ConnectionString="$redisUrl" `
+            PROJECT_FILE="catena-tools-core/catena-tools-core.csproj"
         ```
 
     {% /tab %}
 
     {% tab label="Bash" %}
-        
+
+        1. Navigate to your `catena-tools-core` project in your Terminal.
+        2. Run the `configure-heroku.sh` script
+
         ```bash
-        PLATFORM_URL=$(heroku apps:info | grep "Web URL:" | awk '{print $3}' | tr -d '\n')
-
-        REDIS_URL=$(heroku config:get REDIS_URL)
-
-        DB_URL=$(heroku config:get DATABASE_URL)
-        if [[ $DB_URL =~ ^postgres://([^:]+):([^@]+)@([^:]+):([^/]+)/(.+)$ ]]; then
-            USERNAME="${BASH_REMATCH[1]}"
-            PASSWORD="${BASH_REMATCH[2]}"
-            DB_HOST="${BASH_REMATCH[3]}"
-            PORT="${BASH_REMATCH[4]}"
-            DATABASE="${BASH_REMATCH[5]}"
-        else
-            echo "Failed to parse database URL"
-            exit 1
-        fi
-
-        CONNECTION_STRING="Host=$DB_HOST;Port=$PORT;Database=$DATABASE;Username=$USERNAME;Password=$PASSWORD;"
-
-        heroku config:set \
-            "Catena__PlatformUrl=$PLATFORM_URL" \
-            "Catena__Accounts__Database__ConnectionString=$CONNECTION_STRING" \
-            "Catena__ApiKeys__Database__ConnectionString=$CONNECTION_STRING" \
-            "Catena__Friends__Database__ConnectionString=$CONNECTION_STRING" \
-            "Catena__Parties__Database__ConnectionString=$CONNECTION_STRING" \
-            "Catena__Titles__Database__ConnectionString=$CONNECTION_STRING" \
-            "Catena__ServerReleases__Database__ConnectionString=$CONNECTION_STRING" \
-            "Catena__SessionStore__SessionProviderConfigurations__RedisSessionStoreAccessor__ConnectionString=$REDIS_URL"
+        bash catena-tools-core/configure-heroku.sh
         ```
 
     {% /tab %}
