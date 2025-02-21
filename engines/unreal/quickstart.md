@@ -126,7 +126,8 @@ public class CatenaExample : ModuleRules
             // Online features
             "CoreOnline", // Access for core online features
             "CommonUser", // CatenaServices dependency for auth
-            "OnlineServicesInterface" // Access for service interfaces
+            "OnlineServicesInterface", // Access for service interfaces
+            "OnlineSubsystemUtils" // Utility features for accessing subsystems
         });
         
         // Rest of code
@@ -160,9 +161,10 @@ With that you have successfully performed your first request to Catena!
 
 ### 2. Player Login Using C++
 
+#### 1. Create GameInstance Class
 1. Run the editor
 2. Click `Tools` -> `New C++ Class`
-3. Choose `Game Mode Base` as the Parent Class
+3. Choose `GameInstance` as the Parent Class
 4. Click `Next`
 5. Name class for your project and set desired path
 6. Click `Create Class`
@@ -171,68 +173,100 @@ With that you have successfully performed your first request to Catena!
    2. Open the `.sln` file with your preferred editor.
 8. Close the UE Editor.
 
+#### 2. Set Your GameInstance Class As Default
+
+In order for the engine to utilize your newly created game instance it needs to be configured in the `Project Settings`.
+1. Select `Edit` -> `Project Settings`
+2. In the `Project Settings` menu click on the search bar and type `GameInstance`
+3. Under the `Maps & Modes` section override the `Game Instance Class` default with your newly created Game Instance.
+
+Your project will now utilize your game instance class when playing.
+
+#### 3. Add functionality To Your GameInstance Class
+
 Next we will setup the class to call login when the game is initialized.
-Open up your game mode class header file and add the following code:
+Open up your game instance class header file and add the following code:
+
 ``` c++
-// AMyGameModeBase.h
+// MyGameInstance.h
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameModeBase.h"
-#include "MyGameModeBase.generated.h"
+#include "Engine/GameInstance.h"
+#include "MyGameInstance.generated.h"
+
+namespace UE::Online
+{
+	class IAuth;
+	class IOnlineServices;
+}
 
 UCLASS()
-class CATENAEXAMPLE_API AMyGameModeBase : public AGameModeBase
+class CATENAEXAMPLE_API UMyGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 
 public:
-	// AGameModeBase
-	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
+	// UGameInstance
+	virtual void Init() override;
 
 private:
 	// Online
-	virtual void OnlineServicesLogin();
+	void Login();
+
+	TSharedPtr<UE::Online::IOnlineServices> OnlineServices;
+	TSharedPtr<UE::Online::IAuth> AuthService;
 };
 ```
 
 Next, open up the .cpp file for this class and add the following code:
+
 ``` c++
-// AMyGameModeBase.cpp
-#include "MyGameModeBase.h"
+// MyGameInstance.cpp
+#include "MyGameInstance.h"
 
 #include "CommonUser/Public/CommonUserSubsystem.h"
+#include "Online/OnlineServicesEngineUtils.h"
 
-void AMyGameModeBase::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
+void UMyGameInstance::Init()
 {
-	Super::InitGame(MapName, Options, ErrorMessage);
+	Super::Init();
 
+	OnlineServices = UE::Online::GetServices(GetWorld(), UE::Online::EOnlineServices::GameDefined_0);
+	if (OnlineServices == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("OnlineServices is null."));
+		return;
+	}
+
+	AuthService = OnlineServices->GetAuthInterface();
+	if (AuthService == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("AuthService is null."));
+		return;
+	}
+	
 	// Kick off login request
-	OnlineServicesLogin();
+	Login();
 }
 
-
-void AMyGameModeBase::OnlineServicesLogin()
+void UMyGameInstance::Login()
 {
-	UCommonUserSubsystem* CommonUser = GetGameInstance()->GetSubsystem<UCommonUserSubsystem>();
-	if (!CommonUser) { return; }
-
-	// Attempt login. This will use OnlineServicesCatena's login call.
-	CommonUser->TryToLoginForOnlinePlay(0);
+	UE::Online::FAuthLogin::Params LoginParameters;
+	LoginParameters.PlatformUserId = FPlatformUserId::CreateFromInternalId(0);
+	LoginParameters.CredentialsType = UE::Online::LoginCredentialsType::Auto;
+	
+	UE::Online::TOnlineAsyncOpHandle<UE::Online::FAuthLogin> LoginHandle = AuthService->Login(MoveTemp(LoginParameters));
 }
 ```
+#### 4. Perform Test
 
 Finally, perform the following:
 1. Run the UE editor using your IDE.
-2. Click on `Window` -> `World Settings`
-3. Scroll down the `World Settings` panel until you see the `Game Mode` section.
-4. Click on the `GameMode Override` selection box and select your game mode class.
-5. Press the `Play` button.
+2. Press the `Play` button.
 
 You will notice in your logs for the `LogOnlineServices` category a response message similar to:
 ```LogOnlineServices: Successfully logged in as a test user!```
-
-<!-- TODO: Add Logout examples here once Logout is implemented. -->
 
 ## What Next?
 Now that you've successfully made your first call, you probably want to achieve something more tangible. You can explore other APIs that the SDK provides to build out additional features for your game.
