@@ -19,6 +19,14 @@
     - page: engines/unity/quickstart.md
     - page: engines/unity/authentication.md
       label: "Authentication"
+- group: Unreal
+  page: engines/unreal/index.md
+  items:
+    - page: engines/unreal/quickstart.md
+    - page: engines/unreal/authentication.md
+      label: "Authentication"
+    - page: engines/unreal/matchmaking.md
+      label: "Matchmaking"
 - group: Features
   items:
     - page: features/authentication/index.md
