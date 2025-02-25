@@ -13,7 +13,7 @@ Catena is distributed via Git. You must have Git installed. [Instructions for in
 
 To gain access to the [Catena Unreal Plugin](https://github.com/CatenaTools/catena-unreal-plugin), please contact us to obtain a license. Once you have access, clone the repository to your machine using the following command.
 
-```bash
+``` bash
 git clone https://github.com/CatenaTools/catena-unreal-plugin.git
 ```
 
@@ -42,9 +42,9 @@ Enabling `OnlineServicesCatena` can be done in one of two ways.
     4. Restart the Unreal Editor
 
 - Enable the plugin in the `.uproject` file:
-    1. Open you projects `.uproject` file
+    1. Open you projects `.uproject` file with a text editor
     2. Add the following value to the `Plugins` section
-``` json
+``` json {%title="<projectName>.uproject"%}
 "Plugins": [
     {
         "Name": "OnlineServicesCatena",
@@ -63,7 +63,7 @@ In order to use `OnlineServicesCatena` you will need to configure the `CommonUse
 Within the `CommonUser` plugin folder navigate and open the `CommonUser.Build.cs` file. The path should be like this `<your_unreal_project_path>/Plugins/CommonUser/Source/CommonUser.Build.cs`.
 
 Find the `bUseOnlineSubsystemV1` variable and set it to false:
-``` csharp
+``` csharp {%title="CommonUser.Build.cs"%}
     bool bUseOnlineSubsystemV1 = false;
 ```
 
@@ -74,21 +74,23 @@ To finish enabling `OnlineServices` follow the next section.
 In your projects `Config` folder open up the file `DefaultGame.ini`.
 
 Enable `OnlineServicesInterface` build dependencies for `OnlineServices` by adding the following:
-``` ini
+``` ini {%title="DefaultGame.ini"%}
 [/Script/Engine.OnlineEngineInterface]
 bUseOnlineServicesV2=true
 ```
 
 Add the following to set `OnlineServicesCatena` to be used as the default service:
-``` ini
+``` ini {%title="DefaultGame.ini"%}
 [OnlineServices]
 DefaultServices=GameDefined_0
 ```
 
 ### 3. Configure DefaultEngine.ini
 
+In your projects `Config` folder open up the file `DefaultEngine.ini`.
+
 To set the backend url of  `OnlineServicesCatena` add the following:
-``` ini
+``` ini {%title="DefaultEngine.ini"%}
 [OnlineServicesCatena]
 BackendURL="http://localhost:5000"
 ```
@@ -102,15 +104,15 @@ The value can be changed depending on the backend instance you are trying to mak
 
 ### 4. Edit Project Module Dependencies
 
-Navigate to your projects `build.cs` file found under your projects `Source` folder. 
+Navigate to your projects `Build.cs` file found under your projects `Source` folder. 
 
 If you do not have a `Source` folder launch Unreal Engine click on `Tools` -> `New C++ Class...` and create a new class. 
 This will generate the source code and solution for your project.
 
-The `.build.cs` folder can be found in the following directory `<your_unreal_project_path>/Source/<ProjectName>/<ProjectName>.build.cs`.
+The `.Build.cs` folder can be found in the following directory `<your_unreal_project_path>/Source/<ProjectName>/<ProjectName>.Build.cs`.
 Open the file and add `"CoreOnline"`, `"CommonUser"`, and`"OnlineServicesInterface"` to `PublicDependencyModuleNames`.
 Your file will look similar to the following:
-``` csharp
+``` csharp {%title="<projectName>.Build.cs"%}
 public class CatenaExample : ModuleRules
 {
     public CatenaExample(ReadOnlyTargetRules Target) : base(Target)
@@ -187,8 +189,7 @@ Your project will now utilize your game instance class when playing.
 Next we will setup the class to call login when the game is initialized.
 Open up your game instance class header file and add the following code:
 
-``` c++
-// MyGameInstance.h
+``` c++ {%title="MyGameInstance.h"%}
 #pragma once
 
 #include "CoreMinimal.h"
@@ -221,8 +222,7 @@ private:
 
 Next, open up the .cpp file for this class and add the following code:
 
-``` c++
-// MyGameInstance.cpp
+``` c++ {%title="MyGameInstance.cpp"%}
 #include "MyGameInstance.h"
 
 #include "CommonUser/Public/CommonUserSubsystem.h"
