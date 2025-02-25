@@ -43,7 +43,7 @@ Enabling `OnlineServicesCatena` can be done in one of two ways.
 
 - Enable the plugin in the `.uproject` file:
     1. Open you projects `.uproject` file with a text editor
-    2. Add the following value to the `Plugins` section
+    2. Add the following values to the `Plugins` section
 ``` json {%title="<projectName>.uproject"%}
 "Plugins": [
     {
@@ -196,6 +196,7 @@ Open up your game instance class header file and add the following code:
 #include "Engine/GameInstance.h"
 #include "MyGameInstance.generated.h"
 
+// Forward Declare
 namespace UE::Online
 {
 	class IAuth;
