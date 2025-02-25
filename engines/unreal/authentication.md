@@ -70,6 +70,7 @@ Open up your game instance class header file and add the following code:
 #include "Engine/GameInstance.h"
 #include "MyGameInstance.generated.h"
 
+// Forward Declare
 namespace UE::Online
 {
 	class IAuth;
