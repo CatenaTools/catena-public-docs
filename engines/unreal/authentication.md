@@ -63,8 +63,7 @@ Your project will now utilize your game instance class when playing.
 Next we will setup the class to call login when the game is initialized.
 Open up your game instance class header file and add the following code:
 
-``` c++
-// MyGameInstance.h
+``` c++ {% title="MyGameInstance.h" %}
 #pragma once
 
 #include "CoreMinimal.h"
@@ -97,8 +96,7 @@ private:
 Next, open up the .cpp file for this class and add the following code:
 
 <!-- TODO: Add callback to login handle after we fix error with test login. -->
-``` c++
-// MyGameInstance.cpp
+``` c++ {% title="MyGameInstance.cpp" %}
 #include "MyGameInstance.h"
 
 #include "CommonUser/Public/CommonUserSubsystem.h"
