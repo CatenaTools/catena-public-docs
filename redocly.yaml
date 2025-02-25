@@ -30,7 +30,7 @@ navbar:
       label: Catena API Explorer
 markdown:
   toc:
-    depth: 2
+    depth: 3
 logo:
   image: images/HorizontalCatenaLogoGradient.png
   link: /
