@@ -2,6 +2,15 @@
 
 In this tutorial we will demonstrate how to utilize Unreal to perform general authentication requests that you can utilize in your own games.
 
+## Estimated Time
+
+Configuring Catena authentication in your Unreal project is estimated to take **< 10 minutes**.
+
+## Prerequisites
+
+1. You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../installation/index.md).
+2. You must have completed the [Unreal Quickstart Guide](quickstart.md).
+
 ## Login
 
 In this section we will demonstrate how to perform a login.
@@ -10,7 +19,7 @@ To learn more about the `CommonUser` plugin [you can read this documentation.](h
 
 For this login request we will be logging in using a test account.
 
-### 1. Player Login Using Blueprints
+### Player Login Using Blueprints
 
 1. Run the editor
 2. Click `Open Level Blueprint`. This can be found in the blueprint button left of the play button.
@@ -26,7 +35,7 @@ You will notice in your logs for the `LogOnlineServices` category a response mes
 
 With that you have successfully performed your first request to Catena!
 
-### 2. Player Login Using C++
+### Player Login Using C++
 
 #### 1. Create GameInstance Class
 1. Run the editor
@@ -140,13 +149,13 @@ You will notice in your logs for the `LogOnlineServices` category a response mes
 
 ## Logout
 
-### 1. Player Logout Using Blueprints
+### Player Logout Using Blueprints
 
 {% admonition type="info" name="" %}
 Coming Soon!
 {% /admonition %}
 
-### 2. Player Logout Using C++
+### Player Logout Using C++
 
 {% admonition type="info" name="" %}
 Coming Soon!
