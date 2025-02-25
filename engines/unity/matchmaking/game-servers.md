@@ -4,15 +4,16 @@ markdown:
     depth: 3
 ---
 
-# Unity - Peer to Peer Matchmaking
-
-Peer to peer matchmaking is the simplest configuration you can run the Catena Matchmaker in. It is a good first step to get up and running, even if your game utilizes dedicated game servers. You can build on top of this implementation to add dedicated game server support.
+# Unity - Matchmaking Into Dedicated Game Servers
+Matchmaking into dedicated game servers is necessary when your game requires a trusted authority to track game state during your moment to moment gameplay.
 
 ## Prerequisites
 * You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](/installation/index.md)
 * You must have completed the [Unity Authentication Guide](../authentication.md)
 
 ## Configuring The Catena Backend
+
+### The Matchmaker
 {% partial file="/_partials/unity/matchmaking-configuring-the-catena-backend.md" /%}
 
 ```json
@@ -25,15 +26,13 @@ Peer to peer matchmaking is the simplest configuration you can run the Catena Ma
           "QueueName": "Solo",
           "Teams": 1,
           "PlayersPerTeam": 1,
-          "TicketExpirationSeconds": 180,
-          "CustomHooks": "SimpleP2PMatchmakingHooks"
+          "TicketExpirationSeconds": 180
         },
         "1v1": {
           "QueueName": "1v1 (Face Off)",
           "Teams": 2,
           "PlayersPerTeam": 1,
-          "TicketExpirationSeconds": 180,
-          "CustomHooks": "SimpleP2PMatchmakingHooks"
+          "TicketExpirationSeconds": 180
         }
       },
       "StatusExpirationMinutes": 15
@@ -43,13 +42,78 @@ Peer to peer matchmaking is the simplest configuration you can run the Catena Ma
 }
 ```
 
-The `SimpleP2PMatchmakingHooks` **Custom Hook** is provided out of the box to bypass dedicated game server provisioning when matches are successfully made.
+### The Match Broker
 
-## Matchmaking A Player
+When matchmaking players into dedicated game servers, you will also need to configure the **Match Broker** in the Catena Backend. This configuration will differ depending on the needs of your game. Refer to the [Catena Match Broker documentation](/features/game-servers/index.md) for more information.
+
+For ease of testing for a first time integration, we recommend starting with a [CatenaLocalBareMetalAllocator](/features/game-servers/index.md#catenalocalbaremetalallocator) **Match Broker** configuration that will start and manage game server processes alongside the Catena backend. If you would like to provision game servers using another method, you may refer to the [available match broker allocator configuration options](/features/game-servers/index.md#available-configuration-options).
+
+```json
+"Catena": {
+    ...
+    "MatchBroker": {
+        "FastSchedule": 1,
+        "ServerMaxLifetimeMinutes": 10,
+        "MatchPickupTimeSeconds": 90,
+        "MatchReadyTimeSeconds": 30,
+        "MatchMaxRunTimeMinutes": 10,
+        "ScheduleFrequencySeconds": 30,
+        "DelayAllocationSeconds": 30,
+        "Allocators": [
+            {
+                "Allocator":"CatenaLocalBareMetalAllocator",
+                "AllocatorDescription": "Human Readable Description",
+                "Configuration": {
+                    "GameServerPath": "<full-path-to-game-server-executable>",
+                    "GameServerArguments": "<optional-arguments-for-game-server>",
+                    "GameServerEnvironment": {},
+                    "ReadyDeadlineSeconds": 30,
+                    "ReaperConfiguration": {
+                        "AllocatorReaperPeriodSeconds": 10,
+                        "MaxRunTimeMinutes": 125
+                    }
+                },
+                "Requirements": ""
+            }
+        ]
+    }
+    ...
+}
+```
+
+{% admonition type="warning" %}
+    If you have deployed Catena to Heroku, the `CatenaLocalBareMetalAllocator` is not supported. If you would like to run this allocator, refer to [Installation Options](/installation/index.md) to deploy Catena using a different configuration.
+
+    Please ensure your game server's executable is co-located with the Catena backend, or else it will not be able to run it.
+{% /admonition %}
+
+# Configuring Your Dedicated Game Server
+Your game server will need to be configured to communicate with your running Catena backend.
+
+1. In the Scene that launches when the game server is run, add a new empty `GameObject` and call it `CatenaSingleMatchGameServer`.
+2. Add a component to that `GameObject`, selecting the `CatenaSingleMatchGameServer` script.
+
+In whatever your main script is to manage your Scene, such as `SceneManager.cs` if you are using the [Supplemental Material](/engines/unity/supplemental-materials/mirror.md) guide, add the following:
+
+```c
+private CatenaSingleMatchGameServer _catenaSingleMatchGameServer;
+
+void Awake()
+{
+#if UNITY_SERVER
+    // Start up game server, using whatever netcode solution you prefer
+
+    // Tell Catena we are ready for a match
+    _catenaSingleMatchGameServer = CatenaSingleMatchGameServer.Instance;
+    _catenaSingleMatchGameServer.GetMatch();
+#endif
+}
+```
+
+# Matchmaking A Player
 Reminder, if you have not yet completed the [Unity Authentication Guide](../authentication.md), please do so now. Once a player has authenticated against Catena and registered a session, they can then begin matchmaking.
 
 To initiate matchmaking, you first need to register callbacks:
-
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
 var catenaEntrypoint = FindObjectOfType<CatenaEntrypoint>();
@@ -70,16 +134,29 @@ catenaEntrypoint.OnStartMatchmakingCompleted += (_, matchmakingEventArgs) =>
 // Matchmaking Finished Callback
 catenaPlayer.OnFindingServer += (_, eventData) =>
 {
-  if (string.IsNullOrEmpty(eventData))
+  if (eventData == null)
   {
     Debug.Log("Failed to find a match");
     return;
   }
 
-  // eventData: {"Ip":"127.0.0.1","Port":1234,"ServerId":"<account-id-here>"}
-  Debug.Log($"Found a match - data: {eventData}");
+  if (eventData == "")
+  {
+    Debug.Log("Found a match; waiting for a server");
+    return;
+  }
+};
 
-  // You may now connect to the Ip and Port provided in the eventData, beginning the match
+// Server Found Callback
+catenaPlayer.OnFoundServer += (_, connectionDetails) =>
+{
+  Debug.Log($"Found a server - connection details: {connectionDetails}");
+
+  var parts = connectionDetails.Split(":");
+  var ip = parts[0];
+  var port = ushort.Parse(parts[1]);
+  
+  // You may now connect to the ip and port, joining the match
 };
 
 // Cancel Matchmaking Callback
@@ -101,17 +178,10 @@ Once your callbacks are registered, you can initiate matchmaking by:
 ```c
 var catenaPlayer = FindObjectOfType<CatenaPlayer>();
 
-// You will need to obtain your IP and port using whichever netcode solution you are using (i.e. Netcode For GameObjects, Mirror, etc.)
-var ip = "127.0.0.1";
-var port = "1234";
-var address = $"{ip}:{port}";
-
 // The Catena Matchmaker will match the player into the queue provided here
 var queue_name = "solo";
 var matchMetadata = new Dictionary<string, EntityMetadata> { { "queue_name", new EntityMetadata { StringPayload = queue_name } } };
-
-// The SimpleP2PMatchmakingHooks will make the first player in the match the host, passing this address to all members in the match when the match is successfully made
-var playerMetadata = new Dictionary<string, EntityMetadata> { { "address", new EntityMetadata{ StringPayload = address } } };
+var playerMetadata = new Dictionary<string, EntityMetadata>();
 
 catenaPlayer.EnterMatchmaking(playerMetadata, matchMetadata);
 ```
@@ -140,9 +210,8 @@ Configuring a practical example should take you **<30 minutes**.
 1. Add authentication to the Mirror Sample by using the [Unity Authentication Guide](../authentication.md)
 2. Remove the `Network Manager HUD` from your `NetworkManager` object
 
-### Add Peer to Peer Matchmaking
-1. Configure your running Catena instance using the [Configuring The Catena Backend](#configuring-the-catena-backend) documentation above
-2. Replace the contents of your `SceneManager.cs` file with the below code
+### Add Matchmaking
+1. Replace the contents of your `SceneManager.cs` file with the below code
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
@@ -160,7 +229,7 @@ public class SceneManager : MonoBehaviour
     // Authentication
     private bool _playerLoggedIn = false;
     private string _username = "test01"; // default "UNSAFE" username
-
+    
     // Matchmaking
     private bool _isMatchmaking = false;
     private int _selectedMatchmakingQueueIndex = 0;
@@ -172,49 +241,55 @@ public class SceneManager : MonoBehaviour
     {
         public string Ip;
         public ushort Port;
-        public string ServerId; // In this example, the returned ServerId is the Player ID for the hosted server
     }
-
+    
     // Server Travel
-    private bool _transitionHost = false;
     private bool _transitionClient = false;
-    private bool _inTransition = false;
     private ConnectionInfo _clientConnectionInfo;
+    
+    // Running as Server
+    private CatenaSingleMatchGameServer _catenaSingleMatchGameServer;
+
+    void Awake()
+    {
+#if UNITY_SERVER
+        Debug.Log("Running as dedicated server");
+        
+        // Start the server
+        NetworkManager.singleton.StartServer();
+        
+        // Tell Catena we are ready for a match
+        _catenaSingleMatchGameServer = CatenaSingleMatchGameServer.Instance;
+        _catenaSingleMatchGameServer.GetMatch();
+#endif
+    }
 
     void Start()
     {
+#if !UNITY_SERVER
+        Debug.Log("Running as game client");
         RegisterCallbacks();
+#endif
     }
 
     void Update()
     {
-        if (_transitionHost)
-        {
-            Debug.Log("Starting Host");
-
-            _transitionHost = false;
-            _inTransition = true;
-
-            NetworkManager.singleton.StartHost();
-
-            _inTransition = false;
-        }
-
         if (_transitionClient)
         {
-            Debug.Log("Starting Client");
-
+            Debug.Log("Starting Client"); 
+            
             _transitionClient = false;
-
+            
+            // We found a server, we no longer need the ticket ID
+            _ticketID = null;
+            _isMatchmaking = false;
+            
             if (Transport.active is PortTransport portTransport)
             {
                 NetworkManager.singleton.networkAddress = _clientConnectionInfo.Ip;
                 portTransport.Port = _clientConnectionInfo.Port;
 
-                _inTransition = true;
-
-                // This is a crude way to ensure we only join after the host for the game session has started their listen server
-                StartCoroutine(StartClientAfterWaiting());
+                NetworkManager.singleton.StartClient();
             }
             else
             {
@@ -223,19 +298,11 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    IEnumerator StartClientAfterWaiting()
-    {
-        yield return new WaitForSeconds(1f);
-        NetworkManager.singleton.StartClient();
-
-        _inTransition = false;
-    }
-
     void OnGUI()
     {
         GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
 
-        if (_transitionClient || _transitionHost || _inTransition) // We are connecting to another player, hide all controls during the transition
+        if (_transitionClient) // We are connecting to a server, hide all controls during the transition
         {
             GUILayout.Label("Connecting To Match...");
         }
@@ -259,13 +326,6 @@ public class SceneManager : MonoBehaviour
                     catenaEntrypoint.CancelMatchmaking(_ticketID);
                 }
             }
-            else if (NetworkServer.active && NetworkClient.isConnected) // We are a host and a client
-            {
-                if (GUILayout.Button("Leave Match"))
-                {
-                    NetworkManager.singleton.StopHost();
-                }
-            }
             else if (NetworkClient.isConnected) // We are a client
             {
                 if (GUILayout.Button("Leave Match"))
@@ -280,7 +340,7 @@ public class SceneManager : MonoBehaviour
                 if (GUILayout.Button("Find Match"))
                 {
                     FindMatch();
-                }
+                }   
             }
         }
         else
@@ -313,12 +373,12 @@ public class SceneManager : MonoBehaviour
             Debug.Log("Player Logged Out");
             _playerLoggedIn = false;
         };
-
+        
         // Matchmaking Started Callback
         catenaEntrypoint.OnStartMatchmakingCompleted += (_, matchmakingEventArgs) =>
         {
             _ticketID = matchmakingEventArgs.MatchmakingTicketId;
-
+            
             string logString =
                 $"Matchmaking began with (Ticket ID: {matchmakingEventArgs.MatchmakingTicketId}), (Status Sucess: {matchmakingEventArgs.Status.Success})";
             if (!matchmakingEventArgs.Status.Success)
@@ -327,43 +387,40 @@ public class SceneManager : MonoBehaviour
             }
             Debug.Log(logString);
         };
-
+        
         // Matchmaking Finished Callback
         catenaPlayer.OnFindingServer += (_, eventData) =>
         {
-            // We found a server or failed to find a match, we no longer need the ticket ID
-            _ticketID = null;
-            _isMatchmaking = false;
-
-            if (string.IsNullOrEmpty(eventData))
+            if (eventData == null)
             {
-                Debug.LogError("Failed to find a match");
+                // We failed to find a match, we no longer need the ticket ID
+                _ticketID = null;
+                _isMatchmaking = false;
+                
+                Debug.Log("Failed to find a match");
                 return;
             }
 
+            if (eventData == "")
+            {
+                Debug.Log("Found a match; waiting for a server");
+                return;
+            }
+            
             // eventData: {"Ip":"127.0.0.1","Port":1234,"ServerId":"<account-id-here>"}
             Debug.Log($"Found a match - data: {eventData}");
+        };
 
-            ConnectionInfo connectionInfo;
-            try
-            {
-                connectionInfo = JsonConvert.DeserializeObject<ConnectionInfo>(eventData);
-                if (connectionInfo.ServerId == catenaPlayer.Account.Id)
-                {
-                    Debug.Log("This client is the host. Starting a listen server...");
-                    _transitionHost = true;
-                }
-                else
-                {
-                    Debug.Log("This client is not the host, connecting to the host client...");
-                    _transitionClient = true;
-                    _clientConnectionInfo = connectionInfo;
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"Failed to deserialize JSON. (Error: {e}), (JSON: {eventData})");
-            }
+        catenaPlayer.OnFoundServer += (_, connectionDetails) =>
+        {
+            Debug.Log($"Found a server - connection details: {connectionDetails}");
+
+            var parts = connectionDetails.Split(":");
+            var ip = parts[0];
+            var port = ushort.Parse(parts[1]);
+            
+            _clientConnectionInfo = new ConnectionInfo { Ip = ip, Port = port };
+            _transitionClient = true;
         };
 
         // Cancel Matchmaking Callback
@@ -374,7 +431,7 @@ public class SceneManager : MonoBehaviour
                 Debug.LogError($"Failed to cancel matchmaking: {status.Message}");
                 return;
             }
-
+            
             Debug.Log("Cancel Matchmaking Complete");
             _isMatchmaking = false;
             _ticketID = null;
@@ -399,43 +456,39 @@ public class SceneManager : MonoBehaviour
 
     void FindMatch()
     {
-        if (Transport.active is PortTransport portTransport)
-        {
-            if (ushort.TryParse(GUILayout.TextField(portTransport.Port.ToString()), out ushort port))
-            {
-                var catenaPlayer = FindObjectOfType<CatenaPlayer>();
-                var ip = NetworkManager.singleton.networkAddress;
-                var address = $"{ip}:{port}";
+        var catenaPlayer = FindObjectOfType<CatenaPlayer>();
+        
+        Debug.Log("Finding Match");
 
-                Debug.Log("Finding Match");
+        var matchMetadata = new Dictionary<string, EntityMetadata> { { "queue_name", new EntityMetadata { StringPayload = _matchmakingQueues[_selectedMatchmakingQueueIndex] } } };
+        var playerMetadata = new Dictionary<string, EntityMetadata>();
+        catenaPlayer.EnterMatchmaking(playerMetadata, matchMetadata);
 
-                var matchMetadata = new Dictionary<string, EntityMetadata> { { "queue_name", new EntityMetadata { StringPayload = _matchmakingQueues[_selectedMatchmakingQueueIndex] } } };
-                var playerMetadata = new Dictionary<string, EntityMetadata> { { "address", new EntityMetadata{ StringPayload = address } } };
-                catenaPlayer.EnterMatchmaking(playerMetadata, matchMetadata);
-
-                _isMatchmaking = true;
-            }
-            else
-            {
-                Debug.LogError("Your port is invalid, please use only numbers");
-            }
-        }
-        else
-        {
-            Debug.LogError("For the purposes of this demo, please use the Telepathy Transport on your NetworkManager");
-        }
+        _isMatchmaking = true;
     }
 }
 ```
 
-3. Use ParrelSync to open a second Unity Editor. For more information on ParrelSync, refer to the [Mirror Networking Guide](../supplemental-materials/mirror.md#download--install-parrelsync)
-4. Hit "Play" in both Unity editors
-5. Log in with `test01` in one editor and `test02` in another
-6. Matchmake into the `solo` or `1v1` queue
+2. Build your game server
+    1. In your Unity Editor, navigate to `File -> Build Profiles`
+    2. Select "Windows Server"
+    3. Select "Switch Platform"
+    4. Select "Build"
+    5. Note the full path of your server build executable, you will need this in the next step
+3. If you are running Catena locally, skip this step. If you have it deployed somewhere, you will need to copy your server binary and associated output to the same machine that Catena is running on
+4. Configure your running Catena instance using the [Configuring The Catena Backend](#configuring-the-catena-backend) documentation above
+    1. When you are configuring the match broker, configure the `Catena.MatchBroker.Allocators[0].Configuration.GameServerPath` to be the full path of your server executable
+5. In your Unity editor, navigate to `File -> Build Profiles`
+6. Select "Windows"
+7. Select "Switch Platform"
+8. Exit the Build Profiles menu
+9. Hit "Play" in the Unity Editor
+10. Log in with `test01`
+11. Matchmake into the `solo` queue
 
 ### How This Works
 We use Unity's [OnGUI](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnGUI.html) to create a simple user interface that interacts with Catena. Players can log in, log out, matchmake solo, matchmake 1v1, and cancel matchmaking.
 
-To initialize matchmaking, we define a `queue_name` in the match metadata and an `address` in the player metadata. This `address` is used by the `SimpleP2PMatchmakingHooks` hook defined in your Catena configuration to notify all players in a match of the address for whoever is selected to be the host.
+If we are running as a server, we start listening as a game server and request a match be placed on the server against the Catena backend.
 
-We use the `ServerId` sent back from the matchmaker to determine which player was selected to be the host. If the `ServerId` is not the current player's ID, we know we're not the host and we should connect to the IP/Port as a client.
+If we are running as a game client, we allow the player to begin matchmaking. To initialize matchmaking, we define a `queue_name` in the match metadata. We then listen for matchmaking to complete and a server to be assigned via callbacks. Once a server is assigned, we connect to that server.

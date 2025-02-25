@@ -17,6 +17,16 @@ Setting up this demo is estimated to take **<10 minutes**.
 
 ## Initial Setup
 
+### Install The Dedicated Server Module
+
+1. Open your Unity Project
+2. Open "Build Profiles" by navigating to `File -> Build Profiles`
+3. Select "Windows Server"
+4. Select "Install with Unity Hub" if "No Windows Server module loaded" is displayed. If not, you are done with this step.
+5. If you needed to install, select "Windows Dedicated Server Build Support" in the Unity Hub Window that popped up.
+6. Install.
+7. Once installed, restart your editor.
+
 ### Download + Install The Mirror Sample
 
 1. Open your Unity Project
