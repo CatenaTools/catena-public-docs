@@ -149,8 +149,9 @@ Configuring a practical example should take you **<30 minutes**.
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Catena.Groups;
 using UnityEngine;
+using Catena.CatenaAuthentication;
+using Catena.Groups;
 using CatenaUnitySDK;
 using Mirror;
 using Newtonsoft.Json;
@@ -386,7 +387,7 @@ public class SceneManager : MonoBehaviour
         var catenaPlayer = FindObjectOfType<CatenaPlayer>();
 
         Debug.Log("Logging Player In");
-        catenaPlayer.CompleteLogin(username);
+        catenaPlayer.CompleteLogin(Provider.Unsafe, username);
     }
 
     void LogoutPlayer()
