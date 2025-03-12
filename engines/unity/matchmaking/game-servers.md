@@ -38,6 +38,11 @@ Matchmaking into dedicated game servers is necessary when your game requires a t
       "StatusExpirationMinutes": 15
     }
     ...
+  },
+  "PreferredImplementations": {
+    ...
+    "ICatenaMatchmaker": "!CatenaMatchmaker"
+    ...
   }
 }
 ```

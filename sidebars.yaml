@@ -33,8 +33,13 @@
   items:
     - page: features/authentication/index.md
       label: "Authentication"
-    - page: features/matchmaking/index.md
-      label: "Matchmaking"
+    - group: Matchmaking
+      page: features/matchmaking/index.md
+      items:
+        - page: features/matchmaking/catena-matchmaker.md
+          label: Catena Matchmaker
+        - page: features/matchmaking/aws-flex-match.md
+          label: AWS FlexMatch
     - page: features/game-servers/index.md
       label: "Game Servers"
 - group: Catena API Explorer

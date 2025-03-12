@@ -39,6 +39,11 @@ Peer to peer matchmaking is the simplest configuration you can run the Catena Ma
       "StatusExpirationMinutes": 15
     }
     ...
+  },
+  "PreferredImplementations": {
+    ...
+    "ICatenaMatchmaker": "!CatenaMatchmaker"
+    ...
   }
 }
 ```
