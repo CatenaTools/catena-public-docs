@@ -6,12 +6,12 @@ markdown:
 
 # Unity - Authentication
 
-{% admonition type="info" name="Before You Get Started" %}
-    Ensure you have [finished the Unity Quickstart Guide](./quickstart.md) before you proceed.
-{% /admonition %}
-
 ## Estimated Time
 Configuring Catena authentication in your Unity project is estimated to take **<10 minutes**.
+
+## Prerequisites
+* You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../installation/index.md)
+* You must have completed [the Unity Quickstart Guide](./quickstart.md)
 
 ## Adding Authentication
 The first real call you'll want to make to Catena is authenticating a player to register a session. Catena supports a variety of authentication providers. For the purposes of this guide, we will be using our **UNSAFE** provider, which is used for development workflows.
@@ -37,6 +37,7 @@ The **Catena Player** component houses functionality for operations related to a
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
+using Catena.CatenaAuthentication;
 using CatenaUnitySDK;
 ```
 
@@ -52,11 +53,11 @@ catenaPlayer.OnAccountLoginComplete += (object sender, Catena.CatenaAccounts.Acc
     Debug.Log($"Player Logged In With ID: {account.Id}");
 };
 
-catenaPlayer.CompleteLogin(username); // This will trigger the catenaPlayer.OnAccountLoginComplete callback when login is completed
+catenaPlayer.CompleteLogin(Provider.Unsafe, username); // This will trigger the catenaPlayer.OnAccountLoginComplete callback when login is completed
 ```
 
 <!-- TODO: link to UNSAFE login docs -->
-By passing in `test01` to the `CompleteLogin` function, we perform an **UNSAFE** login by default. This is a low friction way to sign in when you are in a development environment. You may update this username to be any variation of `testXX` to login to different accounts.
+The `testXX` pattern is a specially recognized development username. By passing in `test01` to the `CompleteLogin` function, we perform a low-friction **UNSAFE** login for development environments. You may update this username to be any variation of `testXX` to login to different accounts.
 ### Logging A Player Out
 
 Let's update the above code to first log a player in, and then immediately log that player out. Here is an entire class that ties it all together.
@@ -64,6 +65,7 @@ Let's update the above code to first log a player in, and then immediately log t
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
 using UnityEngine;
+using Catena.CatenaAuthentication;
 using CatenaUnitySDK;
 
 public class SceneManager : MonoBehaviour
@@ -111,7 +113,7 @@ public class SceneManager : MonoBehaviour
         var username = "test01";
 
         Debug.Log("Logging Player In");
-        catenaPlayer.CompleteLogin(username);
+        catenaPlayer.CompleteLogin(Provider.Unsafe, username);
     }
 
     void LogoutPlayer()
@@ -125,3 +127,8 @@ public class SceneManager : MonoBehaviour
     }
 }
 ```
+
+## What Next?
+Now that you've successfully authenticated a player you can now make authenticated calls against Catena, such as matchmaking players together.
+
+{% partial file="/_partials/unity/matchmaking-card.md" /%}

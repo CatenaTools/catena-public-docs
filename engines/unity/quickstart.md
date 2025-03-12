@@ -1,11 +1,10 @@
 # Quickstart: Unity
 
-{% admonition type="info" name="Before You Get Started" %}
-    Ensure you are [running Catena either locally or have it deployed somewhere](../../installation/index.md).
-{% /admonition %}
-
 ## Estimated Time
 The initial integration of Catena to your Unity project is estimated to take **~10 minutes**.
+
+## Prerequisites
+* You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../installation/index.md)
 
 ## Install the SDK
 {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
@@ -72,4 +71,6 @@ catenaEntrypoint.NodeIsHealthy();
 2. Run your project. You should see output in your Console Window indicating that you've successfully made a request to your Catena Backend checking your node's health!
 
 ## What Next?
-Now that you've successfully made your first call, you probably want to achieve something more tangible. You can explore other APIs that the SDK provides to build out additional features for your game.
+Now that you've successfully made your first call, you probably want to achieve something more tangible, such as authenticating a player.
+
+{% partial file="/_partials/unity/authentication-card.md" /%}

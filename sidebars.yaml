@@ -19,9 +19,23 @@
     - page: engines/unity/quickstart.md
     - page: engines/unity/authentication.md
       label: "Authentication"
+    - group: "Matchmaking"
+      page: engines/unity/matchmaking/index.md
+      items:
+        - page: engines/unity/matchmaking/peer-to-peer.md
+          label: "Peer to Peer"
+        - page: engines/unity/matchmaking/game-servers.md
+          label: "Dedicated Game Servers"
+    - group: "Supplemental Materials"
+      items:
+        - page: engines/unity/supplemental-materials/mirror.md
 - group: Features
   items:
     - page: features/authentication/index.md
       label: "Authentication"
+    - page: features/matchmaking/index.md
+      label: "Matchmaking"
+    - page: features/game-servers/index.md
+      label: "Game Servers"
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
