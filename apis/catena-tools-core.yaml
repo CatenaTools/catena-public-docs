@@ -4504,8 +4504,6 @@ components:
       enum:
         - 0
         - 1
-        - 0
-        - 1
       description: "If you are deleting a json, can choose whether to delete the entire entry or a partial part of an entry\r\nCurrently, only whole property removal is supported.\r\nRemoval of elements in a json array (e.g. trying to remove \"value\" from json {\"array\":[\"value\",\"value2\"]})\r\nis not currently supported by DeleteMetadataEntryRequest.\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
       format: int32
       x-enumDescriptions:
@@ -5832,10 +5830,6 @@ components:
       additionalProperties: false
     Services.CatenaEntitlements.ExtendedOperation:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
         - 0
         - 1
         - 2
