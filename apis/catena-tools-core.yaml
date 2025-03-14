@@ -144,20 +144,20 @@ paths:
     post:
       tags:
         - CatenaAccounts
-      summary: LinkAccountToProvider
-      operationId: catena.catena_accounts.CatenaAccounts_LinkAccountToProvider
+      summary: LinkAccountToPlatform
+      operationId: catena.catena_accounts.CatenaAccounts_LinkAccountToPlatform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Services.CatenaAccounts.LinkAccountToProviderRequest'
+              $ref: '#/components/schemas/Services.CatenaAccounts.LinkAccountToPlatformRequest'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Services.CatenaAccounts.LinkAccountToProviderResponse'
+                $ref: '#/components/schemas/Services.CatenaAccounts.LinkAccountToPlatformResponse'
         default:
           description: Error
           content:
@@ -813,7 +813,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Services.PublicCommon.Provider'
+            $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
       requestBody:
         content:
           application/json:
@@ -841,7 +841,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Services.PublicCommon.Provider'
+            $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
       responses:
         '200':
           description: Success
@@ -866,7 +866,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/Services.PublicCommon.Provider'
+            $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
       requestBody:
         content:
           application/json:
@@ -1082,6 +1082,47 @@ paths:
           in: query
           schema:
             type: boolean
+        - name: customItemId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.AdminGetAccountOwnsCatalogItemResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/entitlements/account/{accountId}/item/custom/{customItemId}/owned':
+    get:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_AdminGetAccountOwnsCatalogItem
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: customItemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: catalogItemId
+          in: query
+          schema:
+            type: string
+        - name: asap
+          in: query
+          schema:
+            type: boolean
       responses:
         '200':
           description: Success
@@ -1174,6 +1215,52 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: operation
+          in: query
+          schema:
+            $ref: '#/components/schemas/Services.CatenaEntitlements.ExtendedOperation'
+        - name: lockoutFlags.prohibitNonAdminUpdate.nullValue
+          in: query
+          schema:
+            $ref: '#/components/schemas/Services.PublicCommon.NullValue'
+        - name: lockoutFlags.prohibitNonAdminUpdate.value
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.AdminSetAccountCountableCatalogItemResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/entitlements/account/{accountId}/item/{catalogItemId}/set_extended':
+    post:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_AdminSetAccountCountableCatalogItem
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: catalogItemId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaEntitlements.AdminSetAccountCountableCatalogItemRequest'
       responses:
         '200':
           description: Success
@@ -1501,6 +1588,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/entitlements/{catalogItemId}/provider_data':
+    get:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_AdminGetProviderCatalogItemData
+      parameters:
+        - name: catalogItemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: provider
+          in: query
+          schema:
+            $ref: '#/components/schemas/Services.CatenaEntitlements.EntitlementProvider'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.AdminGetProviderCatalogItemDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/entitlements/{catalogItemId}/provider_data/{provider}':
+    get:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_AdminGetProviderCatalogItemData
+      parameters:
+        - name: catalogItemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: provider
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Services.CatenaEntitlements.EntitlementProvider'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.AdminGetProviderCatalogItemDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/admin/entitlements/price/add:
     post:
       tags:
@@ -1673,6 +1817,47 @@ paths:
           in: query
           schema:
             type: boolean
+        - name: customItemId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.ServerGetAccountOwnsCatalogItemResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/server/entitlements/account/{accountId}/item/custom/{customItemId}/owned':
+    get:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_ServerGetAccountOwnsCatalogItem
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: customItemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: catalogItemId
+          in: query
+          schema:
+            type: string
+        - name: asap
+          in: query
+          schema:
+            type: boolean
       responses:
         '200':
           description: Success
@@ -1823,6 +2008,80 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/server/entitlements/account/{accountId}/item/{catalogItemId}/increment/{count}':
+    patch:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_ServerIncrementAccountCountableCatalogItem
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: catalogItemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.ServerIncrementAccountCountableCatalogItemResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/server/entitlements/account/{accountId}/item/{catalogItemId}/decrement/{count}':
+    patch:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_ServerDecrementAccountCountableCatalogItem
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: catalogItemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: allowNegativeTotal
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.ServerDecrementAccountCountableCatalogItemResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   '/api/v1/entitlements/account/item/{catalogItemId}/owned':
     get:
       tags:
@@ -1832,6 +2091,42 @@ paths:
         - name: catalogItemId
           in: path
           required: true
+          schema:
+            type: string
+        - name: asap
+          in: query
+          schema:
+            type: boolean
+        - name: customItemId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.GetAccountOwnsCatalogItemResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/entitlements/account/item/custom/{customItemId}/owned':
+    get:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_GetAccountOwnsCatalogItem
+      parameters:
+        - name: customItemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: catalogItemId
+          in: query
           schema:
             type: string
         - name: asap
@@ -2897,6 +3192,115 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaParties.AdminDeletePartyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/platform_auth/remember_me:
+    post:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_RememberLoginInfo
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.RememberLoginInfoResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    get:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminGetLoginInfo
+      parameters:
+        - name: replayToken
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminGetLoginInfoResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    delete:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminDeleteLoginInfo
+      parameters:
+        - name: replayToken
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminDeleteLoginInfoResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/platform_auth/devices/{deviceId}':
+    post:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminRegisterDeviceForAuth
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminRegisterDeviceForAuthResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    delete:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminRemoveDeviceForAuth
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminRemoveDeviceForAuthResponse'
         default:
           description: Error
           content:
@@ -4030,6 +4434,9 @@ components:
           type: array
           items:
             type: string
+        alsoBroadcast:
+          type: boolean
+          description: ignored when recipient_ids is non-empty; affects how an empty recipient list is treated when tags are present
       additionalProperties: false
     Catena.Events.EmitUpdateEventResponse:
       type: object
@@ -4060,6 +4467,8 @@ components:
           $ref: '#/components/schemas/Services.CatenaAuthentication.AuthenticationEvent'
         newMatchEvent:
           $ref: '#/components/schemas/Services.CatenaMatchmaking.NewMatchEvent'
+        announcementEvent:
+          $ref: '#/components/schemas/Services.CatenaAnnouncements.AnnouncementEvent'
       additionalProperties: false
     Catena.Events.SubscribeToEventsByTagResponse:
       type: object
@@ -4095,9 +4504,11 @@ components:
       enum:
         - 0
         - 1
-      type: integer
-      description: "If you are deleting a json, can choose whether to delete the entire entry or a partial part of an entry\r\nCurrently, only whole property removal is supported.\r\nRemoval of elements in a json array (e.g. trying to remove \"value\" from json {\"array\":[\"value\",\"value2\"]})\r\nis not currently supported by DeleteMetadataEntryRequest."
+      description: "If you are deleting a json, can choose whether to delete the entire entry or a partial part of an entry\r\nCurrently, only whole property removal is supported.\r\nRemoval of elements in a json array (e.g. trying to remove \"value\" from json {\"array\":[\"value\",\"value2\"]})\r\nis not currently supported by DeleteMetadataEntryRequest.\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
       format: int32
+      x-enumDescriptions:
+        '0': EntireEntry
+        '1': PartialEntry
     Catena.Groups.DeleteMetadataEntryResponse:
       type: object
       properties:
@@ -4142,8 +4553,18 @@ components:
         - ENTITY_TYPE_ACCOUNT
         - ENTITY_TYPE_GROUP
         - ENTITY_TYPE_MATCH
-      type: string
-      description: Entities
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+      description: "Entities\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Generic
+        '2': Account
+        '3': Group
+        '4': Match
     Catena.Groups.GetMetadataEntriesResponse:
       type: object
       properties:
@@ -4196,8 +4617,12 @@ components:
       enum:
         - OVERWRITE
         - APPEND
-      type: string
-      description: 'When updating a metadata entry, the entry can either be overwritten (supported by all types) or appended (supported by string and json)'
+        - 0
+        - 1
+      description: "When updating a metadata entry, the entry can either be overwritten (supported by all types) or appended (supported by string and json)\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Overwrite
+        '1': Append
     Catena.MatchBroker.Match:
       type: object
       properties:
@@ -4273,8 +4698,20 @@ components:
         - HINT_FLAG_WILLING_TO_SHUTDOWN
         - HINT_FLAG_FULL
         - HINT_FLAG_NOT_FULL
-      type: string
-      description: "Optional flags hinting intention by requester/responder\r\nThese are bit flags - values must be powers of 2!"
+        - 0
+        - 1
+        - 2
+        - 4
+        - 8
+        - 16
+      description: "Optional flags hinting intention by requester/responder\r\nThese are bit flags - values must be powers of 2!\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': NoHintFlags
+        '1': Shutdown
+        '2': WillingToWait
+        '4': WillingToShutdown
+        '8': Full
+        '16': NotFull
     Catena.ServerManager.ListServersRequest:
       type: object
       additionalProperties: false
@@ -4353,8 +4790,16 @@ components:
         - SERVER_STATE_PENDING
         - SERVER_STATE_AVAILABLE
         - SERVER_STATE_FULL
-      type: string
-      description: "The server state as in its capability to request matches\r\nNote: This is intentionally a subset of the specific states that exist inside the Catena Match Broker"
+        - 0
+        - 1
+        - 2
+        - 3
+      description: "The server state as in its capability to request matches\r\nNote: This is intentionally a subset of the specific states that exist inside the Catena Match Broker\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Pending
+        '2': Available
+        '3': Full
     Google.Protobuf.WellKnownTypes.Any:
       required:
         - '@type'
@@ -4499,11 +4944,11 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/Catena.Groups.EntityMetadata'
           description: Metadata associated with the account
-        providers:
+        platforms:
           type: array
           items:
-            $ref: '#/components/schemas/Services.PublicCommon.Provider'
-          description: List of providers that this account is linked to
+            $ref: '#/components/schemas/Services.PublicCommon.Platform'
+          description: List of platforms that this account is linked to
       additionalProperties: false
       description: Bundled data that describes an account and its metadata.
     Services.CatenaAccounts.CreateAccountRequest:
@@ -4610,14 +5055,14 @@ components:
         entryValue:
           $ref: '#/components/schemas/Catena.Groups.EntityMetadata'
       additionalProperties: false
-    Services.CatenaAccounts.LinkAccountToProviderRequest:
+    Services.CatenaAccounts.LinkAccountToPlatformRequest:
       type: object
       properties:
         sessionId:
           type: string
           description: The session id to link into the currently logged in session id
       additionalProperties: false
-    Services.CatenaAccounts.LinkAccountToProviderResponse:
+    Services.CatenaAccounts.LinkAccountToPlatformResponse:
       type: object
       properties:
         account:
@@ -4626,11 +5071,11 @@ components:
           type: boolean
           description: indicator of success of linking existing account to new auth provider
       additionalProperties: false
-    Services.CatenaAccounts.ProviderAccountId:
+    Services.CatenaAccounts.PlatformAccountId:
       type: object
       properties:
-        provider:
-          $ref: '#/components/schemas/Services.PublicCommon.Provider'
+        platform:
+          $ref: '#/components/schemas/Services.PublicCommon.Platform'
         id:
           type: string
       additionalProperties: false
@@ -4641,10 +5086,10 @@ components:
           type: string
         displayName:
           type: string
-        providerAccountIds:
+        platformAccountIds:
           type: array
           items:
-            $ref: '#/components/schemas/Services.CatenaAccounts.ProviderAccountId'
+            $ref: '#/components/schemas/Services.CatenaAccounts.PlatformAccountId'
       additionalProperties: false
     Services.CatenaAccounts.ServerCreateAccountResponse:
       type: object
@@ -4666,8 +5111,8 @@ components:
       properties:
         accountId:
           type: string
-        providerAccountId:
-          $ref: '#/components/schemas/Services.CatenaAccounts.ProviderAccountId'
+        platformAccountId:
+          $ref: '#/components/schemas/Services.CatenaAccounts.PlatformAccountId'
       additionalProperties: false
     Services.CatenaAccounts.ServerLinkAccountResponse:
       type: object
@@ -4705,6 +5150,12 @@ components:
       additionalProperties: false
     Services.CatenaAccounts.UpdateMetadataEntryResponse:
       type: object
+      additionalProperties: false
+    Services.CatenaAnnouncements.AnnouncementEvent:
+      type: object
+      properties:
+        message:
+          type: string
       additionalProperties: false
     Services.CatenaApiKeys.AdminCreateApiKeyPolicyRequest:
       type: object
@@ -4829,9 +5280,9 @@ components:
       type: object
       properties:
         provider:
-          $ref: '#/components/schemas/Services.PublicCommon.Provider'
+          $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
         providerConfig:
-          $ref: '#/components/schemas/Services.PublicCommon.ProviderConfig'
+          $ref: '#/components/schemas/Services.CatenaAuthentication.ProviderConfig'
       additionalProperties: false
     Services.CatenaAuthentication.AdminAddOrUpdateProviderConfigResponse:
       type: object
@@ -4840,15 +5291,15 @@ components:
       type: object
       properties:
         provider:
-          $ref: '#/components/schemas/Services.PublicCommon.Provider'
+          $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
         providerConfig:
-          $ref: '#/components/schemas/Services.PublicCommon.ProviderConfig'
+          $ref: '#/components/schemas/Services.CatenaAuthentication.ProviderConfig'
       additionalProperties: false
     Services.CatenaAuthentication.AdminToggleProviderRequest:
       type: object
       properties:
         provider:
-          $ref: '#/components/schemas/Services.PublicCommon.Provider'
+          $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
         isEnabled:
           type: boolean
       additionalProperties: false
@@ -4866,7 +5317,10 @@ components:
     Services.CatenaAuthentication.AuthenticationUpdateType:
       enum:
         - LOGOUT
-      type: string
+        - 0
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Logout
     Services.CatenaAuthentication.AwaitSessionResponse:
       type: object
       properties:
@@ -4881,19 +5335,19 @@ components:
         enabledProviders:
           type: array
           items:
-            $ref: '#/components/schemas/Services.PublicCommon.Provider'
+            $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
       additionalProperties: false
     Services.CatenaAuthentication.LoginWithProviderRequest:
       type: object
       properties:
         provider:
-          $ref: '#/components/schemas/Services.PublicCommon.Provider'
+          $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
         payload:
           type: string
           description: provider-specific auth token (username for unsafe provider)
       additionalProperties: false
       example:
-        provider: PROVIDER_UNSAFE
+        provider: 1
         payload: test01
     Services.CatenaAuthentication.LoginWithProviderResponse:
       type: object
@@ -4905,6 +5359,71 @@ components:
     Services.CatenaAuthentication.LogoutResponse:
       type: object
       additionalProperties: false
+    Services.CatenaAuthentication.Provider:
+      enum:
+        - PROVIDER_UNSPECIFIED
+        - PROVIDER_UNSAFE
+        - PROVIDER_DISCORD_WEB
+        - PROVIDER_GOOGLE_WEB
+        - PROVIDER_APPLE_WEB
+        - PROVIDER_TWITCH_WEB
+        - PROVIDER_STEAM_WEB
+        - PROVIDER_ITCH_WEB
+        - PROVIDER_AMAZON_WEB
+        - PROVIDER_EPIC_WEB
+        - PROVIDER_OFFICE365_WEB
+        - PROVIDER_STEAM
+        - PROVIDER_DEVICE
+        - PROVIDER_REMEMBER_ME
+        - PROVIDER_CATENA
+        - PROVIDER_CUSTOM
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+        - 13
+        - 98
+        - 99
+      description: "Accepted auth providers.\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Unsafe
+        '2': DiscordWeb
+        '3': GoogleWeb
+        '4': AppleWeb
+        '5': TwitchWeb
+        '6': SteamWeb
+        '7': ItchWeb
+        '8': AmazonWeb
+        '9': EpicWeb
+        '10': Office365Web
+        '11': Steam
+        '12': Device
+        '13': RememberMe
+        '98': Catena
+        '99': Custom
+    Services.CatenaAuthentication.ProviderConfig:
+      type: object
+      properties:
+        providerClientId:
+          type: string
+        providerClientSecret:
+          type: string
+        providerRedirectUri:
+          type: string
+        providerIsEnabled:
+          type: boolean
+      additionalProperties: false
+      description: Accepted auth provider configs.
     Services.CatenaEntitlements.AdminAddCatalogItemPurchasePriceRequest:
       type: object
       properties:
@@ -4939,6 +5458,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Services.CatenaEntitlements.CatalogItemTag'
+        catalogItemCustomItemId:
+          type: string
       additionalProperties: false
     Services.CatenaEntitlements.AdminCreateCatalogItemResponse:
       type: object
@@ -4988,6 +5509,10 @@ components:
         count:
           type: integer
           format: int64
+        customItemId:
+          type: string
+        lockoutFlags:
+          $ref: '#/components/schemas/Services.CatenaEntitlements.AdminLockoutFlags'
       additionalProperties: false
     Services.CatenaEntitlements.AdminGetAccountOwnsCatalogItemResponse:
       type: object
@@ -5036,6 +5561,14 @@ components:
           items:
             $ref: '#/components/schemas/Services.CatenaEntitlements.OwnershipChangeRecord'
       additionalProperties: false
+    Services.CatenaEntitlements.AdminGetProviderCatalogItemDataResponse:
+      type: object
+      properties:
+        providerItemData:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaEntitlements.ProviderCatalogItemData'
+      additionalProperties: false
     Services.CatenaEntitlements.AdminGetSubscriptionsRequest:
       type: object
       properties:
@@ -5059,6 +5592,13 @@ components:
           type: integer
           format: int64
       additionalProperties: false
+    Services.CatenaEntitlements.AdminLockoutFlags:
+      type: object
+      properties:
+        prohibitNonAdminUpdate:
+          $ref: '#/components/schemas/Services.PublicCommon.NullableBool'
+      additionalProperties: false
+      description: "Lockout flags as they are exposed to admins\r\nThese may be null during a set if they should be left unchanged but should not be null during a get"
     Services.CatenaEntitlements.AdminModifyProviderCatalogItemDataRequest:
       type: object
       properties:
@@ -5108,6 +5648,21 @@ components:
         previousCount:
           type: integer
           format: int64
+      additionalProperties: false
+    Services.CatenaEntitlements.AdminSetAccountCountableCatalogItemRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+        catalogItemId:
+          type: string
+        count:
+          type: integer
+          format: int64
+        operation:
+          $ref: '#/components/schemas/Services.CatenaEntitlements.ExtendedOperation'
+        lockoutFlags:
+          $ref: '#/components/schemas/Services.CatenaEntitlements.AdminLockoutFlags'
       additionalProperties: false
     Services.CatenaEntitlements.AdminSetAccountCountableCatalogItemResponse:
       type: object
@@ -5166,6 +5721,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Services.CatenaEntitlements.TagUpdate'
+        customItemId:
+          type: string
       additionalProperties: false
     Services.CatenaEntitlements.AdminUpdateCatalogItemResponse:
       type: object
@@ -5195,6 +5752,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Services.CatenaEntitlements.CatalogItemTag'
+        customItemId:
+          type: string
       additionalProperties: false
     Services.CatenaEntitlements.CatalogItemPrice:
       type: object
@@ -5239,7 +5798,14 @@ components:
         - ENTITLEMENT_PROVIDER_UNSPECIFIED
         - ENTITLEMENT_PROVIDER_STEAM
         - ENTITLEMENT_PROVIDER_STEAM_APP
-      type: string
+        - 0
+        - 6
+        - 7
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '6': Steam
+        '7': SteamApp
     Services.CatenaEntitlements.ExecutePreparedOffersRequest:
       type: object
       properties:
@@ -5262,6 +5828,19 @@ components:
         steam:
           $ref: '#/components/schemas/Services.CatenaEntitlements.SteamOrderProviderOrderResultDetails'
       additionalProperties: false
+    Services.CatenaEntitlements.ExtendedOperation:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      format: int32
+      x-enumDescriptions:
+        '0': Default
+        '1': CountOnly
+        '2': LockoutFlagsOnly
+        '3': CountAndLockoutFlags
     Services.CatenaEntitlements.GetAccountCatalogItemsResponse:
       type: object
       properties:
@@ -5280,6 +5859,8 @@ components:
         count:
           type: integer
           format: int64
+        customItemId:
+          type: string
       additionalProperties: false
     Services.CatenaEntitlements.GetAccountOwnsCatalogItemResponse:
       type: object
@@ -5309,7 +5890,14 @@ components:
         - MODIFY_PROVIDER_CATALOG_ITEM_DATA_OPERATION_UNSPECIFIED
         - MODIFY_PROVIDER_CATALOG_ITEM_DATA_OPERATION_SET
         - MODIFY_PROVIDER_CATALOG_ITEM_DATA_OPERATION_UPDATE
-      type: string
+        - 0
+        - 1
+        - 2
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Set
+        '2': Update
     Services.CatenaEntitlements.Order:
       type: object
       properties:
@@ -5359,7 +5947,18 @@ components:
         - OWNERSHIP_CHANGE_TYPE_REFUND
         - OWNERSHIP_CHANGE_TYPE_KNOWN
         - OWNERSHIP_CHANGE_TYPE_ADMIN
-      type: string
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Order
+        '2': Refund
+        '3': Known
+        '4': Admin
     Services.CatenaEntitlements.PlayerFacingPreparedOffer:
       type: object
       properties:
@@ -5427,8 +6026,22 @@ components:
         - PRICE_TYPE_FILTER_UNSPECIFIED
         - PRICE_TYPE_FILTER_PURCHASE
         - PRICE_TYPE_FILTER_SUBSCRIPTION
-      type: string
-      description: "These are flags and must be powers of 2!\r\nDefault/unspecified returns purchase prices only (equivalent to when value is 1)"
+        - 0
+        - 1
+        - 2
+      description: "These are flags and must be powers of 2!\r\nDefault/unspecified returns purchase prices only (equivalent to when value is 1)\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Purchase
+        '2': Subscription
+    Services.CatenaEntitlements.ProviderCatalogItemData:
+      type: object
+      properties:
+        provider:
+          $ref: '#/components/schemas/Services.CatenaEntitlements.EntitlementProvider'
+        steamApp:
+          $ref: '#/components/schemas/Services.CatenaEntitlements.SteamAppProviderCatalogItemData'
+      additionalProperties: false
     Services.CatenaEntitlements.ServerCancelSubscriptionRequest:
       type: object
       properties:
@@ -5437,6 +6050,15 @@ components:
       additionalProperties: false
     Services.CatenaEntitlements.ServerCancelSubscriptionResponse:
       type: object
+      additionalProperties: false
+    Services.CatenaEntitlements.ServerDecrementAccountCountableCatalogItemResponse:
+      type: object
+      properties:
+        newCount:
+          type: integer
+          format: int64
+        decrementSuccessful:
+          type: boolean
       additionalProperties: false
     Services.CatenaEntitlements.ServerGetAccountCatalogItemsResponse:
       type: object
@@ -5456,6 +6078,8 @@ components:
         count:
           type: integer
           format: int64
+        customItemId:
+          type: string
       additionalProperties: false
     Services.CatenaEntitlements.ServerGetAccountOwnsCatalogItemResponse:
       type: object
@@ -5482,6 +6106,13 @@ components:
           items:
             type: string
       additionalProperties: false
+    Services.CatenaEntitlements.ServerIncrementAccountCountableCatalogItemResponse:
+      type: object
+      properties:
+        newCount:
+          type: integer
+          format: int64
+      additionalProperties: false
     Services.CatenaEntitlements.ServerModifyProviderCatalogItemDataRequest:
       type: object
       properties:
@@ -5500,12 +6131,27 @@ components:
     Services.CatenaEntitlements.ServerRemoveProviderCatalogItemDataResponse:
       type: object
       additionalProperties: false
+    Services.CatenaEntitlements.SteamAppItemPolicy:
+      enum:
+        - STEAM_APP_ITEM_POLICY_UNSPECIFIED
+        - STEAM_APP_ITEM_POLICY_ANY
+        - STEAM_APP_ITEM_POLICY_PERMANENT_ONLY
+        - 0
+        - 1
+        - 2
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Any
+        '2': PermanentOnly
     Services.CatenaEntitlements.SteamAppProviderCatalogItemData:
       type: object
       properties:
         appId:
           type: integer
           format: int32
+        policy:
+          $ref: '#/components/schemas/Services.CatenaEntitlements.SteamAppItemPolicy'
       additionalProperties: false
     Services.CatenaEntitlements.SteamOrderProviderOrderMetadata:
       type: object
@@ -5559,7 +6205,18 @@ components:
         - SUBSCRIPTION_INTERVAL_UNIT_WEEK
         - SUBSCRIPTION_INTERVAL_UNIT_MONTH
         - SUBSCRIPTION_INTERVAL_UNIT_YEAR
-      type: string
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Day
+        '2': Week
+        '3': Month
+        '4': Year
     Services.CatenaEntitlements.TagUpdate:
       type: object
       properties:
@@ -5572,7 +6229,12 @@ components:
       enum:
         - TAG_UPDATE_ADD
         - TAG_UPDATE_REMOVE
-      type: string
+        - 0
+        - 1
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': TagUpdateAdd
+        '1': TagUpdateRemove
     Services.CatenaFriends.AcceptFriendRequestRequest:
       type: object
       properties:
@@ -5709,7 +6371,22 @@ components:
         - MATCHMAKING_STATUS_FAILED
         - MATCHMAKING_STATUS_FINDING_SERVER
         - MATCHMAKING_STATUS_MATCHMAKING_TIMED_OUT
-      type: string
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': InProgress
+        '2': Completed
+        '3': Cancelled
+        '4': Failed
+        '5': FindingServer
+        '6': MatchmakingTimedOut
     Services.CatenaMatchmaking.MatchmakingStatusUpdateEvent:
       type: object
       properties:
@@ -5731,7 +6408,22 @@ components:
         - MATCHMAKING_STATUS_UPDATE_TYPE_CANCELLED
         - MATCHMAKING_STATUS_UPDATE_TYPE_FINDING_SERVER
         - MATCHMAKING_STATUS_UPDATE_MATCHMAKING_TIMED_OUT
-      type: string
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': InProgress
+        '2': Completed
+        '3': Failed
+        '4': Cancelled
+        '5': FindingServer
+        '6': MatchmakingStatusUpdateMatchmakingTimedOut
     Services.CatenaMatchmaking.MatchmakingTicketWithState:
       type: object
       properties:
@@ -5814,7 +6506,16 @@ components:
         - SERVICE_HEALTH_STATUS_HEALTHY
         - SERVICE_HEALTH_STATUS_UNHEALTHY
         - SERVICE_HEALTH_STATUS_PRESUMED_HEALTHY
-      type: string
+        - 0
+        - 1
+        - 2
+        - 3
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Healthy
+        '2': Unhealthy
+        '3': PresumedHealthy
     Services.CatenaParties.AdminCreatePartyRequest:
       type: object
       properties:
@@ -6022,7 +6723,26 @@ components:
         - PARTY_UPDATE_TYPE_METADATA_CREATED
         - PARTY_UPDATE_TYPE_METADATA_UPDATED
         - PARTY_UPDATE_TYPE_METADATA_DELETED
-      type: string
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': PlayerJoined
+        '2': PlayerLeft
+        '3': PlayerKicked
+        '4': PlayerReadyChanged
+        '5': PlayerLeaderChanged
+        '6': MetadataCreated
+        '7': MetadataUpdated
+        '8': MetadataDeleted
     Services.CatenaParties.Player:
       type: object
       properties:
@@ -6077,6 +6797,30 @@ components:
       properties:
         party:
           $ref: '#/components/schemas/Services.CatenaParties.Party'
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminDeleteLoginInfoResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminGetLoginInfoResponse:
+      type: object
+      properties:
+        sessionData:
+          type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminRegisterDeviceForAuthResponse:
+      type: object
+      properties:
+        certificate:
+          type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminRemoveDeviceForAuthResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaPlatformAuth.RememberLoginInfoResponse:
+      type: object
+      properties:
+        replayToken:
+          type: string
       additionalProperties: false
     Services.CatenaServerReleases.AdminCreateServerPatchRequest:
       type: object
@@ -6735,34 +7479,64 @@ components:
         platform:
           type: string
       additionalProperties: false
-    Services.PublicCommon.Provider:
+    Services.PublicCommon.NullValue:
       enum:
-        - PROVIDER_UNSPECIFIED
-        - PROVIDER_UNSAFE
-        - PROVIDER_DISCORD
-        - PROVIDER_GOOGLE
-        - PROVIDER_APPLE
-        - PROVIDER_TWITCH
-        - PROVIDER_STEAM
-        - PROVIDER_ITCH
-        - PROVIDER_AMAZON
-        - PROVIDER_EPIC
-        - PROVIDER_CUSTOM
-      type: string
-      description: Accepted auth providers.
-    Services.PublicCommon.ProviderConfig:
+        - NULL_VALUE
+        - 0
+      description: "Specific use case \"nullable\" types\r\nSimilar to well-known types but simplified (and fewer dependencies and less overhead and no Value/Struct!)\r\nCatena supports implicitly casting to/from from C# native nullable types\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': NullValue
+    Services.PublicCommon.NullableBool:
       type: object
       properties:
-        providerClientId:
-          type: string
-        providerClientSecret:
-          type: string
-        providerRedirectUri:
-          type: string
-        providerIsEnabled:
+        nullValue:
+          $ref: '#/components/schemas/Services.PublicCommon.NullValue'
+        value:
           type: boolean
       additionalProperties: false
-      description: Accepted auth provider configs.
+    Services.PublicCommon.Platform:
+      enum:
+        - PLATFORM_UNSPECIFIED
+        - PLATFORM_UNSAFE
+        - PLATFORM_DISCORD
+        - PLATFORM_GOOGLE
+        - PLATFORM_APPLE
+        - PLATFORM_TWITCH
+        - PLATFORM_STEAM
+        - PLATFORM_ITCH
+        - PLATFORM_AMAZON
+        - PLATFORM_EPIC
+        - PLATFORM_OFFICE365
+        - PLATFORM_CATENA
+        - PLATFORM_CUSTOM
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 98
+        - 99
+      description: "All Catena supported platforms.\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': Unsafe
+        '2': Discord
+        '3': Google
+        '4': Apple
+        '5': Twitch
+        '6': Steam
+        '7': Itch
+        '8': Amazon
+        '9': Epic
+        '10': Office365
+        '98': Catena
+        '99': Custom
 tags:
   - name: CatenaTitles
     description: CatenaTitles
@@ -6770,6 +7544,8 @@ tags:
     description: "A service that can be used to probe the session store directly for development or diagnostics.\r\nNot intended for regular production use!"
   - name: CatenaServerReleases
     description: CatenaServerManagement
+  - name: CatenaPlatformAuth
+    description: "A service for managing Catena-authoritative functionality with regards to validation and authentication.\r\nUsed by validators in the Authentication service that log the user into the Catena platform."
   - name: CatenaParties
     description: CatenaParties
   - name: CatenaNodeInspection
