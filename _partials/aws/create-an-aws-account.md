@@ -1,0 +1,1 @@
+To create an AWS account, follow [these instructions from AWS](https://aws.amazon.com/resources/create-account/).
