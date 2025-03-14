@@ -7,44 +7,16 @@ markdown:
 # Catena - The Catena Matchmaker
 The Catena Matchmaker is responsible for grouping players or parties together to form games or matches.
 
-It is _not_ responsible for assigning dedicated game servers or fleet management. If you would like to learn more about how Catena handles dedicated game servers, refer to the [Match Broker](../game-servers/index.md) documentation.
+It is _not_ responsible for assigning dedicated game servers or fleet management. It is also not responsible for handling backfill. If you would like to learn more about how Catena handles dedicated game servers or backfill, refer to the [Match Broker](../game-servers/index.md) documentation.
 
 ## Engine Integration
-This page is dedicated to explaining key concepts for matchmaking in Catena. If you are interested in how to integrate matchmaking within a particular game engine, refer to your engine's documentation.
 
-* [Unity - Matchmaking](../../engines/unity/matchmaking/index.md)
+{% partial file="/_partials/matchmaking/engine-integration.md" /%}
 
 ## How The Matchmaker Works
 
 ### Tickets
-The Catena Matchmaker accepts **matchmaking tickets** from players. **Tickets** may be submitted by a player for themselves if matchmaking alone, or may be submitted by a party leader on behalf of the entire party if partied up. These **tickets** can include metadata about the player(s), the party they are in, or the desired match properties.
-
-Creating a **ticket** for matchmaking is done by submitting an `Entity` to [StartMatchmaking](../../apis/catena-tools-core.yaml#operation/catena.catena_matchmaking.CatenaMatchmaking_StartMatchmaking).
-
-An `Entity` is a special Catena data type used for passing and storing dynamic data in Catena without having to define rigid data types.
-
-<!-- TODO: Write and link to Entity documentation -->
-
-**Tickets** will be sorted into **queues** based on the `queue_name` that is provided in the **ticket**. This `queue_name` is a requirement.
-
-An example ticket, in it's simplest form, looks like this:
-
-```json
-{
-    "entity": {
-        "id": "{{account-id}}",
-        "entity_type": "ENTITY_TYPE_ACCOUNT",
-        "entities": [],
-        "metadata": {
-            "queue_name": {
-                "string_payload": "solo"
-            }
-        }
-    }
-}
-```
-
-_Note: If you are using a Catena SDK in your game engine, ticket generation is done on your behalf._
+{% partial file="/_partials/matchmaking/tickets.md" /%}
 
 ### Queues
 The Catena Matchmaker utilizes separate **queues** to partition tickets. These **queues** act like mini-matchmakers, supporting many different game types and matchmaking needs.
@@ -69,17 +41,7 @@ Configuring custom **matchmaking strategies** is an advanced topic. If you are c
 ### Events
 As **matchmaking tickets** progress through the Catena Matchmaker, events are emitted that either game clients or other Catena Services who are subscribed can ingest.
 
-1. A `MatchmakingStatusUpdateEvent` is emitted to players on a given ticket periodically as the ticket progresses through the system. Status update types include:
-    1. `MATCHMAKING_STATUS_UPDATE_TYPE_IN_PROGRESS`
-    2. `MATCHMAKING_STATUS_UPDATE_TYPE_COMPLETED`
-    3. `MATCHMAKING_STATUS_UPDATE_TYPE_FAILED`
-    4. `MATCHMAKING_STATUS_UPDATE_TYPE_CANCELLED`
-    5. `MATCHMAKING_STATUS_UPDATE_TYPE_FINDING_SERVER`
-    6. `MATCHMAKING_STATUS_UPDATE_MATCHMAKING_TIMED_OUT`
-2. A `NewMatchEvent` is emitted when a match is formed, which other Catena Services can use to spin up a dedicated game server for the match, if necessary.
-
-<!-- TODO: Write and link to MatchBroker documentation -->
-<!-- TODO: Write and link to Catena Event documentation -->
+{% partial file="/_partials/matchmaking/events.md" /%}
 
 ### (Optional) Matchmaking Hooks
 Configuring custom **matchmaking hooks** is an advanced topic. If you are configuring the matchmaker for the first time, it is recommended you set up your proof of concept without custom **matchmaking hooks**.
@@ -165,18 +127,4 @@ First, the JSON `key` is the value that **tickets** will need to provide as thei
 | `CustomHooks` | Name of a **custom hook** class to use for this **queue** |
 
 ## What Next?
-Now that you have your matchmaker configured, it's time to integrate the matchmaker with your game engine.
-
-{% cards columns=1 %}
-    {% card title="Unity Matchmaking" to="../../engines/unity/matchmaking/index.md" %}
-        Integrate the Catena Matchmaker into your Unity Game
-    {% /card %}
-{% /cards %}
-
-Alternatively, if you are interested in matchmaking players into dedicated game servers, proceed to the game server documentation.
-
-{% cards columns=1 %}
-    {% card title="Game Servers" to="../game-servers/index.md" %}
-        Configure dedicated game servers with Catena
-    {% /card %}
-{% /cards %}
+{% partial file="/_partials/matchmaking/what-next.md" /%}

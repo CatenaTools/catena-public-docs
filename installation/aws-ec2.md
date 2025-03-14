@@ -24,30 +24,12 @@ git clone git@github.com:CatenaTools/infrastructure.git
 ### 2. Prep Work
 
 #### 2a. Create an AWS Account
-To create an AWS account, follow [these instructions from AWS](https://aws.amazon.com/resources/create-account/).
+{% partial file="/_partials/aws/create-an-aws-account.md" /%}
 
 #### 2b. Create Credentials
-1. Log in to your AWS account that was created in the previous step.
-2. Navigate to the Identity and Access Management (IAM) portion of the AWS console. [Here is a link](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/home).
-3. Navigate to the "Users" section of the IAM console. [Here is a link](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users).
-4. Select "Create user".
-5. Name your user. For the purposes of these instructions, we'll call ours `catena_deployment`.
-    1. Leave the "Provide user access to teh AWS Management Console" option unchecked. This user will only require programmatic access to AWS.
-6. On the next step, select "Attach policies directly"
-    1. In the policies list, check the `AdministratorAccess` policy
-7. Proceed to the "Review and create" step. Your user should look something like this:
-
-[ ![review and create user](/images/install-catena/review-and-create-user.png) ](/images/install-catena/review-and-create-user.png)
-
-8. Create the user
-9. Navigate to the user's details
-10. Select "Security credentials"
-11. Under the "Access keys" section, select "Create access key"
-12. Select "Third-party service"
-    1. *Note: AWS will recommend an alternative option. For ease of use, we will ignore this for the time being. Select "I understand the above recommendation and want to proceed to create an access key"*
-13. Proceed to the next step and set an optional description tag
-14. Create your access key
-15. **Make note of your "Access key" and "Secret access key". You will need them later**
+{% partial file="/_partials/aws/create-credentials.md" variables={
+    iam_username: "catena_deployment"
+} /%}
 
 #### 2c. Configure Your Domain
 This guide requires using [Route53](https://aws.amazon.com/route53/) for your domain name.
@@ -69,26 +51,12 @@ This guide requires using [Route53](https://aws.amazon.com/route53/) for your do
 #### 2e. Install Dependencies
 
 ##### AWS CLI
-The AWS CLI is a tool that allows users to manage AWS resources through the command line. With it, you can expose credentials to Terraform in future steps.
-
-1. To install the AWS CLI, refer to [their installation documentation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
-2. Once the CLI is installed, add your credentials that you created earlier. We'll be adding them to a specific profile called `catena_deploy`, but you can use whatever profile name you'd like.
-    1. For a list of available regions you can provide when prompted for the default region, refer to [available regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). We recommend using the same region your S3 bucket was created in.
-
-```bash
-aws configure --profile catena_deploy
-
-# Interactive Input
-# AWS Access Key ID [None]: <YOUR_ACCESS_KEY>
-# AWS Secret Access Key [None]: <YOUR_SECRET_ACCESS_KEY>
-# Default region name [None]: <YOUR_DEFAULT_REGION> (i.e. 'us-east-1', 'us-east-2', 'us-west-1', 'eu-west-1`, etc.)
-# Default output format [None]: json
-```
+{% partial file="/_partials/aws/install-aws-cli.md" variables={
+    profile_name: "catena_deploy"
+} /%}
 
 ##### Terraform
-[Terraform](https://www.terraform.io/) is an infrastructure-as-code (IaC) tool created by HashiCorp. It allows users to develop, modify, and version infrastructure components. With it, we can deploy Catena to AWS in a handful of commands.
-
-To install Terraform, refer to [their installation documentation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
+{% partial file="/_partials/aws/terraform.md" /%}
 
 ##### SSH Key
 In order to deploy Catena, you will need to generate an SSH key.
