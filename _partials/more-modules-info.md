@@ -1,0 +1,1 @@
+_More details on Catena modules may be found in the Catena Core [Modules](/core/module-basics.md) topic._

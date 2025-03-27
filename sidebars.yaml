@@ -44,3 +44,11 @@
       label: "Game Servers"
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
+- group: Catena Core (the "engine")
+  items:
+    - page: core/module-basics.md
+      label: "Module basics"
+    - page: core/choosing-modules.md
+      label: "Choosing modules/services"
+    - page: core/writing-a-module.md
+      label: "Writing a module/service"
