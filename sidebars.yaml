@@ -52,3 +52,10 @@
       label: "Choosing modules/services"
     - page: core/writing-a-module.md
       label: "Writing a module/service"
+    - group: "Auth framework"
+      page: core/auth/index.md
+      items:
+        - page: core/auth/sessions.md
+          label: "Sessions"
+        - page: core/auth/api-keys.md
+          label: "API keys"
