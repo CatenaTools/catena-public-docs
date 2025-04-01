@@ -1,4 +1,4 @@
-# Catena - Matchmaking
+# Matchmaking
 Catena supports matchmaking utilizing a variety of matchmakers. The Catena Matchmaking Interface allows for a single point of integration. Once your game is integrated, you can update configuration for Catena to change the underlying matchmaking implementation that is utilized to make matches.
 
 {% cards columns=2 %}

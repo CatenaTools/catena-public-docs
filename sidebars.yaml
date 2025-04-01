@@ -42,6 +42,14 @@
           label: AWS FlexMatch
     - page: features/game-servers/index.md
       label: "Game Servers"
+    - group: "Fleet management"
+      items:
+      - page: features/fleet-management/match-broker.md
+        label: "Match broker"
+      - page: features/fleet-management/match-broker-allocators.md
+        label: "Match broker allocators"
+      - page: features/fleet-management/server-manager.md
+        label: "Server manager"
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
 - group: Catena Core (the "engine")
