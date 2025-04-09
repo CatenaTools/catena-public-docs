@@ -33,6 +33,10 @@
   items:
     - page: features/authentication/index.md
       label: "Authentication"
+    - page: features/accounts/index.md
+      label: "Accounts"
+    - page: features/parties/index.md
+      label: "Parties"
     - group: Matchmaking
       page: features/matchmaking/index.md
       items:
@@ -67,3 +71,5 @@
           label: "Sessions"
         - page: core/auth/api-keys.md
           label: "API keys"
+        - page: core/auth/custom-sessions.md
+          label: "Custom sessions"
