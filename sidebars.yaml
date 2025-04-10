@@ -54,6 +54,13 @@
         label: "Match broker allocators"
       - page: features/fleet-management/server-manager.md
         label: "Server manager"
+    - group: "Entitlements"
+      page: features/entitlements/index.md
+      items:
+        - page: features/entitlements/orders.md
+          label: "Orders"
+        - page: features/entitlements/offers.md
+          label: "Offers"
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
 - group: Catena Core (the "engine")
