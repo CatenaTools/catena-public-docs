@@ -25,8 +25,9 @@ For more information on Parties in Catena and the features available, refer to t
     1. Rename this `GameObject` to `CatenaParties`.
     2. Add the `CatenaPartiesManager` component to your `GameObject`.
 
-#### What Is The Catena Parties Manager?
+{% admonition type="info" name="What Is The Catena Parties Manager?" %}
 The **Catena Parties Manager** component houses functionality for operations related to parties. It's a way to more easily interface with the Catena Party endpoints, instead of using the **Catena Entrypoint** component directly.
+{% /admonition %}
 
 4. Import the Catena Unity SDK to the Script you'd like to create parties from, if not already done, as well as `Catena.CatenaParties`.
 
