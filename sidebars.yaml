@@ -28,6 +28,8 @@
           label: "Dedicated Game Servers"
     - page: engines/unity/parties.md
       label: "Parties"
+    - page: engines/unity/entitlements.md
+      label: "Entitlements"
     - group: "Supplemental Materials"
       items:
         - page: engines/unity/supplemental-materials/mirror.md
