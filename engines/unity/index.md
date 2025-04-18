@@ -12,3 +12,9 @@ The Catena Unity SDK provides an easy way to integrate Catena into your Unity pr
 
 ## 3. Matchmaking
 {% partial file="/_partials/unity/matchmaking-card.md" /%}
+
+## 4. Parties
+{% partial file="/_partials/unity/parties-card.md" /%}
+
+## 5. Entitlements
+{% partial file="/_partials/unity/entitlements-card.md" /%}
