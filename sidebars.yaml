@@ -32,6 +32,8 @@
       label: "Entitlements"
     - group: "Supplemental Materials"
       items:
+        - page: engines/unity/supplemental-materials/demo.md
+          label: "Demo"
         - page: engines/unity/supplemental-materials/mirror.md
 - group: Features
   items:

@@ -19,7 +19,7 @@ The first step to adding entitlements in your project is to set up a method of l
 Additionally, you must already have catalog items and offers set up in your database through admin endpoints - as you won't be able to create items or offers from the Unity client.
 
 For more information on Entitlements in Catena and the features available, refer to the entitlements documentation.
-<!-- Add in this link when it exists: [refer to the Parties documentation](../../features/entitlements/index.md). -->
+<!-- Add in this link when it exists: [refer to the Entitlements documentation](../../features/entitlements/index.md). -->
 
 ### Client-Side Entitlements
 
