@@ -69,28 +69,28 @@ Find the `bUseOnlineSubsystemV1` variable and set it to false:
 
 To finish enabling `OnlineServices` follow the next section.
 
-### 2. Configure DefaultGame.ini
+### 2. Configure DefaultEngine.ini
 
-In your projects `Config` folder open up the file `DefaultGame.ini`.
+In your projects `Config` folder open up the file `DefaultEngine.ini`.
 
 Enable `OnlineServicesInterface` build dependencies for `OnlineServices` by adding the following:
-``` ini {%title="DefaultGame.ini"%}
+``` ini {%title="DefaultEngine.ini"%}
 [/Script/Engine.OnlineEngineInterface]
 bUseOnlineServicesV2=true
 ```
 
 Add the following to set `OnlineServicesCatena` to be used as the default service:
-``` ini {%title="DefaultGame.ini"%}
+``` ini {%title="DefaultEngine.ini"%}
 [OnlineServices]
 DefaultServices=GameDefined_0
 ```
 
-### 3. Configure DefaultEngine.ini
+### 3. Configure CatenaConfig.ini
 
-In your projects `Config` folder open up the file `DefaultEngine.ini`.
+In the plugin folder in `<path-to-plugins>/OnlineServicesCatena/Source/OnlineServicesCatena/Config/CatenaConfig.ini` open up the `CatenaConfig.ini` file.
 
-To set the backend url of  `OnlineServicesCatena` add the following:
-``` ini {%title="DefaultEngine.ini"%}
+To set the backend url of  `OnlineServicesCatena` edit the following var:
+``` ini {%title="CatenaConfig.ini"%}
 [OnlineServicesCatena]
 BackendURL="http://localhost:5000"
 ```
