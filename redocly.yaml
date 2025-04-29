@@ -14,9 +14,12 @@ navbar:
       label: "Unity"
     - group: Features
       items:
+        - page: features/accounts/index.md
+        - page: features/api-keys/index.md
         - page: features/authentication/index.md
-        - page: features/matchmaking/index.md
         - page: features/game-servers/index.md
+        - page: features/matchmaking/index.md
+        - page: features/parties/index.md
     - page: apis/catena-tools-core.yaml
       label: Catena API Explorer
 markdown:
@@ -25,6 +28,7 @@ markdown:
 logo:
   image: images/HorizontalCatenaLogoGradient.png
   link: /
+  favicon: images/SimpleCatena.png
 footer:
   copyrightText: Catena Tools 2025
 apis:

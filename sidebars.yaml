@@ -41,6 +41,8 @@
       label: "Authentication"
     - page: features/accounts/index.md
       label: "Accounts"
+    - page: features/api-keys/index.md
+      label: "API Keys"
     - page: features/parties/index.md
       label: "Parties"
     - group: Matchmaking
