@@ -4,7 +4,7 @@ markdown:
     depth: 4
 ---
 
-# Catena - Game Servers
+# Game Servers
 The Catena Match Broker is responsible for assigning matches to dedicated game servers It is completely decoupled from the [Catena Matchmaker](../matchmaking/index.md), allowing them both to operate independently.
 
 ## How The Match Broker Works

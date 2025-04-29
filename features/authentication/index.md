@@ -6,7 +6,7 @@ markdown:
 
 <sup>_If you would like to learn more about the general concept of Authentication, you can refer to our [Building a Multiplayer Backend: Authentication](https://blog.catenatools.com/building-a-multiplayer-backend-authentication/) blog post._</sup>
 
-# Catena - Authentication
+# Authentication
 Catena supports a variety of Authentication methods designed for games of all types. This feature authenticates players using a specific identifier or third-party service, registering a session with Catena upon login.
 
 ## Engine Integration

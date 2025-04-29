@@ -8,8 +8,8 @@ export default function HomePage() {
     <div>
       <HeroContainer>
         <h1>Catena Tools API</h1>
-        <p>Built by game developers, for game developers to simplify your game's back end workflow.</p>
-        <Button size="large" variant="primary" tone="brand" to="/example">
+        <p>Built by game developers, for game developers, to simplify your game's back end workflow.</p>
+        <Button size="large" variant="primary" tone="brand" to="/guides/key-concepts">
           Get started
         </Button>
       </HeroContainer>
@@ -47,7 +47,6 @@ const HeroContainer = styled.div`
     color: var(--text-color-primary);
     text-align: center;
     font-size: 20px;
-    font-weight: 600;
     line-height: 28px;
     margin: 0 0 24px 0;
   }
