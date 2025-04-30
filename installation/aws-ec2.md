@@ -10,7 +10,7 @@ markdown:
 Starting from scratch, deploying Catena to AWS on a single EC2 instance is estimated to take **30-45 minutes**.
 
 ## What Is Amazon EC2?
-[Amazon EC2](https://aws.amazon.com/ec2/) stands for Amazon Elastic Cloud Compute. It is Amazon's offering for creating and running virtual machines, called instances, in the cloud.
+[EC2](https://aws.amazon.com/ec2/) stands for Elastic Cloud Compute. It is Amazon's offering for creating and running virtual machines, called _instances_, in the cloud.
 
 ## Deployment Instructions
 {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
@@ -21,7 +21,7 @@ To deploy to AWS, you will also need to clone Catena's Infrastructure as Code re
 git clone git@github.com:CatenaTools/infrastructure.git
 ```
 
-### 2. Prep Work
+### 2. Preparations
 
 #### 2a. Create an AWS Account
 {% partial file="/_partials/aws/create-an-aws-account.md" /%}
@@ -35,18 +35,20 @@ git clone git@github.com:CatenaTools/infrastructure.git
 This guide requires using [Route53](https://aws.amazon.com/route53/) for your domain name.
 
 1. Register a new domain name or migrate an existing one
-    1. If you need to register a new domain name, refer to [this Route53 documenation about registering new domains](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-register.html#domain-register-procedure-section)
-    2. If you have an existing domain name, refer to [this Route53 documentation about making Route53 the DNS service for an existing domain](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html)
-2. If a "Hosted Zone" for your domain was not automatically created, refer to [this Route53 documentation about creating hosted zones](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingHostedZone.html)
+    - If you need to register a new domain name, refer to [this Route53 documenation about registering new domains](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-register.html#domain-register-procedure-section).
+    - If you have an existing domain name, refer to [this Route53 documentation about making Route53 the DNS service for an existing domain](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html).
+2. If a "Hosted Zone" for your domain was not automatically created, refer to [this Route53 documentation about creating hosted zones](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingHostedZone.html).
 
 #### 2d. Create an S3 Bucket
 [S3](https://aws.amazon.com/s3/), or Simple Storage Service, is where Catena's Infrastructure as Code will store information about the state of your deployment. This state can be accessed by other developers on your team to ensure that updates they make to your infrastructure are compatible with what is currently deployed.
 
-1. Navigate to the S3 portion of the AWS console. [Here is a link](https://us-east-1.console.aws.amazon.com/s3/home).
+1. Navigate to the [S3 portion](https://us-east-1.console.aws.amazon.com/s3/home) of the AWS console
 2. Click "Create bucket"
 3. Keep the default settings for all options
 4. Name your bucket. We'll call ours `catena-terraform-state`
-5. **Make note of the AWS Region on this page, you will need it later**
+{% admonition type="warning" %}
+**Make note of the AWS Region on this page. You will need it later.**
+{% /admonition %}
 
 #### 2e. Install Dependencies
 
@@ -168,11 +170,11 @@ git remote add dokku dokku@<your-url>:platform
 ```
 
 12. Use the appropriate command that was output from when you ran `terraform apply` to deploy Catena (this may take a while)
-    1. Options Include:
-        1. `powershell_deploy_command` if you are using Powershell
-        2. `windows_deploy_command` if you are using Windows Command Prompt
-        3. `unix_deploy_command` if you are using a Unix Based Command Prompt
-    2. When prompted if you'd like to continue connecting, select "yes"
+    - Options Include:
+        - `powershell_deploy_command` if you are using Powershell
+        - `windows_deploy_command` if you are using Windows Command Prompt
+        - `unix_deploy_command` if you are using a Unix Based Command Prompt
+    - When prompted if you'd like to continue connecting, select "yes"
 
 13. Check that Catena is running, by navigating to the URL specified in the `is_healthy` output from when you ran `terraform apply`
 
@@ -192,11 +194,10 @@ If you would like to see the details for each of these resources, you can look t
 Once these resources are provisioned, an init script is run on the EC2 instance that:
 1. Installs [Dokku](https://dokku.com/)
 2. Configures Dokku to recognize your domain name
-3. Installs [LetsEncrypt](https://letsencrypt.org/), to enable SSL
-    1. Generates a cert for your deployment
+3. Installs [LetsEncrypt](https://letsencrypt.org/), to enable SSL (generates a cert for your deployment)
 4. Creates a Catena app within Dokku
-    1. Configures a few necessary environment variables
-    2. Exposes this app to the outside world
+    - Configures a few necessary environment variables
+    - Exposes this app to the outside world
 5. Installs Redis and runs it
 6. Configures persistent database storage (SQLite)
 
