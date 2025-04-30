@@ -50,7 +50,7 @@ catenaParties.OnPartyJoin += (object sender, CatenaEntrypoint.PartyEventArgs par
 catenaParties.CreateParty();
 ```
 {% admonition type="warning" name="Account Needed"%}
-In order to create or join a party, the player must already be logged in to Catena, so you must check this before trying to create/join a party. There is a few ways to do this:
+In order to create or join a party, the player must already be logged in to Catena, so you must check this before trying to create/join a party. There are a few ways to do this:
 * Make sure wherever you are trying to create a party from is called only after account login is completed.
 * Have your script subscribe to `CatenaPlayer.OnAccountLoginComplete`, so it is informed when login is complete.
 * Check  `CatenaEntrypoint.HasAccount` before making any calls to the Parties manager.
@@ -110,23 +110,25 @@ In addition to joining and leaving parties, there are a few other functions that
 
 #### Readying Up
 
-In order to 'ready up', which can be used for cases such as matchmaking, you can call `CatenaPartiesManager.ReadyUp(bool isReady)` - giving the argument True for readying up, and False to un-ready up.
+In some cases, it may be helpful to have players say when they are ready, for cases such as the party leader needing everyone to be ready before starting matchmaking. This ready status can then be checked for all party members, as a way to confirm when everyone is ready. In order for a party member to 'ready up' you can call `CatenaPartiesManager.ReadyUp(bool isReady)` - giving the argument True for readying up, and False to un-ready up.
 
 You can get the ready status of a player through the party data that is returned when joining or updating a party.
 
 #### Leader Abilities
 
-The party leader has the ability to both kick a player, and set another player as the party leader - in addition to whatever custom functionality you choose to give the party leader. You can check if the player is the leader via `CatenaPartiesManager.IsLeader()`.
+The party leader has access to some functionality that the other players do not - such as kicking players, or promoting other players to leaders.
 
-To kick a player, add a call to `CatenaPartiesManager.KickPlayer(string playerId)`, with the argument being the player ID of the player you want to kick. To promote a player to be the leader, you instead call `CatenaPartiesManager.SetLeader(string playerId)`, with the argument being the player ID of the player you want to set as the new leader. (The player ID can be checked through the party data that is returned when joining/updating a party)
-
-You can get the leader status of a player through the party data that is returned when joining or updating a party.
+- **To check the leader status of a player:** You can see if the current user is the leader via `CatenaPartiesManager.IsLeader()`, and otherwise check a player's leader status through the party data that is returned when joining or updating a party.
+- **To kick a player:** Add a call to `CatenaPartiesManager.KickPlayer(string playerId)`, with the argument being the player ID of the player you want to kick.
+- **To promote a player to be the leader:** Add a call to`CatenaPartiesManager.SetLeader(string playerId)`, with the argument being the player ID of the player you want to set as the new leader. (The player ID can be checked through the party data that is returned when joining/updating a party)
 
 #### Party Metadata
 
-In addition to the ready status and leader status of a player, you can add other arbitrary metadata to both the party and individual players - allowing you to attach data and send that data to other members of the party. To do so, you need to provide a string as the key for the data, and an instance of `Catena.Groups.EntityMetadata`, as well as optionally the player ID of the player to add the metadata to. If a player ID is not given, then the metadata will be added to the overall party.
+In addition to the ready status and leader status of a player, you can add other arbitrary metadata to both the party and individual players - allowing you to attach data and send that data to other members of the party. 
 
-In addition to creating metadata, there is also functionality to update or remove metadata in a similar fashion. This can be done through the functions `CatenaPartiesManager.CreateMetadata()`, `CatenaPartiesManager.UpdateMetadata()`, and `CatenaPartiesManager.DeleteMetadata()`.
+- **To create metadata:** Add a call to `CatenaPartiesManager.CreateMetadata()` - you will need to provide a string as the key for the data, and an instance of `Catena.Groups.EntityMetadata`, as well as optionally the player ID of the player to add the metadata to. If a player ID is not given, then the metadata will be added to the overall party.
+- **To update metadata:** The requirements are similar to `CreateMetadata`, but this time calling `CatenaPartiesManager.UpdateMetadata()` - with the string being the key for the data you want to update, and providing the metadata as well as the optional player ID. You can also optionally add an `UpdateMetadataOperationType` as well, indicating whether you want to overwrite or append to the data - the default functionality being to overwrite.
+- **To delete metadata:** Add a call to `CatenaPartiesManager.DeleteMetadata()`, providing the key for the data you want to delete and the optional player ID. For deleting metadata, you can define a `DeleteJsonMetadataTypeType` (which defaults to the entire entry), and a list of json properties to remove, if not deleting the whole entry.
 
 ### Sample script
 
