@@ -29,3 +29,5 @@ Use this method if you prefer the quickest and easiest deployment.
 Use this method if you prefer to run your infrastructure on AWS.
 {% /card %}
 {% /cards %}
+
+When you're ready, check out our [CI/CD](/ci_cd/index.md) information on automated tested and integrating Catena into your CI/CD pipeline.

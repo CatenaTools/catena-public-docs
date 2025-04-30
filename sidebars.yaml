@@ -35,6 +35,8 @@
         - page: engines/unity/supplemental-materials/demo.md
           label: "Demo"
         - page: engines/unity/supplemental-materials/mirror.md
+- label: CI/CD
+  page: ci_cd/index.md
 - group: Features
   items:
     - page: features/authentication/index.md
