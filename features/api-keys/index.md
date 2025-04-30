@@ -5,7 +5,7 @@ created with a [policy](#policies), which grants a set of permissions to service
 
 ## Create an API key
 
-Creating a new API key may be done in the admin dashboard or by calling `AdminCreateApiKey`. A new API key needs a unique name and a single policy. Assigning a policy an API key grants the key all of the permissions associated with that policy.
+Creating a new API key may be done in the admin dashboard or by calling `AdminCreateApiKey`. A new API key needs a unique name and a single policy. Assigning a policy to an API key grants the key all of the permissions associated with that policy.
 
 {% admonition type="info" %}
 In order to create an API key, at least one policy must be available (see [Managing policies](#managing-policies)).
