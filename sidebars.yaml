@@ -91,3 +91,8 @@
           label: "API keys"
         - page: core/auth/custom-sessions.md
           label: "Custom sessions"
+- group: Admin Dashboard
+  page: dashboard/index.md
+  items:
+    - page: dashboard/setup.md
+      label: "Setup"
