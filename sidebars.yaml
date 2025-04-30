@@ -70,6 +70,7 @@
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
 - group: Catena Core (the "engine")
+  page: core/index.md
   items:
     - page: core/module-basics.md
       label: "Module basics"
