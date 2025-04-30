@@ -1,6 +1,6 @@
 # Dashboard
 
-The Catena admin dashboard is a [React](https://react.dev/reference/react) application that is intended to run at the same address as the `catena-tools-core` backend.
+The Catena admin dashboard is a [React](https://react.dev/reference/react) application that can be served along with the `catena-tools-core` backend.
 
 ## Running the dashboard
 
