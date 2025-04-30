@@ -23,7 +23,7 @@ On the MenuController gameobject, you will see the Menu Manager component, which
 
 In order to test the authentication and login flow, complete the following steps:
 
-1. Ensure that Catena is up and running. [Instructions for doing so can be found here](../../installation/index.md).
+1. Ensure that Catena is up and running. [Instructions for doing so can be found here](../../../installation/index.md).
 2. Navigate to the scene `Assets/Scenes/Bootstrap.unity` - **going forward, whenever you want to run the game in the editor, start from this scene**.
 3. Find the `CatenaEntrypoint`, and in the `CatenaEntrypoint` component, configure the **Catena Endpoint URL** to point to your running instance of Catena. If you don't yet have a running instance of Catena, refer to the [How to Run Catena](../../../installation/index.md) documentation. (If you are running Catena locally, the default Endpoint Url should be the same.)
 4. Click play, then on the menu screen, type in a username - it can be anything in the format of `test#`, replacing the # with any number.

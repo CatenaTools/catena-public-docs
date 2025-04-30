@@ -14,7 +14,7 @@ markdown:
 * You must have completed [the Unity Authentication Guide](./authentication.md)
 
 ## Adding Entitlements
-The first step to adding entitlements in your project is to set up a method of logging in the player, and getting an account. Once the player is logged in, they should be ready to create or join a party.
+The first step to adding entitlements in your project is to set up a method of logging in the player, and getting an account. Once the player is logged in, they should be ready to lookup entitlements.
 
 Additionally, you must already have catalog items and offers set up in your database through admin endpoints - as you won't be able to create items or offers from the Unity client.
 
