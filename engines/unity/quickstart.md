@@ -4,7 +4,7 @@
 The initial integration of Catena to your Unity project is estimated to take **~10 minutes**.
 
 ## Prerequisites
-* You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../installation/index.md)
+In order to use the Catena Unity SDK, you must be running Catena, either locally or deployed elsewhere. [Instructions for doing so can be found here](../../installation/index.md).
 
 ## Install the SDK
 {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
@@ -12,10 +12,16 @@ The initial integration of Catena to your Unity project is estimated to take **~
 The Unity SDK lives in Catena's source. It can be found at `catena-tools-core/CatenaUnitySDK/`.
 
 ### 2. Install SDK
-Copy the `catena-tools-core/CatenaUnitySDK/` directory into the `Assets/Scripts/` directory of your Unity project. You should now have the SDK at `<your_unity_project_path>/Assets/Scripts/CatenaUnitySDK/`.
+Copy the `catena-tools-core/CatenaUnitySDK/` directory into the `Assets/Scripts/` directory of your Unity project.
+
+{% admonition type="success" %}
+You should now have the SDK installed at `<your_unity_project_path>/Assets/Scripts/CatenaUnitySDK/`.
+{% /admonition %}
 
 {% admonition type="info" %}
-    For Unity versions **older** than *2020.1*, you will need to **remove** `CatenaUnitySDK/Runtime/Plugins/System.Runtime.CompilerServices.Unsafe.dll`. More information can be [found here](https://github.com/protocolbuffers/protobuf/issues/9618#issuecomment-1185348928).
+    For Unity versions **older** than *2020.1*, you will need to **remove** `CatenaUnitySDK/Runtime/Plugins/System.Runtime.CompilerServices.Unsafe.dll`.
+    
+    More information can be [found here](https://github.com/protocolbuffers/protobuf/issues/9618#issuecomment-1185348928).
 {% /admonition %}
 
 ## Hello World
@@ -24,10 +30,10 @@ Copy the `catena-tools-core/CatenaUnitySDK/` directory into the `Assets/Scripts/
 1. Create an empty `GameObject` in the Scene you would like to add Catena to.
 2. Rename this `GameObject` to `CatenaEntrypoint`.
 3. Add the `CatenaEntrypoint` component to your `GameObject`.
-4. Configure your `GameObject`
+4. Configure your `GameObject`:
     1. Configure the **Catena Endpoint URL** to point to your running instance of Catena. If you don't yet have a running instance of Catena, refer to the [How to Run Catena](../../installation/index.md) documentation.
-    2. You can skip configuring the **Catena Server Api Test Key** for the purposes of this quickstart guide.
-    3. Leave **Use Catena Data Cleanup** checked
+    2. You can skip configuring **Catena Server API Test Key** for the purposes of this guide.
+    3. Leave **Use Catena Data Cleanup** checked.
 
 #### What Is The Catena Entrypoint?
 The **Catena Entrypoint** component is a Singleton class that is used by other Catena components to communicate with the Catena backend.

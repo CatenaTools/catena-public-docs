@@ -10,7 +10,7 @@ markdown:
 Configuring Catena authentication in your Unity project is estimated to take **<10 minutes**.
 
 ## Prerequisites
-* You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../installation/index.md)
+* You must be running Catena, either locally or deployed elsewhere. [Instructions for doing so can be found here](../../installation/index.md).
 * You must have completed [the Unity Quickstart Guide](./quickstart.md)
 
 ## Adding Authentication
