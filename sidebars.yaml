@@ -76,6 +76,10 @@
           label: "Orders"
         - page: features/entitlements/offers.md
           label: "Offers"
+        - group: "Item Providers"
+          items:
+            - page: features/entitlements/SteamAppExternalItemProvider.md
+              label: "Steam App ID"
 - label: Scaling and Load Testing
   page: scaling/index.md
 - group: Catena API Explorer
