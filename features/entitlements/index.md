@@ -52,11 +52,11 @@ corresponding [offer system](offers.md).
 
 Current Catena entitlement providers are listed in the table below.
 
-| Name                              | Type                   | Description                                                                                                                |
-|-----------------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `SteamOrderProvider`              | Order provider         | Initiates item or subscription purchases, refunds, and handles refunds/subscription cancellations initiated through Steam. |
-| `SteamAppExternalItemProvider`    | External item provider | Queries a player's Steam account and maps app IDs to items. Good for checking DLC, unlock keys, editions, etc.             |
-| `TwitchDropsExternalItemProvider` | External item provider | Queries Twitch drop campaign benefits and updates corresponding player item ownership.                                     |
+| Name                              | Type                   | Description                                                                                                                                                        |
+|-----------------------------------|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SteamOrderProvider`              | Order provider         | Initiates item or subscription purchases, refunds, and handles refunds/subscription cancellations initiated through Steam.                                         |
+| `SteamAppExternalItemProvider`    | External item provider | Queries a player's Steam account and maps app IDs to items. Good for checking DLC, unlock keys, editions, etc. [More information](SteamAppExternalItemProvider.md) |
+| `TwitchDropsExternalItemProvider` | External item provider | Queries Twitch drop campaign benefits and updates corresponding player item ownership.                                                                             |
 
 ## Internal item tracking operations
 
@@ -132,3 +132,25 @@ be supported/required for each provider.
 A single item may have multiple unique provider data attached to it but may not have multiple copies of provider data
 attached to it. For example, an item may have a Steam App ID attached to it and data for another provider, but it may
 not have 2 Steam App IDs attached to it.
+
+## Ownership locking
+
+It is not unusual for an admin to grant/revoke an item for a player. However, when item providers or game servers can
+automatically update the ownership of items for players, such as updates from external systems (Steam/Twitch/etc) or
+consuming/destroying items, this may overwrite the ownership set by an admin.
+
+To manage this situation, there are flags that can be applied when an admin is updating item ownership to (un)lock the
+value, prohibiting automatic/non-admin updates.
+
+To set an admin-only lockout on an account-item ownership, two fields must be filled within the
+`AdminSetAccountCountableCatalogItem` request:
+
+1. Set the `Operation` field to an operation that will apply flags: `EXTENDED_OPERATION_LOCKOUT_FLAGS_ONLY` or
+   `EXTENDED_OPERATION_COUNT_AND_LOCKOUT_FLAGS`
+2. Set the `ProhibitNonAdminUpdate` field within `LockoutFlags` to `true`/`false`.
+
+The current lockout flags are included for each item in a `AdminGetAccountCatalogItems` response.
+
+Item ownership locking it handled by the item tracker. Item providers and non-admin operations attempting to update
+ownership should not check the ownership lockouts themselves before attempting updates. Instead, they should simply
+expect that any ownership update may fail if item ownership is locked for an account.
