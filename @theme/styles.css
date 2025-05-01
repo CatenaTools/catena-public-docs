@@ -3,14 +3,42 @@
 
   --spacing-unit: 5px;
 
+  /* markdown content */
   --md-paragraph-margin: 1rem 0;
   --md-list-margin: 0.55rem 0.25rem;
-  --md-content-max-width: 700px;
 
+  /* headings */
+  --h1-font-size: 36px;
+  --h1-line-height: 46px;
+  --h1-margin-top: var(--spacing-xxl);
+  --h1-margin-bottom: var(--spacing-base);
+
+  --h2-font-size: 30px;
+  --h2-line-height: 38px;
+  --h2-margin-top: var(--spacing-xl);
+  --h2-margin-bottom: var(--spacing-base);
+
+  --h3-font-size: 26px;
+  --h3-line-height: 34px;
+  --h3-margin-top: var(--spacing-lg);
+  --h3-margin-bottom: var(--spacing-sm);
+
+  --h4-font-size: 18px;
+  --h4-line-height: 30px;
+  --h4-margin-top: var(--spacing-md);
+  --h4-margin-bottom: var(--spacing-sm);
 
   --h5-font-size: 16px;
-  --h5-margin-top: var(--spacing-sm);
+  --h5-line-height: 16px;
+  --h5-margin-top: var(--spacing-md);
+  --h5-margin-bottom: var(--spacing-xs);
 
+  --h6-font-size: 14px;
+  --h6-line-height: 14px;
+  --h6-margin-top: var(--spacing-sm);
+  --h6-margin-bottom: var(--spacing-xs);
+
+  /* sidebar */
   --sidebar-width: 328px;
   --menu-item-label-gap: var(--spacing-xxs);
   --menu-item-nested-offset: var(--spacing-xs);
