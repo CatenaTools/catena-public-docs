@@ -48,8 +48,27 @@ public override Task<SuperSecureThingResponse> SuperSecureThing(
 
 ## Defining a permission
 
-A service may implement a `TrustedServerPermissions` method to return a set of `TrustedServerPermission`s with
-descriptions that may be used in `AuthRequired` attributes.
+Defining a permission on a service is done with the `UsesTrustedServerPermission` attribute on the service class
+including a name and a description. This forward declaration allows Catena to check that defined permissions are
+actually used, that no undefined permissions are required, and that permissions have a description. This is done to
+improve policy management and avoid mistakes that could lead to vulnerability.
+
+The name of the permission can be used in subsequent `AuthRequired` attributes within the service. The description will
+be utilized by anything that manages API keys/policies.
+
+```C# {% title="Permission declaration example" %}
+[UsesTrustedServerPermission("delete_account", "Permits deleting existing accounts.")]
+public class AccountsService() {
+    [AuthRequired("delete_account")]
+    public override Task<DeleteAccountResponse> DeleteAccount(
+        DeleteAccountRequest request,
+        ServerCallContext context
+    )
+}
+```
+
+A service may define as many permissions as it uses. Permissions are scoped to the service so there is no concern with
+duplicating the permission of another service.
 
 Typically, a service managing API keys, such as the CatenaApiKeysService, will collect all the available permissions
 which can then be used to build policies that are applied to API keys.
