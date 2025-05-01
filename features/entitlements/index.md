@@ -52,11 +52,11 @@ corresponding [offer system](offers.md).
 
 Current Catena entitlement providers are listed in the table below.
 
-| Name                              | Type                   | Description                                                                                                                |
-|-----------------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `SteamOrderProvider`              | Order provider         | Initiates item or subscription purchases, refunds, and handles refunds/subscription cancellations initiated through Steam. |
-| `SteamAppExternalItemProvider`    | External item provider | Queries a player's Steam account and maps app IDs to items. Good for checking DLC, unlock keys, editions, etc.             |
-| `TwitchDropsExternalItemProvider` | External item provider | Queries Twitch drop campaign benefits and updates corresponding player item ownership.                                     |
+| Name                              | Type                   | Description                                                                                                                                                        |
+|-----------------------------------|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SteamOrderProvider`              | Order provider         | Initiates item or subscription purchases, refunds, and handles refunds/subscription cancellations initiated through Steam.                                         |
+| `SteamAppExternalItemProvider`    | External item provider | Queries a player's Steam account and maps app IDs to items. Good for checking DLC, unlock keys, editions, etc. [More information](SteamAppExternalItemProvider.md) |
+| `TwitchDropsExternalItemProvider` | External item provider | Queries Twitch drop campaign benefits and updates corresponding player item ownership.                                                                             |
 
 ## Internal item tracking operations
 
