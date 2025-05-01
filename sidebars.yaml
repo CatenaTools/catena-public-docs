@@ -71,6 +71,8 @@
           label: "Orders"
         - page: features/entitlements/offers.md
           label: "Offers"
+- label: Scaling and Load Testing
+  page: scaling/index.md
 - group: Catena API Explorer
   page: apis/catena-tools-core.yaml
 - group: Catena Core (the "engine")
