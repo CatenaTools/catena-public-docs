@@ -10,7 +10,7 @@ Peer to peer matchmaking is the simplest configuration in which you can run the 
 
 ## Prerequisites
 * {% partial file="/_partials/unity/running-catena-prereq.md" /%}
-* You must have completed the [Unity Authentication Guide](../authentication.md)
+* You must have completed the [Unity Authentication Guide](../authentication.md).
 
 ## Configuring The Catena Backend
 {% partial file="/_partials/unity/matchmaking-configuring-the-catena-backend.md" /%}
@@ -48,10 +48,10 @@ Peer to peer matchmaking is the simplest configuration in which you can run the 
 }
 ```
 
-The `SimpleP2PMatchmakingHooks` **Custom Hook** is provided out of the box to bypass dedicated game server provisioning when matches are successfully made.
+The `SimpleP2PMatchmakingHooks` [custom hook](../../../features/matchmaking/catena-matchmaker-more.md#custom-hooks) is provided out of the box to bypass dedicated game server provisioning when matches are successfully made.
 
 ## Matchmaking A Player
-Reminder, if you have not yet completed the [Unity Authentication Guide](../authentication.md), please do so now. Once a player has authenticated against Catena and registered a session, they can then begin matchmaking.
+Reminder: if you have not yet completed the [Unity Authentication Guide](../authentication.md), please do so now. Once a player has authenticated against Catena and registered a session, they can then begin matchmaking.
 
 To initiate matchmaking, you first need to register callbacks:
 
@@ -139,7 +139,11 @@ Configuring a practical example should take you **<30 minutes**.
 ### Prerequisites
 * {% partial file="/_partials/unity/running-catena-prereq.md" /%}
 * Complete the [Mirror Networking Guide](../supplemental-materials/mirror.md)
-  * _This guide shows you how to set up an networked game MVP in Unity in less than 10 minutes. **Mirror is not a requirement to use Catena Matchmaking, it is only used in these docs to show you a functional example of how to proceed after matchmaking**_
+{% admonition type="info" %}
+This guide shows you how to set up an networked game MVP in Unity in less than 10 minutes.
+
+**Mirror is not a requirement to use Catena Matchmaking. It is only used in these docs to show you a functional example of how to proceed after matchmaking**.
+{% /admonition %}
 
 ### Configure Non-Matchmaking Portions
 1. Add authentication to the Mirror Sample by using the [Unity Authentication Guide](../authentication.md)
@@ -147,7 +151,7 @@ Configuring a practical example should take you **<30 minutes**.
 
 ### Add Peer to Peer Matchmaking
 1. Configure your running Catena instance using the [Configuring The Catena Backend](#configuring-the-catena-backend) documentation above
-2. Replace the contents of your `SceneManager.cs` file with the below code
+2. Replace the contents of your `SceneManager.cs` file with the following code:
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c

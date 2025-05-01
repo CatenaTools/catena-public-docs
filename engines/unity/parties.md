@@ -8,27 +8,28 @@ markdown:
 
 ## Prerequisites
 * {% partial file="/_partials/unity/running-catena-prereq.md" /%}
-* You must have completed [the Unity Quickstart Guide](./quickstart.md)
-* You must have completed [the Unity Authentication Guide](./authentication.md)
+* You must have completed [the Unity Quickstart Guide](./quickstart.md).
+* You must have completed [the Unity Authentication Guide](./authentication.md).
 
 ## Adding Parties
-The first step to adding parties in your project is to set up a method of logging in the player, and getting an account. Once the player is logged in, they should be ready to create or join a party.
+The first step to adding parties in your project is to set up a way for the player to log in and get an account. Once the player is logged in, they should be ready to create or join a party.
 
 For more information on Parties in Catena and the features available, refer to the parties documentation.
 <!-- Add in this link when it exists: [refer to the Parties documentation](../../features/parties/index.md). -->
 
 ### Creating a party
 
-1. Reminder, if you have not yet completed the [Unity Quickstart Guide](./quickstart.md), and [the Unity Authentication Guide](./authentication.md) please do so now.
-2. Return to the scene created in the Unity Authentication Guide, which should already have `CatenaEntrypoint` and `CatenaPlayer`. We will henceforth refer to this as "your Scene".
-3. Create an empty `GameObject` in your Scene.
+1. Reminder: if you have not yet completed the [Unity Quickstart Guide](./quickstart.md) and [the Unity Authentication Guide](./authentication.md), please do so now.
+2. Return to the scene created in the Unity Authentication Guide, which should already have `CatenaEntrypoint` and `CatenaPlayer`. We will  refer to this as "your scene".
+3. Create an empty `GameObject` in your scene.
     1. Rename this `GameObject` to `CatenaParties`.
     2. Add the `CatenaPartiesManager` component to your `GameObject`.
 
-#### What Is The Catena Parties Manager?
-The **Catena Parties Manager** component houses functionality for operations related to parties. It's a way to more easily interface with the Catena Party endpoints, instead of using the **Catena Entrypoint** component directly.
+{% admonition type="info" name="What Is The Catena Parties Manager?" %}
+The **Catena Parties Manager** component houses functionality for operations related to parties. It's an easier way to interface with the Catena Party endpoints, instead of using the **Catena Entrypoint** component directly.
+{% /admonition %}
 
-4. Import the Catena Unity SDK to the Script you'd like to create parties from, if not already done, as well as `Catena.CatenaParties`.
+4. If you haven't already done so, add the following imports to the script you'd like to create parties from:
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
@@ -36,7 +37,7 @@ using Catena.CatenaParties;
 using CatenaUnitySDK;
 ```
 
-5. From the function you'd like to make calls to Catena from, write the following code.
+5. In the function you'll use to make calls to Catena, write the following code:
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
@@ -51,18 +52,23 @@ catenaParties.CreateParty();
 ```
 {% admonition type="warning" name="Account Needed"%}
 In order to create or join a party, the player must already be logged in to Catena, so you must check this before trying to create/join a party. There are a few ways to do this:
-* Make sure wherever you are trying to create a party from is called only after account login is completed.
+* Ensure the method that tries to create a party is only called after successful account login.
 * Have your script subscribe to `CatenaPlayer.OnAccountLoginComplete`, so it is informed when login is complete.
 * Check  `CatenaEntrypoint.HasAccount` before making any calls to the Parties manager.
 {% /admonition %}
-With the party now created, you are now able to send the invite code to other players so they may join the party (The invite code is included in the `PartyEventArgs.Party` provided by the `OnPartyJoin` event). By creating the party, you become the default party leader.
+With the party now created, you are now able to send the invite code to other players so they may join the party (The invite code is included in the `PartyEventArgs.Party` provided by the `OnPartyJoin` event.)
+
+{% admonition type="info" %}
+By creating the party, you become the default party leader.
+{% /admonition %}
+
 ### Joining a Party
 
 In addition to creating parties, you will need the ability for other players to join parties. This is done using the invite code included in the response data from creating a party.
 
 1. Create a `UI > Input Field-TextMeshPro` in your scene, and rename it to `Invite Code`
 2. Add a reference to the input field in whatever script you'd like to join parties from.
-3. From the script you'd like to join the party from, add the following code:
+3. In the script you'd like to join the party from, add the following code:
 
 ```c
 // Example of reference to input field
@@ -82,11 +88,11 @@ public void JoinParty()
 
 4. Call the `JoinParty` function from wherever you'd like, after the input code has already been entered. For example, you could create a button (`UI > Button-TextMeshPro`), then add an `OnClick` event subscriber that calls the `JoinParty` function when clicked.
 
-You should now have the functionality to both create or join a party - with the party data being sent with the `OnPartyJoin` event.
+You should now have the functionality to both create or join a party — with the party data being sent with the `OnPartyJoin` event.
 
 ### Leaving a Party
 
-To leave a party, whether the player has created their own party or joined another, all you need to do is add a call to `LeaveParty` in the `CatenaPartiesManager` to your script. Here is some example code:
+To leave a party, whether the player has created their own party or joined another, all you need to do is add a call to `LeaveParty` in the `CatenaPartiesManager` to your script. For example:
 
 ```c
 public void LeaveParty()
@@ -104,33 +110,65 @@ public void LeaveParty()
 }
 ```
 
-### Other Party functionality
+## Other Party Functionality
 
-In addition to joining and leaving parties, there are a few other functions that can be called to modify the party in various ways. Whenever a party is updated, the event `CatenaPartiesManager.OnPartyUpdate` will be invoked, and will contain the updated party data. `OnPartyUpdate` will be invoked in response to either the player attempting to make changes to the party, or if another player in the party makes changes - keeping you up to date with the latest party information.
+### Events
 
-#### Readying Up
+In addition to joining and leaving parties, there are a few other functions that can be called to modify the party.
+{% admonition type="info" %}
+Whenever a player makes changes to a party, the `CatenaPartiesManager.OnPartyUpdate` event will be invoked, and will contain the updated party data.
+{% /admonition %}
+`OnPartyUpdate` keeps you up to date with the latest party information.
 
-In some cases, it may be helpful to have players say when they are ready, for cases such as the party leader needing everyone to be ready before starting matchmaking. This ready status can then be checked for all party members, as a way to confirm when everyone is ready. In order for a party member to 'ready up' you can call `CatenaPartiesManager.ReadyUp(bool isReady)` - giving the argument True for readying up, and False to un-ready up.
+### Readying Up
+
+In some cases, it may be helpful to have players indicate when they are "ready". For example, the party leader may need everyone to be ready before starting matchmaking. 
+
+To "ready up" a party member, you can call `CatenaPartiesManager.ReadyUp(bool isReady)`, with the argument `True` for readying up, and `False` to un-ready up. This sets a status which can be checked to confirm whether a given party member is ready.
 
 You can get the ready status of a player through the party data that is returned when joining or updating a party.
 
-#### Leader Abilities
+### Leader Abilities
 
-The party leader has access to some functionality that the other players do not - such as kicking players, or promoting other players to leaders.
+The party leader has access to some functionality that the other players do not — such as kicking players, or promoting other players to leaders.
 
-- **To check the leader status of a player:** You can see if the current user is the leader via `CatenaPartiesManager.IsLeader()`, and otherwise check a player's leader status through the party data that is returned when joining or updating a party.
-- **To kick a player:** Add a call to `CatenaPartiesManager.KickPlayer(string playerId)`, with the argument being the player ID of the player you want to kick.
-- **To promote a player to be the leader:** Add a call to`CatenaPartiesManager.SetLeader(string playerId)`, with the argument being the player ID of the player you want to set as the new leader. (The player ID can be checked through the party data that is returned when joining/updating a party)
+#### Check the leader status of a player:
+You can see if the current user is the leader via `CatenaPartiesManager.IsLeader()`. You can also check a player's leader status through the party data that is returned when joining or updating a party.
 
-#### Party Metadata
+#### Kick a player:
+Add a call to `CatenaPartiesManager.KickPlayer(string playerId)`, passing the player ID of the player you want to kick.
 
-In addition to the ready status and leader status of a player, you can add other arbitrary metadata to both the party and individual players - allowing you to attach data and send that data to other members of the party. 
+#### Promote a player to be the leader:
+Add a call to`CatenaPartiesManager.SetLeader(string playerId)`, passing the player ID of the player you want to set as the new leader. (You can get the player ID from the party data that is returned when joining/updating a party.)
 
-- **To create metadata:** Add a call to `CatenaPartiesManager.CreateMetadata()` - you will need to provide a string as the key for the data, and an instance of `Catena.Groups.EntityMetadata`, as well as optionally the player ID of the player to add the metadata to. If a player ID is not given, then the metadata will be added to the overall party.
-- **To update metadata:** The requirements are similar to `CreateMetadata`, but this time calling `CatenaPartiesManager.UpdateMetadata()` - with the string being the key for the data you want to update, and providing the metadata as well as the optional player ID. You can also optionally add an `UpdateMetadataOperationType` as well, indicating whether you want to overwrite or append to the data - the default functionality being to overwrite.
-- **To delete metadata:** Add a call to `CatenaPartiesManager.DeleteMetadata()`, providing the key for the data you want to delete and the optional player ID. For deleting metadata, you can define a `DeleteJsonMetadataTypeType` (which defaults to the entire entry), and a list of json properties to remove, if not deleting the whole entry.
+### Party Metadata
 
-### Sample script
+In addition to the ready status and leader status of a player, you can add other arbitrary metadata to the party and to individual players. That data will be made available to all members of the party. 
+
+#### Create metadata:
+Make a call to `CatenaPartiesManager.CreateMetadata`. You will need to provide:
+- a string as the key for the data
+- an instance of `Catena.Groups.EntityMetadata`
+- (optionally) the player ID of the player to add the metadata to
+
+If a player ID is not given, then the metadata will be added to the overall party.
+
+#### Update metadata:
+Similarly, make a call to `CatenaPartiesManager.UpdateMetadata()`, providing:
+- the key for the data you want to update
+- the updated metadata
+- (optionally) the player ID
+
+You can also optionally add an `UpdateMetadataOperationType`, indicating whether you want to overwrite or append to the data. (Overwriting is the default.)
+
+#### Delete metadata:
+Make a call to `CatenaPartiesManager.DeleteMetadata()`, providing:
+- the key for the data you want to delete
+- (optionally) the player ID
+
+You can optionally define a `DeleteJsonMetadataTypeType` (which defaults to the entire entry), and a list of JSON properties to remove, if you don't want to delete the whole entry.
+
+## Sample script
 
 The following is an example script that includes public functions for all the different options for parties, with comments indicating when to call functions, and where to insert your own code, or calls to your own code.
 
@@ -239,6 +277,6 @@ public class PartyManager : MonoBehaviour
 }
 ```
 
-### Demo Example
+## Demo Example
 
 For an example of the party functionality in action, check out the [Catena Galactic Kittens Demo](https://github.com/CatenaTools/catena-GalacticKittens-demo). In order to enable the parties functionality in the demo, you will need to go to `Project Settings > Player > Scripting Define Symbols` and add a defintion for `ENABLE_CATENA_PARTIES`.

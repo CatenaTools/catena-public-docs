@@ -10,22 +10,22 @@ markdown:
 * {% partial file="/_partials/unity/running-catena-prereq.md" /%}
 * You must have the entitlements service running, and have it configured with Items and Offers already set up. Instructions for doing so can be found here
 <!-- Add in this link when it exists: [Instructions for doing so can be found here](../../features/entitlements/index.md). -->
-* You must have completed [the Unity Quickstart Guide](./quickstart.md)
-* You must have completed [the Unity Authentication Guide](./authentication.md)
+* You must have completed [the Unity Quickstart Guide](./quickstart.md).
+* You must have completed [the Unity Authentication Guide](./authentication.md).
 
 ## Adding Entitlements
-The first step to adding entitlements in your project is to set up a method of logging in the player, and getting an account. Once the player is logged in, they should be ready to lookup entitlements.
+The first step to adding entitlements in your project is to set up a way for the player to log in and get an account. Once the player is logged in, they should be ready to lookup entitlements.
 
-Additionally, you must already have catalog items and offers set up in your database through admin endpoints - as you won't be able to create items or offers from the Unity client.
+Additionally, you must already have catalog items and offers set up in your database through admin endpoints, as you won't be able to create items or offers from the Unity client.
 
 For more information on Entitlements in Catena and the features available, refer to the entitlements documentation.
 <!-- Add in this link when it exists: [refer to the Entitlements documentation](../../features/entitlements/index.md). -->
 
 ### Client-Side Entitlements
 
-1. Reminder, if you have not yet completed the [Unity Quickstart Guide](./quickstart.md), and [the Unity Authentication Guide](./authentication.md) please do so now.
-2. Return to the scene created in the Unity Authentication Guide, which should already have `CatenaEntrypoint` and `CatenaPlayer`. We will henceforth refer to this as "your Scene".
-3. Create an empty `GameObject` in your Scene.
+1. Reminder: if you have not yet completed the [Unity Quickstart Guide](./quickstart.md) and [the Unity Authentication Guide](./authentication.md), please do so now.
+2. Return to the scene created in the Unity Authentication Guide, which should already have `CatenaEntrypoint` and `CatenaPlayer`. We will henceforth refer to this as "your scene".
+3. Create an empty `GameObject` in your scene.
     1. Rename this `GameObject` to `CatenaClientEntitlements`.
     2. Add the `CatenaClientEntitlementsManager` component to your `GameObject`.
 
@@ -33,7 +33,7 @@ For more information on Entitlements in Catena and the features available, refer
 The **Catena Client Entitlements Manager** component houses functionality for allowing a player to get the list of items that they have - both getting the full list of items, and polling for whether the player owns an individual item.
 {% /admonition %}
 
-4. Import the Catena Unity SDK to the Script you'd like to create parties from, if not already done, as well as `Catena.CatenaEntitlements`.
+4.  If you haven't already done so, add the following imports to the script you'd like to create entitlements from:
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
@@ -41,7 +41,7 @@ using Catena.CatenaEntitlements;
 using CatenaUnitySDK;
 ```
 
-5. From the function you'd like to get the player's catalog from, write the following code.
+5. In the function you'll use to get the player's catalog, write the following code:
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
@@ -59,9 +59,9 @@ catenaClientEntitlements.OnGetCatalog += (object sender, List<CatenaEntrypoint.P
 catenaClientEntitlements.UpdateCatalog();
 ```
 
-With the above code, you should now be able to get the list of items that the player owns. By calling `UpdateCatalog`, the `CatenaClientEntitlementsManager` will now have a cached version of the catalog, which you can access with either `GetCatalog` (which provides the full list of items) or `GetCatalogItem` (which returns a single item, given the item Id.)
+With this in place, you should now be able to get the list of items that the player owns. By calling `UpdateCatalog`, the `CatenaClientEntitlementsManager` will now have a cached version of the catalog, which you can access with either `GetCatalog` (which provides the full list of items) or `GetCatalogItem` (which returns a single item, given the item Id.)
 
-Additionally, if you wish to just check whether the player owns a single item, you can call `GetPlayerOwnsCatalogItem` - which will check Catena directly if the player owns an item, rather than checking the cached data. The following code is an example of this:
+Additionally, if you wish to just check whether the player owns a single item, you can call `GetPlayerOwnsCatalogItem` — which will check Catena directly if the player owns an item, rather than checking the cached data. The following code is an example of this:
 
 ```c
 var catenaClientEntitlements = FindObjectOfType<CatenaClientEntitlementsManager>();
@@ -87,9 +87,9 @@ catenaClientEntitlements.GetPlayerOwnsCatalogItem("sample-item-id");
 
 ### Server-Side Entitlements
 
-Some entitlements functionality can only be done on a trusted service, the most important of which being preparing and executing offers. A server will prepare offers for a player, then send that offer info to the player - the player then picks the offer that they would like, which is then executed by the server.
+Some entitlements functionality can only be done on a trusted service, most importantly preparing and executing offers. A server will prepare offers for a player, then send that offer info to the player. The player then picks the offer that they would like, which is then executed by the server.
 
-The following steps are for code that should only be executed on a dedicated server build, which needs to include a valid API Key. How that server gets the API key is up to you - the following steps are for creating and executing an offer on a dedicated server with an API key set up.
+The following steps are for code that should only be executed on a dedicated server build, which needs to include a valid [API Key](../../features/api-keys/). The following steps are for creating and executing an offer on a dedicated server with an API key set up.
 
 1. Create an empty `GameObject` in your Scene.
     1. Rename this `GameObject` to `CatenaServerEntitlements`.
@@ -99,7 +99,7 @@ The following steps are for code that should only be executed on a dedicated ser
 The **Catena Server Entitlements Manager** component houses functionality for a server to both to determine what items the players own, as well as preparing and executing offers on behalf of the player connected to the server.
 {% /admonition %}
 
-2. Import the Catena Unity SDK to the Script you'd like to create parties from, if not already done, as well as `Catena.CatenaEntitlements`.
+2.  If you haven't already done so, add the following imports to the script you'd like to create offers from:
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
@@ -121,7 +121,7 @@ catenaServerEntitlements.OnOffersPrepared += (object sender, CatenaEntrypoint.Pr
 catenaServerEntitlements.PrepareOffersForProvider("account-id", EntitlementProvider.Unspecified, "USD");
 ```
 
-4. Add the following code for when receiving the desired offers from the user
+4. Add the following code for receiving the desired offers from the user:
 
 ```c
 var catenaServerEntitlements = FindObjectOfType<CatenaServerEntitlementsManager>();
@@ -135,6 +135,12 @@ catenaServerEntitlements.OnOfferExecuted += (object sender, CatenaEntrypoint.Exe
 catenaServerEntitlements.ExecutePreparedOffers("account-id", preparedOrdersWithQuantity);
 ```
 
-### Demo Example
+## Demo Example
 
-For an example of the entitlements functionality in action, check out the [Catena Galactic Kittens Demo](https://github.com/CatenaTools/catena-GalacticKittens-demo). In order to enable the entitlements functionality in the demo, you will need to go to `Project Settings > Player > Scripting Define Symbols` and add a defintion for `ENABLE_CATENA_ENTITLEMENTS`. The demo has functionality to list the items that the user owns, solely as a test functionality, can prepare and execute it's own offers from the menu. You will need to provide an API key to the demo for this to work.
+For an example of the entitlements functionality in action, check out the [Catena Galactic Kittens Demo](https://github.com/CatenaTools/catena-GalacticKittens-demo).
+
+In order to enable the entitlements functionality in the demo, go to `Project Settings > Player > Scripting Define Symbols` and add a defintion for `ENABLE_CATENA_ENTITLEMENTS`. The demo has functionality to list the items that the user owns, solely as a test functionality, can prepare and execute its own offers from the menu.
+
+{% admonition type="info" %}
+You will need to provide an API key to the demo for this to work.
+{% /admonition %}

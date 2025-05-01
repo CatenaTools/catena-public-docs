@@ -5,11 +5,11 @@ markdown:
 ---
 
 # Unity - Matchmaking Into Dedicated Game Servers
-Matchmaking into dedicated game servers is necessary when your game requires a trusted authority to track game state during your moment to moment gameplay.
+Matchmaking into dedicated game servers is necessary when your game requires a trusted authority to track game state during your moment-to-moment gameplay.
 
 ## Prerequisites
 * {% partial file="/_partials/unity/running-catena-prereq.md" /%}
-* You must have completed the [Unity Authentication Guide](../authentication.md)
+* You must have completed the [Unity Authentication Guide](../authentication.md).
 
 ## Configuring The Catena Backend
 
@@ -51,7 +51,9 @@ Matchmaking into dedicated game servers is necessary when your game requires a t
 
 When matchmaking players into dedicated game servers, you will also need to configure the **Match Broker** in the Catena Backend. This configuration will differ depending on the needs of your game. Refer to the [Catena Match Broker documentation](/features/game-servers/index.md) for more information.
 
-For ease of testing for a first time integration, we recommend starting with a [CatenaLocalBareMetalAllocator](/features/game-servers/index.md#catenalocalbaremetalallocator) **Match Broker** configuration that will start and manage game server processes alongside the Catena backend. If you would like to provision game servers using another method, you may refer to the [available match broker allocator configuration options](/features/game-servers/index.md#available-configuration-options).
+For testing a first time integration, we recommend starting with a [CatenaLocalBareMetalAllocator](/features/game-servers/index.md#catenalocalbaremetalallocator) match broker configuration that will start and manage game server processes alongside the Catena backend.
+
+If you would like to provision game servers using another method, you may refer to the [available match broker allocator configuration options](/features/game-servers/index.md#available-configuration-options).
 
 ```json
 "Catena": {
@@ -89,16 +91,16 @@ For ease of testing for a first time integration, we recommend starting with a [
 {% admonition type="warning" %}
     If you have deployed Catena to Heroku, the `CatenaLocalBareMetalAllocator` is not supported. If you would like to run this allocator, refer to [Installation Options](/installation/index.md) to deploy Catena using a different configuration.
 
-    Please ensure your game server's executable is co-located with the Catena backend, or else it will not be able to run it.
+    Please ensure your game server's executable is co-located with the Catena backend, or else Catena will not be able to run it.
 {% /admonition %}
 
-# Configuring Your Dedicated Game Server
+## Configuring Your Dedicated Game Server
 Your game server will need to be configured to communicate with your running Catena backend.
 
 1. In the Scene that launches when the game server is run, add a new empty `GameObject` and call it `CatenaSingleMatchGameServer`.
 2. Add a component to that `GameObject`, selecting the `CatenaSingleMatchGameServer` script.
 
-In whatever your main script is to manage your Scene, such as `SceneManager.cs` if you are using the [Supplemental Material](/engines/unity/supplemental-materials/mirror.md) guide, add the following:
+In whichever script manages your Scene (such as `SceneManager.cs` if you are using the [Supplemental Material](/engines/unity/supplemental-materials/mirror.md) guide), add the following:
 
 ```c
 private CatenaSingleMatchGameServer _catenaSingleMatchGameServer;
@@ -108,15 +110,15 @@ void Awake()
 #if UNITY_SERVER
     // Start up game server, using whatever netcode solution you prefer
 
-    // Tell Catena we are ready for a match
+    // Tell Catena we are ready for a matc 0.75rem 0h
     _catenaSingleMatchGameServer = CatenaSingleMatchGameServer.Instance;
     _catenaSingleMatchGameServer.GetMatch();
 #endif
 }
 ```
 
-# Matchmaking A Player
-Reminder, if you have not yet completed the [Unity Authentication Guide](../authentication.md), please do so now. Once a player has authenticated against Catena and registered a session, they can then begin matchmaking.
+## Matchmaking a Player
+Reminder: if you have not yet completed the [Unity Authentication Guide](../authentication.md), please do so now. Once a player has authenticated against Catena and registered a session, they can then begin matchmaking.
 
 To initiate matchmaking, you first need to register callbacks:
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
@@ -216,7 +218,7 @@ Configuring a practical example should take you **<30 minutes**.
 2. Remove the `Network Manager HUD` from your `NetworkManager` object
 
 ### Add Matchmaking
-1. Replace the contents of your `SceneManager.cs` file with the below code
+1. Replace the contents of your `SceneManager.cs` file with the following code:
 
 <!-- TODO (@HF): csharp does not appear to be supported. determine how to enable it for better syntax highlighting -->
 ```c
@@ -474,15 +476,17 @@ public class SceneManager : MonoBehaviour
 }
 ```
 
-2. Build your game server
+2. Build your game server:
     1. In your Unity Editor, navigate to `File -> Build Profiles`
     2. Select "Windows Server"
     3. Select "Switch Platform"
     4. Select "Build"
     5. Note the full path of your server build executable, you will need this in the next step
-3. If you are running Catena locally, skip this step. If you have it deployed somewhere, you will need to copy your server binary and associated output to the same machine that Catena is running on
-4. Configure your running Catena instance using the [Configuring The Catena Backend](#configuring-the-catena-backend) documentation above
-    1. When you are configuring the match broker, configure the `Catena.MatchBroker.Allocators[0].Configuration.GameServerPath` to be the full path of your server executable
+3. _If you are running Catena locally, you can skip this step_. If you have Catena deployed somewhere, copy your server binary and associated output to the same machine that Catena is running on.
+4. Configure your running Catena instance using the [Configuring The Catena Backend](#configuring-the-catena-backend) documentation above.
+    {% admonition type="info" %}
+    When you are configuring the match broker, configure `Catena.MatchBroker.Allocators[0].Configuration.GameServerPath` to be the full path of your server executable.
+    {% /admonition %}
 5. In your Unity editor, navigate to `File -> Build Profiles`
 6. Select "Windows"
 7. Select "Switch Platform"
