@@ -7,7 +7,7 @@ markdown:
 # Unity - Entitlements
 
 ## Prerequisites
-* You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../installation/index.md)
+* {% partial file="/_partials/unity/running-catena-prereq.md" /%}
 * You must have the entitlements service running, and have it configured with Items and Offers already set up. Instructions for doing so can be found here
 <!-- Add in this link when it exists: [Instructions for doing so can be found here](../../features/entitlements/index.md). -->
 * You must have completed [the Unity Quickstart Guide](./quickstart.md)

@@ -8,7 +8,11 @@ Catena is a source-available set of tools that is designed to help game develope
 
 ## Source Available
 
-Unlike other platforms, Catena gives you acces to its source code — which also means you are in charge of running it. Don’t worry, this isn’t as scary as it sounds! You have several options for how to do so, and you can [get up and running in just a few minutes](../installation/index.md).
+Unlike other platforms, Catena gives you access to its source code — which also means you are in charge of running it.
+
+{% admonition type="success" %}
+Don’t worry, this isn’t as scary as it sounds! You have several options for how to run Catena, and you can follow our guides to [get set up in just a few minutes](../installation/index.md).
+{% /admonition %}
 
 Since Catena is source available, you have the option to peel the curtain back and modify it to match the needs of your game. Catena handles the hard parts of implementing a game backend, and is designed in a similar manner to “engine code” you might find in Unreal Engine.
 

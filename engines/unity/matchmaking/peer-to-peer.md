@@ -6,10 +6,10 @@ markdown:
 
 # Unity - Peer to Peer Matchmaking
 
-Peer to peer matchmaking is the simplest configuration you can run the Catena Matchmaker in. It is a good first step to get up and running, even if your game utilizes dedicated game servers. You can build on top of this implementation to add dedicated game server support.
+Peer to peer matchmaking is the simplest configuration in which you can run the Catena Matchmaker. It is a good first step to get up and running, even if your game utilizes dedicated game servers. You can build on top of this implementation to add dedicated game server support.
 
 ## Prerequisites
-* You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](/installation/index.md)
+* {% partial file="/_partials/unity/running-catena-prereq.md" /%}
 * You must have completed the [Unity Authentication Guide](../authentication.md)
 
 ## Configuring The Catena Backend
@@ -137,7 +137,7 @@ catenaEntrypoint.CancelMatchmaking(ticketId);
 Configuring a practical example should take you **<30 minutes**.
 
 ### Prerequisites
-* You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](/installation/index.md)
+* {% partial file="/_partials/unity/running-catena-prereq.md" /%}
 * Complete the [Mirror Networking Guide](../supplemental-materials/mirror.md)
   * _This guide shows you how to set up an networked game MVP in Unity in less than 10 minutes. **Mirror is not a requirement to use Catena Matchmaking, it is only used in these docs to show you a functional example of how to proceed after matchmaking**_
 

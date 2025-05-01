@@ -10,8 +10,8 @@ markdown:
 Configuring Catena authentication in your Unity project is estimated to take **<10 minutes**.
 
 ## Prerequisites
-* You must be running Catena, either locally or deployed elsewhere. [Instructions for doing so can be found here](../../installation/index.md).
-* You must have completed [the Unity Quickstart Guide](./quickstart.md)
+* {% partial file="/_partials/unity/running-catena-prereq.md" /%}
+* You must have completed [the Unity Quickstart Guide](./quickstart.md).
 
 ## Adding Authentication
 The first real call you'll want to make to Catena is authenticating a player to register a session. Catena supports a variety of authentication providers. For the purposes of this guide, we will be using our **UNSAFE** provider, which is used for development workflows.

@@ -4,7 +4,7 @@
 The initial integration of Catena to your Unity project is estimated to take **~10 minutes**.
 
 ## Prerequisites
-In order to use the Catena Unity SDK, you must be running Catena, either locally or deployed elsewhere. [Instructions for doing so can be found here](../../installation/index.md).
+{% partial file="/_partials/unity/running-catena-prereq.md" /%}
 
 ## Install the SDK
 {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
