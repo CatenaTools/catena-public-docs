@@ -1,6 +1,27 @@
 :root {
-  --font-family-base: 'Lato', sans-serif;
   --font-weight-regular: 400;
+
+  --spacing-unit: 5px;
+
+  --md-paragraph-margin: 1rem 0;
+  --md-list-margin: 0.55rem 0.25rem;
+  --md-content-max-width: 700px;
+
+
+  --h5-font-size: 16px;
+  --h5-margin-top: var(--spacing-sm);
+
+  --sidebar-width: 328px;
+  --menu-item-label-gap: var(--spacing-xxs);
+  --menu-item-nested-offset: var(--spacing-xs);
+}
+
+:root.dark {
+  --bg-color: var(--color-warm-grey-1);
+  --sidebar-bg-color: var(--color-warm-grey-2);
+  --navbar-bg-color: black;
+  --footer-bg-color: black;
+  --text-color-primary: var(--color-warm-grey-10);
 }
 
 :root .button-tone-brand {
@@ -11,4 +32,8 @@
 :root.dark .button-tone-brand {
   background-color: rgb(242, 129, 33);
   color: #fff;
+}
+
+li {
+  margin: 0.4rem 0;
 }
