@@ -48,7 +48,7 @@ flowchart LR
 Typically, a service managing API keys, such as the `CatenaApiKeysService`, will collect all the available permissions,
 which can then be used to build policies that are applied to API keys.
 
-<!-- TODO: When, how, and by whom are permissions created/defined? -->
+Permissions are defined in the code for each service. More information can be [found here](/core/auth/api-keys.md#defining-a-permission).
 
 ### Managing policies
 
