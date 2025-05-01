@@ -19,7 +19,7 @@ message Party {
 
 ## How does Catena define a player?
 
-A `Player` is comprised of a unique identifier `player_id` that is the same as the player’s Catena `account_id`, a `display_name` that will be shown to other players in game, two boolean values `is_ready` and `is_leader` to track if the player has readied up or not and whether or not the player is the leader of the party respectively, a `team_number` that is assigned by a matchmaker, and a map of key-value metadata pairs.
+A `Player` is comprised of a unique identifier `player_id` (which is the same as the player’s Catena `account_id`), a `display_name` that will be shown to other players in game, two boolean values `is_ready` and `is_leader` to track if the player has readied up or not and whether or not the player is the leader of the party respectively, a `team_number` that is assigned by a matchmaker, and a map of key-value metadata pairs.
 
 ```protobuf
 message Player {
@@ -56,17 +56,17 @@ message CreatePartyResponse {
 
 The method handler for `CreateParty` will create a unique identifier for the party, generate and assign it a new six-digit alphanumeric invite code, and set the player who requested its creation as the party leader.
 
-The user who requested the party’s creation may also provide metadata specific to themselves as a player in this party in a `CreatePartyRequest`.
+With a `CreatePartyRequest`, the user requesting the party’s creation may also provide metadata specific to themselves as a player in this party.
 
 The newly created party will be returned in a `CreatePartyResponse`.
 
 ## Can parties be updated once created?
 
-Information specific to a party itself (`party_id` & `invite_code`) will not change after its creation.
+Information specific to a party itself (`party_id` and `invite_code`) will not change after its creation.
 
 What may be updated, however, are a party’s metadata, the list of players it maintains, and who the leader of the party is (`leader_id`).
 
-The players themselves may also update their own metadata as well as whether they are ready to begin matchmaking (`is_ready`).
+The players themselves may also update their own metadata, as well as whether they are ready to begin matchmaking (`is_ready`).
 
 All of these supported updates are facilitated through the use of the `UpdatePartyPlayer` RPC.
 
@@ -94,7 +94,9 @@ message UpdatePartyPlayerResponse {
 
 Currently, the `PartiesService` only supports joining a party by entering the invite code of the party a player is attempting to join. This is facilitated through the use of the `JoinPartyWithInviteCode` RPC.
 
-*Note: It is assumed that an existing member of the party will provide the player attempting to join with the party’s invite code.*
+{% admonition type="info" %}
+**Note:** It is assumed that an existing member of the party will provide the player attempting to join with the party’s invite code.
+{% /admonition %}
 
 ```protobuf
 /* Allows a player to join a party by specifying its invite code. */
@@ -117,9 +119,11 @@ message JoinPartyWithInviteCodeResponse {
 
 In a `JoinPartyWithInviteCodeRequest`, a player must specify the invite code of the party they are attempting to join, and may optionally provide metadata specific to themselves as a player in this party.
 
-If they were able to join the party successfully, they will be returned a `JoinPartyWithInviteCodeResponse` containing the `Party` object describing the party of which they are now a member.
+If they were able to join the party successfully, they will receive a `JoinPartyWithInviteCodeResponse` containing data describing the party of which they are now a member.
 
-**Note: There is currently no restriction on the number of players that may join a single party. That being said, parties attempting to enter matchmaking will have to be of a particular size depending on the game mode for which the matchmaker is attempting to form a match e.g. a max party size of three for a 3v3 game mode.**
+{% admonition type="info" %}
+There is currently no restriction on the number of players that may join a single party. That being said, parties attempting to enter matchmaking will have to be of a particular size depending on the matchmaker's configured game mode, e.g. a max party size of three for a 3v3 game mode.
+{% /admonition %}
 
 ## How can players leave a party?
 
@@ -143,7 +147,9 @@ message LeavePartyResponse {}
 
 Currently, a `LeaveParty` request must contain the `party_id` of the party a player is attempting to leave. However, this *****must***** be the party of which they are currently a member.
 
-*Note: If the player designated as the leader of the party leaves and they are the only player in the party, the party will be deleted. If there are other members in the party, another player will be designated as the new leader.*
+{% admonition type="info" %}
+If the player designated as the leader of the party leaves and they are the only player in the party, the party will be deleted. If there are other members in the party, another player will be designated as the new leader.
+{% /admonition %}
 
 ## Can a party leader transfer their leadership to another player in their party?
 
@@ -265,10 +271,10 @@ enum PartyUpdateType {
     PARTY_UPDATE_TYPE_PLAYER_LEFT = 2;
     PARTY_UPDATE_TYPE_PLAYER_KICKED = 3;
     PARTY_UPDATE_TYPE_PLAYER_READY_CHANGED = 4;
-	  PARTY_UPDATE_TYPE_PLAYER_LEADER_CHANGED = 5;
-	  PARTY_UPDATE_TYPE_METADATA_CREATED = 6;
-	  PARTY_UPDATE_TYPE_METADATA_UPDATED = 7;
-	  PARTY_UPDATE_TYPE_METADATA_DELETED = 8;
+    PARTY_UPDATE_TYPE_PLAYER_LEADER_CHANGED = 5;
+    PARTY_UPDATE_TYPE_METADATA_CREATED = 6;
+    PARTY_UPDATE_TYPE_METADATA_UPDATED = 7;
+    PARTY_UPDATE_TYPE_METADATA_DELETED = 8;
 }
 
 message PartyUpdateEvent {
@@ -292,21 +298,21 @@ message PartyEventValue {
 
 As shown in the `PartyUpdateType` enum, party update event notifications are broadcast in response to the following events:
 
-1. **A player joined the party**
-2. **A player left the party**
-3. **A player was kicked from the party**
-4. **A player’s “ready” status changed**
-5. **The party’s leader changed**
-6. **New metadata was added to the party**
-7. **Existing party metadata was updated**
-8. **Existing party metadata was deleted**
+- A player joined the party
+- A player left the party
+- A player was kicked from the party
+- A player’s “ready” status changed
+- The party’s leader changed
+- New metadata was added to the party
+- Existing party metadata was updated
+- Existing party metadata was deleted
 
 ## Metadata CRUD operations
 
-The Catena `PartiesService` supports various CRUD operations for:
+The Catena `PartiesService` supports operations for:
 
-1. Adding a metadata entry to a party(`CreateMetadataEntry`)
-2. Updating a metadata entry associated with a party (`UpdateMetadataEntry`)
-3. Deleting a metadata entry associated with a party (`DeleteMetadataEntry`)
-4. Getting **a single** metadata entry associated with a party (`GetMetadataEntry`)
-5. Getting **all** metadata entries associated with a party (`GetMetadataEntries`)
+- Adding a metadata entry to a party(`CreateMetadataEntry`)
+- Updating a metadata entry associated with a party (`UpdateMetadataEntry`)
+- Deleting a metadata entry associated with a party (`DeleteMetadataEntry`)
+- Getting **a single** metadata entry associated with a party (`GetMetadataEntry`)
+- Getting **all** metadata entries associated with a party (`GetMetadataEntries`)

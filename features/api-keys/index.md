@@ -11,7 +11,9 @@ Creating a new API key may be done in the admin dashboard or by calling `AdminCr
 In order to create an API key, at least one policy must be available (see [Managing policies](#managing-policies)).
 {% /admonition %}
 
-Policies are associated with keys via unique IDs. When creating an API key in the dashboard, a dropdown list of the currently available policies will be displayed. (This list can also be obtained by calling `AdminGetApiKeyPolicies`.)
+Policies are associated with keys via unique policy IDs. When creating an API key in the dashboard, a dropdown list of the currently available policies will be displayed. This list can also be obtained by calling `AdminGetApiKeyPolicies`:
+
+{% openapi-code-sample operationId="catena.catena_api_keys.CatenaApiKeys_AdminGetApiKeyPolicies" descriptionFile="../../apis/catena-tools-core.yaml" /%}
 
 ## Update or delete API keys
 
@@ -55,7 +57,9 @@ Permissions are defined in the code for each service. More information can be [f
 You can create, update, and delete policies in the admin dashboard (or by directly calling the related [RPCs](../../apis/catena-tools-core/catenaapikeys)).
 
 When you create a policy, you will be prompted for a unique policy name, and a list of permissions to associate with that policy. On the dashboard, the list of
-available permissions will be displayed for you. (You can also obtain them by calling `AdminGetApiKeyPermissions`.)
+available permissions will be displayed for you. You can also obtain them by calling `AdminGetApiKeyPermissions`:
+
+{% openapi-code-sample operationId="catena.catena_api_keys.CatenaApiKeys_AdminGetApiKeyPermissions" descriptionFile="../../apis/catena-tools-core.yaml" /%}
 
 Just as changing the policy on an API key will immediately change its permissions, changing the permissions on a policy will immediately impact all API keys
 currently using that policy.
