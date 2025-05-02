@@ -11,7 +11,7 @@ As a companion to the Unity SDK, there is a [Catena Networking Demo](https://git
 The following sections are guides on how to use the demo, in order to demonstrate what integrating the SDK into a game project would look like.
 
 ## Prerequisites
-* You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../../installation/index.md)
+* {% partial file="/_partials/unity/running-catena-prereq.md" /%}
 
 ### Authentication & Login
 

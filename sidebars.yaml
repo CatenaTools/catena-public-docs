@@ -8,11 +8,14 @@
         - group: "Running Catena Locally"
           items:
             - page: installation/docker.md
+              label: Running With Docker
             - page: installation/source.md
+              label: Running From Source
         - group: "Deploying Catena"
           items:
             - page: installation/heroku.md
             - page: installation/aws-ec2.md
+              label: Deploying to AWS
 - group: Unity
   page: engines/unity/index.md
   items:

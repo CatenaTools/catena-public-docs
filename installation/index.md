@@ -1,6 +1,6 @@
 # Installation Options
 
-Catena is source available, that means you need to either run it on your machine or deploy it to a live environment that you control.
+Catena is **source available**, which means you need to either run it on your machine or deploy it to a live environment that you control.
 
 ## Running Catena Locally
 

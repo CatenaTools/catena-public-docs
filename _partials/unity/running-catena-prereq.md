@@ -1,0 +1,1 @@
+In order to use the Catena Unity SDK, you must be [running Catena](../../installation/index.md), either locally or deployed elsewhere.

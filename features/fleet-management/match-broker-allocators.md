@@ -2,9 +2,9 @@
 
 A list of the available Catena Match Broker allocators and their configurations.
 
-## CatenaLocalBareMetalAllocator
+## Local Baremetal Allocator
 
-The local baremetal allocator can start and manage game server processes alongside the Catena backend. It is great for early development and testing locally or on a cloud machine with the capacity to run one or more game server(s).
+The `CatenaLocalBareMetalAllocator` can start and manage game server processes alongside the Catena backend. It is great for early development and testing locally or on a cloud machine with the capacity to run one or more game server(s).
 
 It is necessary to configure the full path to the game server executable and any arguments necessary to start with the correct options/map/configuration/etc.
 
@@ -32,11 +32,11 @@ If the game server takes longer than 30 seconds to start up and begin fetching m
 }
 ```
 
-## CatenaGameLiftAllocator
+## GameLift Allocator
 
-The GameLift allocator handles several aspects of Amazon GameLift:
+The `CatenaGameLiftAllocator` handles several aspects of Amazon GameLift:
 
-For game servers which already implement support for GameLift it can proxy Catena matches into GameLift game sessions (when `ProxyMatchesToGameLift` is enabled). `ProxyMatchesToGameLift` should be disabled for game servers which implement the Catena (Server-Manager.md) APIs.
+For game servers that already implement support for GameLift, it can proxy Catena matches into GameLift game sessions (when `ProxyMatchesToGameLift` is enabled). `ProxyMatchesToGameLift` should be disabled for game servers that implement the Catena (Server-Manager.md) APIs.
 
 If enabled by `AllowFleetGrowth`, the allocator can automatically increase the maximum size of the GameLift fleet if necessary to support the game volume. This allocator will not decrease the maximum fleet size.
 
@@ -44,7 +44,7 @@ If enabled by `AllowFleetGrowth`, the allocator can automatically increase the m
 When using the Catena [Server Manager](server-manager.md) APIs to fetch matches and GameLift fleet auto-scaling, it is not necessary to use this allocator unless you want to automatically increase the maximum fleet size.
 {% /admonition %}
 
-It is suggested that `ReadyDeadlineSeconds` be set to the time required for the GameLift auto-scaler to start an additional game server and for that game server to start requesting matches which may total several minutes.
+It is suggested that `ReadyDeadlineSeconds` be set to the time required for the GameLift auto-scaler to start an additional game server and for that game server to start requesting matches that may total several minutes.
 
 ```json
 "MatchBroker": {
@@ -66,9 +66,9 @@ It is suggested that `ReadyDeadlineSeconds` be set to the time required for the 
 }
 ```
 
-## CatenaEc2DirectAllocator
+## EC2 Direct Allocator
 
-The EC2 direct allocator can start and manage game servers by starting and terminating AWS EC2 instances.
+The `CatenaEc2DirectAllocator` can start and manage game servers by starting and terminating AWS EC2 instances.
 
 It is necessary to configure the profile, region, and template ID to use this allocator. This allocator does not interact with or start game server processes directly, so it is necessary to [package the game server in an AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html#creating-an-ami).
 
