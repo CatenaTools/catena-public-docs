@@ -54,11 +54,15 @@ sequenceDiagram
     SM-->>GS: EndMatchResponse
 ```
 
-## Configuring The Catena Match Broker
-The Catena Match Broker is configured using appsettings files in `catena-tools-core`.
+## Configuring The Match Broker
+
+The Catena Match Broker is configured using `appsettings` files in `catena-tools-core`.
 
 ### Basic Example
-_Note: This example does not include any **Allocators**, and therefore won't provision any servers. To view available **Allocator** configurations, see the [Available Configuration Options](#available-configuration-options) below._
+
+{% admonition type="info" %}
+Note: This example does not include any **Allocators**, and therefore won't provision any servers. To view available **Allocator** configurations, see the [Available Configuration Options](#available-configuration-options) below.
+{% /admonition %}
 
 ```json
 {
@@ -81,7 +85,7 @@ _Note: This example does not include any **Allocators**, and therefore won't pro
 ### Available Configuration Options
 Let's take a look at all the available properties in the `MatchBroker` config.
 
-| Property | Definition |
+| <div style="width:180px">Property</div> | Definition |
 |-|-|
 | `FastSchedule` | Options: `0`, `1`, `2`. Whether to allocate a server as soon as a new match arrives, if necessary. Reduces latency but potentially increases idle server overhead. This must be disabled when utilizing **backfilling**.<br/>If `0` is configured, fast scheduling will be disabled.<br/>If `1` is configured, running game servers that are able to support a match will be assigned before spinning up a new server.<br/>If `2` is configured, a new game server will be provisioned for every match no matter what. |
 | `ServerMaxLifetimeMinutes` | The maximum amount of time a game server process is expected to be extant.<br/>If this timer is hit, the Match Broker will be considered unusable and deallocated. |
@@ -97,7 +101,7 @@ Let's take a look at all the available properties in the `MatchBroker` config.
 
 Let's take a look at all the available properties in the `Allocators` config within the `MatchBroker` config.
 
-| Property | Definition |
+| <div style="width:160px">Property</div> | Definition |
 |-|-|
 | `Allocator` | The class name of the allocator |
 | `AllocatorDescription` | A human readable name or description of the allocator to differentiate it when multiple instances of an allocator are used. Defaults to the class name of the allocator if unset. |
@@ -136,7 +140,7 @@ The `CatenaLocalBareMetalAllocator` can start and manage game server processes a
 ...
 ```
 
-| Property | Definition |
+| <div style="width:150px">Property</div> | Definition |
 |-|-|
 | `GameServerPath` | The full path to your game server executable |
 | `GameServerArguments` | Command-line arguments to supply to the game server executable |
@@ -148,8 +152,14 @@ The `CatenaLocalBareMetalAllocator` can start and manage game server processes a
 #### CatenaEc2DirectAllocator
 {% partial file="/_partials/coming-soon.md" /%}
 
-#### CatenaGameLiftAllocator
-{% partial file="/_partials/coming-soon.md" /%}
+##### CatenaEc2DirectAllocator
 
-#### CatenaManagedHostAllocator
+See the [match broker allocators documentation](../fleet-management/match-broker-allocators.md#ec2-direct-allocator).
+
+##### CatenaGameLiftAllocator
+
+See the [match broker allocators documentation](../fleet-management/match-broker-allocators.md#gamelift-allocator).
+
+##### CatenaManagedHostAllocator
+
 {% partial file="/_partials/coming-soon.md" /%}
