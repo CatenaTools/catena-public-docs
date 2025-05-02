@@ -1,6 +1,5 @@
 # Parties
 
-
 The Catena `PartiesService` is responsible for the creation and updating of parties as well as handling various party related operations e.g. a player joining a party using an invite code.
 
 ## How does Catena define a party?
@@ -9,11 +8,11 @@ A `Party` is composed of a unique identifier `party_id`, the unique identifier o
 
 ```protobuf
 message Party {
-	string party_id = 1;
-	string leader_id = 2;
-	string invite_code = 3;
-	repeated Player players = 4;
-	map<string,groups.EntityMetadata> metadata = 5;
+    string party_id = 1;
+    string leader_id = 2;
+    string invite_code = 3;
+    repeated Player players = 4;
+    map<string,groups.EntityMetadata> metadata = 5;
 }
 ```
 
@@ -23,12 +22,12 @@ A `Player` is comprised of a unique identifier `player_id` (which is the same as
 
 ```protobuf
 message Player {
-	string player_id = 1;
-	string display_name = 2;
-	bool is_ready = 3;
-	bool is_leader = 4;
-	int32 team_number = 5;
-	map<string,groups.EntityMetadata> metadata = 6;
+    string player_id = 1;
+    string display_name = 2;
+    bool is_ready = 3;
+    bool is_leader = 4;
+    int32 team_number = 5;
+    map<string,groups.EntityMetadata> metadata = 6;
 }
 ```
 
@@ -40,9 +39,9 @@ Party creation is facilitated through the use of the `CreateParty` RPC.
 /* Creates a new party setting the player who requested its creation as its leader. */
 rpc CreateParty(CreatePartyRequest) returns (CreatePartyResponse) {
     option (google.api.http) = {
-		    post: "/api/v1/parties/create"
-			  body: "*"
-		};
+        post: "/api/v1/parties/create"
+        body: "*"
+    };
 };
 
 message CreatePartyRequest {
@@ -82,11 +81,11 @@ rpc UpdatePartyPlayer(UpdatePartyPlayerRequest) returns (UpdatePartyPlayerRespon
 
 message UpdatePartyPlayerRequest {
     Player payload = 1; // payload specifying what player info. to update
-	  google.protobuf.FieldMask payload_mask = 2;
+    google.protobuf.FieldMask payload_mask = 2;
 }
 
 message UpdatePartyPlayerResponse {
-	    Party party = 1; // the updated party (that the updated player is a member of)
+    Party party = 1; // the updated party (that the updated player is a member of)
 }
 ```
 
@@ -102,18 +101,18 @@ Currently, the `PartiesService` only supports joining a party by entering the in
 /* Allows a player to join a party by specifying its invite code. */
 rpc JoinPartyWithInviteCode(JoinPartyWithInviteCodeRequest) returns (JoinPartyWithInviteCodeResponse) {
     option (google.api.http) = {
-		    post: "/api/v1/parties/join"
-			  body: "*"
-		};
+        post: "/api/v1/parties/join"
+        body: "*"
+    };
 };
 
 message JoinPartyWithInviteCodeRequest {
     string invite_code = 1; // code used to join the party
-	  map<string,groups.EntityMetadata> joining_player_metadata = 2;
+    map<string,groups.EntityMetadata> joining_player_metadata = 2;
 }
 
 message JoinPartyWithInviteCodeResponse {
-	  Party party = 1; // the party that was joined
+    Party party = 1; // the party that was joined
 }
 ```
 
@@ -133,9 +132,9 @@ The `PartiesService` supports a player leaving their party via the `LeaveParty` 
 /* Allows a player to leave their party and assigns a new leader if the leader leaves. */
 rpc LeaveParty(LeavePartyRequest) returns (LeavePartyResponse) {
     option (google.api.http) = {
-		    put: "/api/v1/parties/leave"
-			  body: "*"
-		};
+        put: "/api/v1/parties/leave"
+        body: "*"
+    };
 };
 
 message LeavePartyRequest {
@@ -145,7 +144,7 @@ message LeavePartyRequest {
 message LeavePartyResponse {}
 ```
 
-Currently, a `LeaveParty` request must contain the `party_id` of the party a player is attempting to leave. However, this *****must***** be the party of which they are currently a member.
+Currently, a `LeaveParty` request must contain the `party_id` of the party a player is attempting to leave. However, this **\***must**\*** be the party of which they are currently a member.
 
 {% admonition type="info" %}
 If the player designated as the leader of the party leaves and they are the only player in the party, the party will be deleted. If there are other members in the party, another player will be designated as the new leader.
@@ -161,14 +160,14 @@ Yes! If a leader wants to relinquish their leadership of the party to another pa
 /* Allows the current leader of a party to set a new leader. */
 rpc SetPartyLeader(SetPartyLeaderRequest) returns (SetPartyLeaderResponse) {
     option (google.api.http) = {
-		    put: "/api/v1/parties/set-leader"
-			  body: "*"
-		};
+        put: "/api/v1/parties/set-leader"
+        body: "*"
+    };
 };
 
 message SetPartyLeaderRequest {
     string player_id = 1; // ID of player to set as party leader
-	  string party_id = 2; // ID of party to set leader of
+    string party_id = 2; // ID of party to set leader of
 }
 
 message SetPartyLeaderResponse {}
@@ -184,14 +183,14 @@ Yes, again! By providing the `party_id` of their party and the `player_id` of th
 /* Allows the leader of a party to kick another player from their party. */
 rpc KickFromParty(KickFromPartyRequest) returns (KickFromPartyResponse) {
     option (google.api.http) = {
-		    put: "/api/v1/parties/kick"
-			  body: "*"
-		};
+        put: "/api/v1/parties/kick"
+        body: "*"
+    };
 };
 
 message KickFromPartyRequest {
     string player_id = 1; // ID of player to kick from party
-	  string party_id = 2; // ID of party to kick player from
+    string party_id = 2; // ID of party to kick player from
 }
 
 message KickFromPartyResponse {}
@@ -207,8 +206,8 @@ A party’s information can be fetched by providing the ID of the party via `Get
 /* Fetches information for a party given a party ID. */
 rpc GetPartyInfoByPartyId(GetPartyInfoByPartyIdRequest) returns (GetPartyInfoResponse) {
     option (google.api.http) = {
-		    get: "/api/v1/parties/{party_id}"
-		};
+        get: "/api/v1/parties/{party_id}"
+    };
 };
 
 message GetPartyInfoByPartyIdRequest {
@@ -226,8 +225,8 @@ A party’s information can also be fetched via `GetPartyInfo` which determines 
 /* Fetches party information for the party that the requesting player is currently a member of. */
 rpc GetPartyInfo(GetPartyInfoRequest) returns (GetPartyInfoResponse) {
     option (google.api.http) = {
-		    get: "/api/v1/parties"
-		};
+        get: "/api/v1/parties"
+    };
 };
 
 message GetPartyInfoRequest {}
@@ -243,8 +242,8 @@ A party player’s information can be fetched via `GetPlayerInfoById` by providi
 /* Fetches information for a player in a party given an ID. */
 rpc GetPlayerInfoById(GetPlayerInfoByIdRequest) returns (GetPlayerInfoByIdResponse) {
     option (google.api.http) = {
-		    get: "/api/v1/parties/{player_id}"
-		};
+        get: "/api/v1/parties/{player_id}"
+    };
 };
 
 message GetPlayerInfoByIdRequest {
@@ -281,18 +280,18 @@ message PartyUpdateEvent {
     PartyUpdateType type = 1;
     string message = 2;
     string party_id = 3; // The party id this event is associated with
-	  map<string, PartyEventValue> event_payload = 4;
+    map<string, PartyEventValue> event_payload = 4;
 }
 
 message PartyEventValue {
     oneof value {
-		    bool bool_value = 1; 
-		    groups.EntityMetadata metadata_value = 2;
-		    string string_value = 3;
-		    Player player_value = 4; 
-		    int32 int_value = 5;
-		    groups.MetadataMap metadata_map_value = 6;
-	  }
+        bool bool_value = 1;
+        groups.EntityMetadata metadata_value = 2;
+        string string_value = 3;
+        Player player_value = 4;
+        int32 int_value = 5;
+        groups.MetadataMap metadata_map_value = 6;
+    }
 }
 ```
 
