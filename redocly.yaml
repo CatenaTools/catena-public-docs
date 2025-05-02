@@ -6,6 +6,7 @@ links:
   - href: https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap
   - href: https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap
   - href: https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap
+  - href: https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap
 seo:
   title: Catena Tools API
   description: Catena Tools - Your game backend tool kit. Built by game developers, for game developers to simplify your game's backend workflow.

@@ -110,7 +110,7 @@ void Awake()
 #if UNITY_SERVER
     // Start up game server, using whatever netcode solution you prefer
 
-    // Tell Catena we are ready for a matc 0.75rem 0h
+    // Tell Catena we are ready for a match
     _catenaSingleMatchGameServer = CatenaSingleMatchGameServer.Instance;
     _catenaSingleMatchGameServer.GetMatch();
 #endif

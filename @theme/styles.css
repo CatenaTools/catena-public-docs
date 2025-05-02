@@ -1,13 +1,18 @@
+/* style reference: https://redocly.com/docs/realm/style/reference/css-variables */
+
 :root {
-  --font-weight-regular: 400;
+  --font-family-base: 'Red Hat Text', sans-serif;
 
   --spacing-unit: 5px;
 
-  /* markdown content */
+  /* markdown */
   --md-paragraph-margin: 1rem 0;
   --md-list-margin: 0.55rem 0.25rem;
+  --md-content-max-width: 700px;
 
   /* headings */
+  /* --heading-font-family: 'Lora', serif; */
+
   --h1-font-size: 36px;
   --h1-line-height: 46px;
   --h1-margin-top: var(--spacing-xxl);
@@ -18,7 +23,7 @@
   --h2-margin-top: var(--spacing-xl);
   --h2-margin-bottom: var(--spacing-base);
 
-  --h3-font-size: 26px;
+  --h3-font-size: 24px;
   --h3-line-height: 34px;
   --h3-margin-top: var(--spacing-lg);
   --h3-margin-bottom: var(--spacing-sm);
@@ -42,6 +47,11 @@
   --sidebar-width: 328px;
   --menu-item-label-gap: var(--spacing-xxs);
   --menu-item-nested-offset: var(--spacing-xs);
+
+  /* colors (light mode) */
+  --sidebar-bg-color: rgb(247, 247, 247);
+  --bg-color: var(--color-warm-grey-1);
+  --navbar-bg-color: white;
 }
 
 :root.dark {
