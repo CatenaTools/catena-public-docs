@@ -8,7 +8,7 @@ An `Entity` is a special Catena data type used for passing and storing dynamic d
 
 **Tickets** will be sorted into **queues** based on the `queue_name` that is provided in the **ticket**. This `queue_name` is a requirement.
 
-An example ticket, in it's simplest form, looks like this:
+An example ticket, in its simplest form, looks like this:
 
 ```json
 {

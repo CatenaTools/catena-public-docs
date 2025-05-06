@@ -24,7 +24,7 @@ _Some additional details are found in a [previous version of this page](catena-m
 The Catena Matchmaker utilizes separate **queues** to partition tickets. These **queues** act like mini-matchmakers, supporting many different game types and matchmaking needs.
 
 * You may configure one or many **queues**, depending on the needs of your game.
-* Each **queue** can have it's own rules for match sizes, teams, **matchmaking strategies** (the algorithm used to make matches), or other custom requirements.
+* Each **queue** can have its own rules for match sizes, teams, **matchmaking strategies** (the algorithm used to make matches), or other custom requirements.
 * **Matchmaking tickets** are never moved between **queues** and are never matched with other **matchmaking tickets** from other **queues**.
 * The Catena Matchmaker will assign each **matchmaking ticket** to a **queue** based on the metadata it contains.
 
@@ -111,7 +111,7 @@ Let's take a look at all the available properties in the `Matchmaker` config.
 | <div style="width:190px">Property</div> | Definition |
 |-|-|
 | `MatchmakingQueues` | The **queues** that **tickets** can be added to |
-| `StatusExpirationMinutes` | Time before a matchmaking status is considered expired. Tickets that have successfully made a match or have expired are retained for this amount of time for observability purposes, or if a game client is not subscribed to events and prefers to poll the matchmaker for it's ticket's status |
+| `StatusExpirationMinutes` | Time before a matchmaking status is considered expired. Tickets that have successfully made a match or have expired are retained for this amount of time for observability purposes, or if a game client is not subscribed to events and prefers to poll the matchmaker for its ticket's status |
 | `CustomHooks` | Name of a **custom hook** class to use for all **queues** |
 
 Each **queue** defined with `MatchmakingQueues` will have its own properties.

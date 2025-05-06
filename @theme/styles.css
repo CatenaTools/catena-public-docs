@@ -75,3 +75,7 @@
 li {
   margin: 0.4rem 0;
 }
+
+:root .card-variant-filled {
+  background-color: var(--sidebar-bg-color);
+}
