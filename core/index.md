@@ -1,6 +1,6 @@
 # Catena Core
 
-Catena Core is like the engine of Catena. It creates a consistent framework to operate and develop services, a core set of components and behaviors services can leverage for common tasks, and it's extensible design means it can be molded to support new features without re-architecting.
+Catena Core is like the engine of Catena. It creates a consistent framework to operate and develop services, a core set of components and behaviors services can leverage for common tasks, and its extensible design means it can be molded to support new features without re-architecting.
 
 ## Catena node architecture
 

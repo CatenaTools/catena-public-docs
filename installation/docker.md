@@ -4,7 +4,7 @@
 Starting from scratch, running Catena on your machine using Docker is estimated to take **10-20 minutes**.
 
 ## What Is Docker?
-Docker is a tool used to create, deploy, and run applications using containers. Containers are similar to virtual machines, but don’t create an entire virtual operating system. When an application is built and packaged into a container alongside it’s dependencies it can be run quickly and reliably from one computing environment to another. For more information about Docker and containers, you can refer to [this piece of documentation from Docker](https://docs.docker.com/get-started/docker-overview/).
+Docker is a tool used to create, deploy, and run applications using containers. Containers are similar to virtual machines, but they don’t create an entire virtual operating system. Once an application is built and packaged into a container alongside its dependencies, it can be run quickly and reliably from different computing environments. For more information about Docker and containers, you can refer to [this piece of documentation from Docker](https://docs.docker.com/get-started/docker-overview/).
 
 ## Installation Instructions
 {% tabs %}
@@ -12,19 +12,19 @@ Docker is a tool used to create, deploy, and run applications using containers. 
         {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
 
         ### 2. Install WSL
-        There are two options for running with Docker, with Docker Desktop or by using Docker Engine directly. Both options will require you to install WSL to your machine.
+        There are two options for running with Docker: with Docker Desktop, or by using Docker Engine directly. Both options will require you to install WSL on your machine.
 
         {% partial file="/_partials/install-catena/install-wsl.md" /%}
 
         ### 3. Install Docker
         #### Using Docker Desktop
-        [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) is the easiest way to install Docker onto a Windows machine, though it requires a paid license for commercial use. If you prefer to register for a license, follow these instructions. Otherwise, skip to [Using Docker Engine Directly](./docker.md#using-docker-engine-directly).
+        [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) is the easiest way to install Docker onto a Windows machine, though it requires a paid license for commercial use. If you prefer to register for a license, follow the instructions below. Otherwise, skip to [Using Docker Engine Directly](./docker.md#using-docker-engine-directly).
 
         1. [Download Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)
         2. Begin installation
-            1. Ensure you select **Use WSL 2 instead of Hyper-V**
+            - Ensure you select **Use WSL 2 instead of Hyper-V**
         3. Once complete, [start Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/#start-docker-desktop)
-        4. From Powershell, check that Docker is working correctly
+        4. From Powershell, check that Docker is working correctly:
         {% code-snippet file="/_partials/install-catena/validate-docker-installation.md" title="validate-docker-installation" language="bash" /%}
         5. Proceed To [Run Catena](./docker.md#4.-run-catena)
 
@@ -58,18 +58,20 @@ Docker is a tool used to create, deploy, and run applications using containers. 
 
         ### 4. Run Catena
         1. Depending on how you installed Docker, use the corresponding command prompt to navigate to the root directory of the Catena Project:
-            1. **Docker Desktop:** Powershell
-            2. **Docker Engine:** WSL
-                1. *Note:* To navigate to a drive from WSL, such as your `C:\` drive, you will need to `cd /mnt/c/<YOUR_INSTALLATION_DIRECTORY>`
+            - **Docker Desktop:** Powershell
+            - **Docker Engine:** WSL
+                {% admonition type="info" %}
+                To navigate to a drive from WSL, such as your `C:\` drive, you will need to `cd /mnt/c/<YOUR_INSTALLATION_DIRECTORY>`
+                {% /admonition %}
         2. Use Docker Compose to run the project (this may take a while)
 
         ```bash
         docker compose up
         ```
 
-        3. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
+        3. Check that Catena is running either by sending a request from this page using the provided interactive API, or by using cURL.
 
-        #### Send Request from This Page
+        #### Send Request From This Page
         {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
 
         #### Use cURL
@@ -158,16 +160,20 @@ Docker is a tool used to create, deploy, and run applications using containers. 
 {% /tabs %}
 
 ## What Does Docker Compose Run?
-By default running Docker Compose from Catena’s root directory will run a few different containers.
+By default, running Docker Compose from Catena’s root directory will run a few different containers:
 
 - `catena-tools-core`
-    - This is the Catena backend. The base `docker-compose.yaml` file will run with an assortment of Catena plugins enabled.
+    
+    This is the Catena backend. The base `docker-compose.yaml` file will run with an assortment of Catena plugins enabled.
 - `kafka`
-    - One configuration of Catena will use [Apache Kafka](https://kafka.apache.org/) to send messages between services. This is not a requirement to run Catena, but we run it alongside Catena in case you decide to use it.
+
+    One configuration of Catena will use [Apache Kafka](https://kafka.apache.org/) to send messages between services. This is not a requirement to run Catena, but we run it alongside Catena in case you decide to use it.
 - `init-kafka`
-    - Kafka requires “topics” to be created in order to send messages. The `init-kafka` container handles creating these topics before Catena is started.
+
+    Kafka requires “topics” to be created in order to send messages. The `init-kafka` container handles creating these topics before Catena is started.
 - `redis`
-    - Catena uses [Redis](https://redis.io/) for ephemeral storage, such as a session store. This is not a requirement to run Catena, but we run it alongside Catena in case you decide to use it.
+
+    Catena uses [Redis](https://redis.io/) for ephemeral storage, such as a session store. This is not a requirement to run Catena, but we run it alongside Catena in case you decide to use it.
 
 ## What Next?
 {% partial file="/_partials/install-catena/what-next.md" /%}

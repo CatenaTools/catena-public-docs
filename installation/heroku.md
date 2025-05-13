@@ -15,7 +15,7 @@ Starting from scratch, deploying Catena to Heroku is estimated to take **10-20 m
 ## Deployment Instructions
 {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
 
-### 2. Prep Work
+### 2. Preparations
 
 #### 2a. Create a Heroku Account
 To create a Heroku account, you can [sign up here](https://signup.heroku.com/).
@@ -63,7 +63,7 @@ brew install git
 export PATH=/usr/local/bin:$PATH
 ```
 
-3. When you check the Git Version, it should now no longer say "Apple Git" in the version information
+3. When you check the Git Version, it should now no longer say "Apple Git" in the version information:
 
 ```bash
 git --version
@@ -86,7 +86,7 @@ heroku create catena-tools-core
 # https://catena-tools-core-d6fe81ff54bf.herokuapp.com/ | https://git.heroku.com/catena-tools-core.git
 ```
 
-3. This will automatically add a Git remote.
+3. This will automatically add a Git remote, which you can verify:
 
 ```bash
 git remote -v
@@ -103,7 +103,7 @@ git remote -v
 heroku buildpacks:set https://github.com/CatenaTools/dotnetcore-buildpack
 ```
 
-5. Configure PostgreSQL and Redis by first creating addons for each and then waiting for each to come online. This may take a few minutes.
+5. Configure PostgreSQL and Redis by first creating addons for each, and then waiting for them to come online. This may take a few minutes.
 
 ```bash
 heroku addons:create heroku-postgresql:essential-0 # "heroku addons:plans heroku-postgresql" to see options other than essential-0
@@ -178,7 +178,7 @@ remote:        Released v7
 remote:        https://catena-tools-core-328909998aac.herokuapp.com/ deployed to Heroku
 ```
 
-8. Check that Catena is running by navigating to [https://<your_deployment_url>/api/v1/node_inspection/is_healthy](https://<your_deployment_url>/api/v1/node_inspection/is_healthy)
+8. Check that Catena is running by navigating to `https://<your_deployment_url>/api/v1/node_inspection/is_healthy`.
 
 ## What Next?
 {% partial file="/_partials/install-catena/what-next.md" /%}

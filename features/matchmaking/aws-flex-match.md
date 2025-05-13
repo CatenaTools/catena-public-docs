@@ -12,9 +12,10 @@ If you would like to learn more about how Catena handles dedicated game servers,
 
 ## Engine Integration
 
-{% partial file="/_partials/matchmaking/engine-integration.md" /%}
+{% partial file="/_partials/matchmaking/engine-integration.md" variables={implementation: "AWS FlexMatch" } /%}
 
 ## What is AWS FlexMatch?
+
 [AWS FlexMatch](https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-intro.html), also known as "Amazon GameLift Servers FlexMatch" is Amazon's offering for matchmaking players.
 
 ## Getting Started
@@ -27,7 +28,7 @@ To configure FlexMatch, you will also need to clone Catena's Infrastructure as C
 git clone git@github.com:CatenaTools/infrastructure.git
 ```
 
-### 2. Prep Work
+### 2. Preparations
 
 #### 2a. Create an AWS Account
 {% partial file="/_partials/aws/create-an-aws-account.md" /%}

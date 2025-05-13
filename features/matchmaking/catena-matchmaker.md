@@ -9,11 +9,11 @@ The Catena Matchmaker is responsible for grouping players or parties together to
 
 It is _not_ responsible for assigning dedicated game servers or fleet management. It is also not responsible for handling backfill. If you would like to learn more about how Catena handles dedicated game servers or backfill, refer to the [Match Broker](../game-servers/index.md) documentation.
 
-_Some details are found in a [previous version of this page](catena-matchmaker-more.md)_
+_Some additional details are found in a [previous version of this page](catena-matchmaker-more.md)_
 
 ## Engine Integration
 
-{% partial file="/_partials/matchmaking/engine-integration.md" /%}
+{% partial file="/_partials/matchmaking/engine-integration.md" variables={implementation: "the Catena Matchmaker"} /%}
 
 ## How The Matchmaker Works
 
@@ -24,7 +24,7 @@ _Some details are found in a [previous version of this page](catena-matchmaker-m
 The Catena Matchmaker utilizes separate **queues** to partition tickets. These **queues** act like mini-matchmakers, supporting many different game types and matchmaking needs.
 
 * You may configure one or many **queues**, depending on the needs of your game.
-* Each **queue** can have it's own rules for match sizes, teams, **matchmaking strategies** (the algorithm used to make matches), or other custom requirements.
+* Each **queue** can have its own rules for match sizes, teams, **matchmaking strategies** (the algorithm used to make matches), or other custom requirements.
 * **Matchmaking tickets** are never moved between **queues** and are never matched with other **matchmaking tickets** from other **queues**.
 * The Catena Matchmaker will assign each **matchmaking ticket** to a **queue** based on the metadata it contains.
 
@@ -108,17 +108,17 @@ How these **queues** are utilized by your game is up to you, but a few examples 
 
 Let's take a look at all the available properties in the `Matchmaker` config.
 
-| Property | Definition |
+| <div style="width:190px">Property</div> | Definition |
 |-|-|
 | `MatchmakingQueues` | The **queues** that **tickets** can be added to |
-| `StatusExpirationMinutes` | Time before a matchmaking status is considered expired. Tickets that have successfully made a match or have expired are retained for this amount of time for observability purposes, or if a game client is not subscribed to events and prefers to poll the matchmaker for it's ticket's status |
+| `StatusExpirationMinutes` | Time before a matchmaking status is considered expired. Tickets that have successfully made a match or have expired are retained for this amount of time for observability purposes, or if a game client is not subscribed to events and prefers to poll the matchmaker for its ticket's status |
 | `CustomHooks` | Name of a **custom hook** class to use for all **queues** |
 
 Each **queue** defined with `MatchmakingQueues` will have its own properties.
 
 First, the JSON `key` is the value that **tickets** will need to provide as their `queue_name` value. In the above [basic example](#basic-example), they are `solo`, `1v1` and `2v2`. This value is how **tickets** are sorted into **queues**.
 
-| Property | Definition |
+| <div style="width:190px">Property</div>| Definition |
 |-|-|
 | `QueueName` | Human readable **queue** name, used in logging |
 | `Teams` | Number of required teams in this **queue** |
