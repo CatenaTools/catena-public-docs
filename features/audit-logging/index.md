@@ -10,7 +10,9 @@ If the action has missing parameters, the attempt will not be logged.
 For the sake of this documentation, the terms 'action' and 'event' are interchangeable.
 
 ## Data Storage
-All Audit Log records can be found in the `audit_log` table within your `audit.db` file, wherever that has been stored for you.
+At the moment, the default storage location for audit logs uses SQLite and can be found in the `audit_log` table within your `Build/SQLiteDatabase/audit.db` file in the `catena-tools-core` project.
+However, the storage method itself is modular, and you may wish to reconfigure it.
+Please see the [Choosing Modules](/core/choosing-modules.md) page for further information.
 
 ### Data Format
 | column name   | type             | description                                                                                                                                |
