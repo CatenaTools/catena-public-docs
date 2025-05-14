@@ -48,6 +48,8 @@
       label: "Accounts"
     - page: features/api-keys/index.md
       label: "API Keys"
+    - page: features/audit-logging/index.md
+      label: "Audit Logging"
     - page: features/parties/index.md
       label: "Parties"
     - group: Matchmaking
