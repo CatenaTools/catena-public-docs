@@ -160,3 +160,77 @@ Once Catena is up and running, to test the parties functionality, you must first
 At this point, you should see all of the players connected to the same party. From each instance, you can select a character - which demonstrates the functionality for creating and updating metadata of party members. Each instance can also click to ready up, and unready - which will be reflected in the UI for all players. The host will also have controls displayed next to each other party member - one button for kicking the player, and another for setting the player as host. Using all these options, you should be able to test the various endpoints that are available for parties.
 
 To see the steps of how to integrate parties in to your project, check out [the Unity Parties Guide](../parties.md).
+
+### Party Matchmaking
+
+With Parties enabled, you will also notice a dropdown at the bottom of the parties section, and a 'Find Match' button - these are what allow you to start party matchmaking.
+
+The only additional requirement beyond what was already needed for parties and solo matchmaking is to make sure the Catena config file `Appsettings.Development.json` in catena-tools-core has queues configured that match what is defined in the game. If you want to enable all of the possible queues already set up in the demo, you can add the following queues to your config file. Note that these all use the custom hook `SimpleP2PMatchmakingHooks` as they are set up for P2P matchmaking - to use dedicated server matchmaking, remove this hook:
+```json
+{
+  "Catena": {
+    ...
+    "Matchmaker": {
+      "MatchmakingQueues": {
+        "solo": {
+          "QueueName": "solo",
+          "Teams": 1,
+          "PlayersPerTeam": 1,
+          "TicketExpirationSeconds": 180,
+          "CustomHooks": "SimpleP2PMatchmakingHooks"
+        },
+        "private": {
+          "QueueName": "Private",
+          "Teams": 1,
+          "PlayersPerTeam": 4,
+          "TicketExpirationSeconds": 1,
+          "ExpirationAction": "drop",
+          "CustomHooks": "SimpleP2PMatchmakingHooks"
+        },
+        "team-of-2": {
+          "QueueName": "Team of 2",
+          "Teams": 1,
+          "PlayersPerTeam": 2,
+          "TicketExpirationSeconds": 180,
+          "CustomHooks": "SimpleP2PMatchmakingHooks"
+        },
+        "team-of-3": {
+          "QueueName": "Team of 3",
+          "Teams": 1,
+          "PlayersPerTeam": 3,
+          "TicketExpirationSeconds": 180,
+          "CustomHooks": "SimpleP2PMatchmakingHooks"
+        },
+        "team-of-4": {
+          "QueueName": "Team of 4",
+          "Teams": 1,
+          "PlayersPerTeam": 4,
+          "TicketExpirationSeconds": 180,
+          "CustomHooks": "SimpleP2PMatchmakingHooks"
+        },
+        "up-to-3": {
+          "QueueName": "Up to 3",
+          "Teams": 1,
+          "PlayersPerTeam": 3,
+          "MinPlayersPerTeam": 1,
+          "TicketExpirationSeconds": 120,
+          "CustomHooks": "SimpleP2PMatchmakingHooks"
+        },
+        "up-to-4": {
+          "QueueName": "Up to 4",
+          "Teams": 1,
+          "PlayersPerTeam": 4,
+          "MinPlayersPerTeam": 1,
+          "TicketExpirationSeconds": 120,
+          "CustomHooks": "SimpleP2PMatchmakingHooks"
+        }
+      },
+      "StatusExpirationMinutes": 15
+    }
+    ...
+  }
+}
+```
+With the config set up, you should now be able to party matchmake - all that is required is to run 2 or more instances of the game, and then have them join a party. Once all the instances are 'ready', the leader can pick a queue from the dropdown list and start matchmaking.
+
+If you wish to adjust the queues listed in the dropdown, you can do so by modifying them in the inspector. Navigate to the scene `Assets/Scenes/Menu.unity` and select the gameobject `Canvas -> OnlineControls -> Parties`, and in the inspector under the Matchmaking Queues section, you should see a list of queues that you can add/remove from, or edit existing queues.
