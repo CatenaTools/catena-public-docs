@@ -129,8 +129,7 @@ To see the dedicated server matchmaking in action, perform the steps in the foll
 
 While not integrated into the game itself, the main menu of the Galactic Kittens demo has functionality to display entitlements information, as well as debug functionality to prepare and execute offers - something that should normally only be done from a trusted game server.
 
-In order to enable the entitlements functionality in the demo, you will need to go to `Project Settings > Player > Scripting Define Symbols` and add a defintion for `ENABLE_CATENA_ENTITLEMENTS`. This will allow the UI for entitlements to appear on the main menu screen - but for actual information to be shown, entitlements and offers need to be created. The items and offers need to be configured outside - for more information on how to configure items and offers, refer to the Entitlements documentation.
-<!-- Add in this link when it exists: [refer to the Entitlements documentation](../../features/entitlements/index.md). -->
+In order to enable the entitlements functionality in the demo, you will need to go to `Project Settings > Player > Scripting Define Symbols` and add a defintion for `ENABLE_CATENA_ENTITLEMENTS`. This will allow the UI for entitlements to appear on the main menu screen - but for actual information to be shown, entitlements and offers need to be created. The items and offers need to be configured outside - for more information on how to configure items and offers, refer to the [Entitlements documentation](../../../features/entitlements/index.md).
 
 Once items and offers are set up, in order to see their functionality in game, you must make some calls through Catena itself - giving the player items, and getting an API key for preparing/executing offers.
 
@@ -141,8 +140,7 @@ To see an example how a player's inventory would function, log in to Catena with
 
 #### Server Entitlements Functionality - Offers
 
-To see how preparing and executing offers would function, you first need to set up an API key with the proper permissions for offers - information on how to do this can be found in the API documentation. Once you have an API key, if you navigate to the bootstrap scene and locate the `CatenaEntrypoint` object, you should see a section in the `CatenaEntrypoint` component for the `Catena Server Api Test Key`. **This field is intended to only be used for debug purposes** - in normal circumstances, only trusted sources should have API keys, and those API keys should be retrieved from elsewhere - but for now, pasting an API key in this field allows for easier testing of the server entitlements functionality.
-<!-- Add in link to API documentation! -->
+To see how preparing and executing offers would function, you first need to set up an API key with the proper permissions for offers - information on how to do this can be found in the [API key documentation](../../../features/api-keys/index.md). Once you have an API key, if you navigate to the bootstrap scene and locate the `CatenaEntrypoint` object, you should see a section in the `CatenaEntrypoint` component for the `Catena Server Api Test Key`. **This field is intended to only be used for debug purposes** - in normal circumstances, only trusted sources should have API keys, and those API keys should be retrieved from elsewhere - but for now, pasting an API key in this field allows for easier testing of the server entitlements functionality.
 
 At this point, when launching into the main menu, you should be able to click `Prepare Offers` - and after doing so, a list of all the offers you have configured should appear. You can then click on any of the offers to attempt to execute them!
 
@@ -152,8 +150,7 @@ To see the steps of how to integrate entitlements in to your project, check out 
 
 Similar to Entitlements, the Unity demo does have the ability to display Parties functionality, although it's not integrated into the game itself - and is only for appearance in the UI. In order to enable the parties functionality in the demo, you will need to go to `Project Settings > Player > Scripting Define Symbols` and add a defintion for `ENABLE_CATENA_PARTIES`. This will allow the Party UI to appear after completing login in the main menu.
 
-Testing the parties functionality does not require any setup - the only configuration required in the Catena backend is to make sure that the parties service is enabled, and a Connection String is defined for the parties database. To learn more about setting up Parties in Catena, refer to the Parties documentation.
-<!-- Add in link to Parties documentation! -->
+Testing the parties functionality does not require any setup - the only configuration required in the Catena backend is to make sure that the parties service is enabled, and a Connection String is defined for the parties database. To learn more about setting up Parties in Catena, refer to the [Parties documentation](../../../features/parties/index.md).
 
 Once Catena is up and running, to test the parties functionality, you must first run at least 2 instances of the game (but more than 2 are supported, if you desire). Log in to each game instance, and pick one of the game instances to be the 'host'. For this game instance, click `Create Party` - and you should soon see the active party UI. You can then copy the Invite code displayed on the UI, and paste that code into the other game instances and click `Join Party`.
 

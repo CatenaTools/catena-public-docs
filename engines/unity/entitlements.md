@@ -8,8 +8,7 @@ markdown:
 
 ## Prerequisites
 * {% partial file="/_partials/unity/running-catena-prereq.md" /%}
-* You must have the entitlements service running, and have it configured with Items and Offers already set up. Instructions for doing so can be found here
-<!-- Add in this link when it exists: [Instructions for doing so can be found here](../../features/entitlements/index.md). -->
+* You must have the entitlements service running, and have it configured with Items and Offers already set up. [Instructions for setting up entitlements can be found here](../../features/entitlements/index.md). <!-- TODO: ensure the entitlements feature page includes all necessary config and setup instructions -->
 * You must have completed [the Unity Quickstart Guide](./quickstart.md).
 * You must have completed [the Unity Authentication Guide](./authentication.md).
 
@@ -18,8 +17,7 @@ The first step to adding entitlements in your project is to set up a way for the
 
 Additionally, you must already have catalog items and offers set up in your database through admin endpoints, as you won't be able to create items or offers from the Unity client.
 
-For more information on Entitlements in Catena and the features available, refer to the entitlements documentation.
-<!-- Add in this link when it exists: [refer to the Entitlements documentation](../../features/entitlements/index.md). -->
+For more information on Entitlements in Catena and the features available, [refer to the entitlements documentation](../../features/entitlements/index.md).
 
 ### Client-Side Entitlements
 

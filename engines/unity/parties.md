@@ -14,8 +14,7 @@ markdown:
 ## Adding Parties
 The first step to adding parties in your project is to set up a way for the player to log in and get an account. Once the player is logged in, they should be ready to create or join a party.
 
-For more information on Parties in Catena and the features available, refer to the parties documentation.
-<!-- Add in this link when it exists: [refer to the Parties documentation](../../features/parties/index.md). -->
+For more information on Parties in Catena and the features available, [refer to the parties documentation](../../features/parties/index.md).
 
 ### Creating a party
 
