@@ -277,6 +277,19 @@ public class PartyManager : MonoBehaviour
 }
 ```
 
+## Party Matchmaking
+
+If you also have matchmaking in your game, you have the ability to matchmake with parties. There are two ways to initiate Party Matchmaking - directly by using `CatenaPlayer`, or matchmaking through `CatenaPartiesManager`.
+
+In `CatenaPlayer`, there is a function called `CatenaPlayer.EnterPartyMatchmaking`, which takes in the following as arguments:
+- The list of players to matchmake with
+- a string to indicate which player is the party leader
+- A dictionary to contain the match metadata, mapping strings to `EntityMetadata`. (Can contain whatever data needed, but most importantly needs a defined `queue_name` entry)
+
+After starting matchmaking this way, the rest of the flow is similar to normal matchmaking - which you can find more about in [the Unity Matchmaking Guides](./matchmaking/index.md). One thing to note is that the other party members must also already be listening for matchmaking events, despite not starting the matchmaking themselves - as they will be notified when a match is found.
+
+For a simpler method to approach party matchmaking, you can use the `CatenaPartiesManager` to indirectly call the start match functionality. If you call `CatenaPartiesManager.StartMatchmaking`, the only thing you need to provide is the Match Metadata - and the manager will use the current party information to fill out the rest of the request.
+
 ## Demo Example
 
 For an example of the party functionality in action, check out the [Catena Galactic Kittens Demo](https://github.com/CatenaTools/catena-GalacticKittens-demo). In order to enable the parties functionality in the demo, you will need to go to `Project Settings > Player > Scripting Define Symbols` and add a defintion for `ENABLE_CATENA_PARTIES`.
