@@ -41,7 +41,7 @@ To see the steps of how to integrate authentication in to your project, check ou
 Once the player is logged in, they are able to use the matchmaking system to enter a game through `CatenaPlayer`. There are two options for how to handle matchmaking - either peer to peer, or a dedicated server. [The Peer to Peer Guide can be found here](../matchmaking/peer-to-peer.md), and [the Dedicated Server guide can be found here](../matchmaking/game-servers.md).
 
 #### Peer to Peer
-Before being able to start matchmaking, you must ensure that the backend is configured to have the queues and hooks that you require. This config file can be found in the `Appsettings.Development.json` file in catena-tools-core. For peer to peer matchmaking in the demo, ensure that you have a Matchmaking Queue with the name `team_of_2` with teams set to 1 and player per team set to 2, as well as the custom hook of `SimpleP2PMatchmakingHooks` - it should look something like this:
+Before being able to start matchmaking, you must ensure that the backend is configured to have the queues and hooks that you require. This config file can be found in the `appsettings.Development.json` file in catena-tools-core. For peer to peer matchmaking in the demo, ensure that you have a Matchmaking Queue with the name `team_of_2` with teams set to 1 and player per team set to 2, as well as the custom hook of `SimpleP2PMatchmakingHooks` - it should look something like this:
 
 ```json
 {
@@ -163,9 +163,7 @@ To see the steps of how to integrate parties in to your project, check out [the 
 
 ### Party Matchmaking
 
-With Parties enabled, you will also notice a dropdown at the bottom of the parties section, and a 'Find Match' button - these are what allow you to start party matchmaking.
-
-The only additional requirement beyond what was already needed for parties and solo matchmaking is to make sure the Catena config file `Appsettings.Development.json` in catena-tools-core has queues configured that match what is defined in the game. If you want to enable all of the possible queues already set up in the demo, you can add the following queues to your config file. Note that these all use the custom hook `SimpleP2PMatchmakingHooks` as they are set up for P2P matchmaking - to use dedicated server matchmaking, remove this hook:
+After you've set up parties and solo matchmaking, the only step needed to start party matchmaking is to adjust the Catena config file `appsettings.Development.json`. You will want to make sure the queues configured in this file match what is defined in the game. If you want to enable all of the possible queues already set up in the demo, you can add the following queues to your config file. Note that these all use the custom hook `SimpleP2PMatchmakingHooks` as they are set up for P2P matchmaking - to use dedicated server matchmaking, remove this hook:
 ```json
 {
   "Catena": {
@@ -231,6 +229,6 @@ The only additional requirement beyond what was already needed for parties and s
   }
 }
 ```
-With the config set up, you should now be able to party matchmake - all that is required is to run 2 or more instances of the game, and then have them join a party. Once all the instances are 'ready', the leader can pick a queue from the dropdown list and start matchmaking.
+This config should enable you to party matchmake. To do so, run two or more instances of the game, and have them join a party. Once all instances are ready, the leader can pick a queue from the dropdown list and start matchmaking.
 
 If you wish to adjust the queues listed in the dropdown, you can do so by modifying them in the inspector. Navigate to the scene `Assets/Scenes/Menu.unity` and select the gameobject `Canvas -> OnlineControls -> Parties`, and in the inspector under the Matchmaking Queues section, you should see a list of queues that you can add/remove from, or edit existing queues.
