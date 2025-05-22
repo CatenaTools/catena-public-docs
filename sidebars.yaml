@@ -76,27 +76,6 @@
       label: "API Keys"
     - page: features/audit-logging/index.md
       label: "Audit Logging"
-    - page: features/friends/index.md
-      label: "Friends"
-    - page: features/parties/index.md
-      label: "Parties"
-    - group: Matchmaking
-      page: features/matchmaking/index.md
-      items:
-        - page: features/matchmaking/catena-matchmaker.md
-          label: Catena Matchmaker
-        - page: features/matchmaking/aws-flex-match.md
-          label: AWS FlexMatch
-    - page: features/game-servers/index.md
-      label: "Game Servers"
-    - group: "Fleet management"
-      items:
-      - page: features/fleet-management/match-broker.md
-        label: "Match broker"
-      - page: features/fleet-management/match-broker-allocators.md
-        label: "Match broker allocators"
-      - page: features/fleet-management/server-manager.md
-        label: "Server manager"
     - group: "Entitlements"
       page: features/entitlements/index.md
       items:
@@ -108,6 +87,29 @@
           items:
             - page: features/entitlements/SteamAppExternalItemProvider.md
               label: "Steam App ID"
+    - group: "Fleet management"
+      items:
+        - page: features/fleet-management/match-broker.md
+          label: "Match broker"
+        - page: features/fleet-management/match-broker-allocators.md
+          label: "Match broker allocators"
+        - page: features/fleet-management/server-manager.md
+          label: "Server manager"
+    - page: features/friends/index.md
+      label: "Friends"
+    - page: features/game-servers/index.md
+      label: "Game Servers"
+    - group: Matchmaking
+      page: features/matchmaking/index.md
+      items:
+        - page: features/matchmaking/catena-matchmaker.md
+          label: Catena Matchmaker
+        - page: features/matchmaking/aws-flex-match.md
+          label: AWS FlexMatch
+    - page: features/parties/index.md
+      label: "Parties"
+    - page: features/twitch-integration/index.md
+      label: "Twitch Integration"
 - label: Scaling and Load Testing
   page: scaling/index.md
 - group: Catena API Explorer
