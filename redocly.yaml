@@ -18,6 +18,8 @@ navbar:
       label: "Unity"
     - page: engines/unreal/index.md
       label: "Unreal"
+    - page: libcatena/index.md
+      label: "Libcatena"
     - group: Features
       items:
         - page: features/accounts/index.md
