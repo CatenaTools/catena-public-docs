@@ -46,6 +46,13 @@
       label: "Authentication"
     - page: engines/unreal/matchmaking.md
       label: "Matchmaking"
+- group: Libcatena
+  page: libcatena/index.md
+  items:
+  - page: libcatena/service-messenger.md
+    label: "Service Messenger"
+  - page: libcatena/callback-manager.md
+    label: "Callback Manager"
 - label: CI/CD
   page: ci_cd/index.md
 - group: Features
