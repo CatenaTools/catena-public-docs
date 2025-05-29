@@ -50,8 +50,8 @@ It is suggested that `ReadyDeadlineSeconds` be set to the time required for the 
 "MatchBroker": {
   "Allocators": [
     {
-      "Allocator": "CatenaLocalBareMetalAllocator",
-      "AllocatorDescription": "Local allocator",
+      "Allocator": "CatenaGameLiftAllocator",
+      "AllocatorDescription": "GameLift allocator",
       "Configuration": {
         "Profile": "<AWS credential profile>",
         "Region": "us-east-1",
