@@ -1,6 +1,6 @@
 # Matchmaking in Lyra
 
-This documentation shows the steps for building out a client & server game package to running each executable for successfully matchmaking two client instances to a server instance all within the Lyra sample game.
+This documentation shows you the steps for building out a client & server game package to running each executable for successfully matchmaking two client instances to a server instance all within the Lyra sample game.
 
 ## Setup
 
@@ -9,15 +9,18 @@ This documentation shows the steps for building out a client & server game packa
 To follow this documentation you will need the Catena Lyra project downloaded and ready to run.
 {% /admonition %}
 
-Some requirements to follow the provided steps is to have the following pre-configured:
+Some requirements to follow this documentation is to have the following:
 
 <!-- Todo: Add docs for creating server api key and setting it in Unreal. Link to those in #2. -->
-1. You must be running a Catena backend. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../../../installation/index.md).
+1. You must be running Catena. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../../../installation/index.md).
 2. Have a valid server api key set in the `CatenaConfig.ini` file found in `<path-to-lyra-repo>\Samples\Games\Lyra\Plugins\OnlineServicesCatena\Source\OnlineServicesCatena\Config\CatenaConfig.ini`
    1. Once you have a server api key set the server will be able to make authenticated requests to the backend.
-3. Have a directory for storing packaged builds of Lyra.
 
-To setup the proper directory navigate to where the Lyra project is stored `<path-to-lyra-repo>\Samples\Games\Lyra` and create a folder named `Packaged`.
+Assuming that you have installed Lyra successfully, be sure that you have a local instance of the backend running 
+the only setup required is to make sure you have a destination directory for where packaged projects will be placed.
+
+Navigate to where the Lyra project is stored `<path-to-lyra-repo>\Samples\Games\Lyra` and create a folder named `Packaged`.
+
 You will then be able to store packaged projects within this directory without affecting the git diff as this folder is ignored.
 
 ## Package Builds
