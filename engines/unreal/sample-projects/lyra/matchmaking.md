@@ -13,8 +13,9 @@ Some requirements to follow the provided steps is to have the following pre-conf
 
 <!-- Todo: Add docs for creating server api key and setting it in Unreal. Link to those in #2. -->
 1. You must be running a Catena backend. It must be run locally or you must have it deployed somewhere. [Instructions for doing so can be found here](../../../../installation/index.md).
-2. Have a valid server api key set in the `CatenaConfig.ini` file found in `<path-to-lyra-repo>\Samples\Games\Lyra\Plugins\OnlineServicesCatena\Source\OnlineServicesCatena\Config\CatenaConfig.ini`
-   1. Once you have a server api key set the server will be able to make authenticated requests to the backend.
+2. Have a valid server api key set in the `ServerApiAuthKey` variable in the `CatenaConfig.ini` file found in `<path-to-lyra-repo>\Samples\Games\Lyra\Plugins\OnlineServicesCatena\Source\OnlineServicesCatena\Config\CatenaConfig.ini`
+   1. If you do not have a server api key set, [you can follow these instructions to configure it](../../../../features/api-keys/index.md). You will need a key with `game_server_match` permissions.
+   2. Once you have a server api key set the server will be able to make authenticated requests to the backend.
 3. Have a directory for storing packaged builds of Lyra.
 
 To setup the proper directory navigate to where the Lyra project is stored `<path-to-lyra-repo>\Samples\Games\Lyra` and create a folder named `Packaged`.
