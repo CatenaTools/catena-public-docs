@@ -46,9 +46,18 @@
       label: "Authentication"
     - page: engines/unreal/matchmaking.md
       label: "Matchmaking"
+    - group: Sample Games
+      page: engines/unreal/sample-projects/sample-games.md
+      items:
+        - page: engines/unreal/sample-projects/lyra/lyra-index.md
+          items:
+          - page: engines/unreal/sample-projects/lyra/matchmaking.md
+            label: "Lyra Matchmaking"
 - group: Libcatena
   page: libcatena/index.md
   items:
+  - page: libcatena/overview.md
+    label: "Overview"
   - page: libcatena/service-messenger.md
     label: "Service Messenger"
   - page: libcatena/callback-manager.md
