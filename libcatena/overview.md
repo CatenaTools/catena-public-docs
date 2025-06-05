@@ -37,7 +37,7 @@ High-level modules each contain a low-level module to handle the requests while 
 
 High-level modules also provide their own set of callbacks for each request type for allowing users to receive information through a callback on a request made. This is to provide a simple alternative for registering callbacks rather than managing callbacks on a callback manager directly.
 
-<!-- Todo: Add link to module docs -->
+More can be learned about [modules here](modules.md).
 
 ### Available Modules
 
