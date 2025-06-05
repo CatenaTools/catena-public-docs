@@ -62,6 +62,8 @@
     label: "Service Messenger"
   - page: libcatena/callback-manager.md
     label: "Callback Manager"
+  - page: libcatena/modules.md
+    label: "Modules"
 - label: CI/CD
   page: ci_cd/index.md
 - group: Features
