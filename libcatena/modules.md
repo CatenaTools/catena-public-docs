@@ -6,7 +6,7 @@ In this document you will learn the details of how modules are structured, how t
 
 This section will show how to setup modules and start utilizing their api for registering callbacks and making requests.
 
-Each module needs to be initialized with a callback manager and a service messenger instance. It is recommended to have a shared instance of a callback manager and service messenger shared across each module representing for a single player's data-set.
+Each module needs to be initialized with a callback manager and a service messenger instance. It is recommended to have an instance of a callback manager and an instance of a service messenger shared across each module representing a single player's data-set.
 
 Here is an example of setting up each type of module to prepare them for making requests.
 
