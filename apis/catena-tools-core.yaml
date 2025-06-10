@@ -321,6 +321,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/admin/accounts:
+    get:
+      tags:
+        - CatenaAccounts
+      operationId: catena.catena_accounts.CatenaAccounts_AdminListAccounts
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.ListAccountsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
     post:
       tags:
         - CatenaAccounts
@@ -329,7 +357,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Services.CatenaAccounts.CreateAccountRequest'
+              $ref: '#/components/schemas/Services.CatenaAccounts.AdminCreateAccountRequest'
       responses:
         '200':
           description: Success
@@ -337,6 +365,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaAccounts.CreateAccountResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    patch:
+      tags:
+        - CatenaAccounts
+      operationId: catena.catena_accounts.CatenaAccounts_AdminUpdateAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaAccounts.UpdateAccountRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.UpdateAccountResponse'
         default:
           description: Error
           content:
@@ -714,14 +764,11 @@ paths:
           required: true
           schema:
             type: string
-        - name: name
-          in: query
-          schema:
-            type: string
-        - name: policyId
-          in: query
-          schema:
-            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaApiKeys.AdminUpdateApiKeyRequest'
       responses:
         '200':
           description: Success
@@ -1743,6 +1790,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/entitlements/providers/supported:
+    get:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_AdminListSupportedProviders
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.AdminListSupportedProvidersResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/entitlements/providers/active:
+    get:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_AdminListActiveProviders
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.AdminListActiveProvidersResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   '/api/v1/entitlements/offer/{provider}/prepare':
     post:
       tags:
@@ -2285,60 +2368,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
-  /api/v1/friends/request/outgoing:
-    get:
-      tags:
-        - CatenaFriends
-      operationId: catena.catena_friends.CatenaFriends_GetOutgoingPendingRequests
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Services.CatenaFriends.GetOutgoingPendingRequestsResponse'
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Google.Rpc.Status'
-  /api/v1/friends/request/incoming:
-    get:
-      tags:
-        - CatenaFriends
-      operationId: catena.catena_friends.CatenaFriends_GetIncomingPendingRequests
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Services.CatenaFriends.GetIncomingPendingRequestsResponse'
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Google.Rpc.Status'
-  /api/v1/friends/get:
-    get:
-      tags:
-        - CatenaFriends
-      operationId: catena.catena_friends.CatenaFriends_GetFriendList
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Services.CatenaFriends.GetFriendListResponse'
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/friends/remove:
     post:
       tags:
@@ -2356,6 +2385,144 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaFriends.RemoveFriendResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/friends/request/outgoing:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_GetOutgoingPendingRequests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.GetOutgoingPendingRequestsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.GetOutgoingPendingRequestsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/friends/request/incoming:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_GetIncomingPendingRequests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.GetIncomingPendingRequestsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.GetIncomingPendingRequestsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/friends/get:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_GetFriendsList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.GetFriendsListRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.GetFriendsListResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/friends/remove-pending:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_AdminRemovePendingFriendRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.AdminRemovePendingFriendRequestRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.AdminRemovePendingFriendRequestResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/friends/remove:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_AdminRemoveFriend
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.AdminRemoveFriendRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.AdminRemoveFriendResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/friends/get:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_AdminGetFriendsList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.AdminGetFriendsListRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.AdminGetFriendsListResponse'
         default:
           description: Error
           content:
@@ -2421,6 +2588,180 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaMatchBroker.ListQueuedMatchesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/matchbroker/admin/list-active-matches:
+    get:
+      tags:
+        - CatenaMatchBroker
+      operationId: catena.catena_match_broker.CatenaMatchBroker_AdminListActiveMatches
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchBroker.AdminListActiveMatchesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/matchbroker/admin/match/{matchId}':
+    get:
+      tags:
+        - CatenaMatchBroker
+      operationId: catena.catena_match_broker.CatenaMatchBroker_AdminGetActiveMatchById
+      parameters:
+        - name: matchId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchBroker.AdminGetActiveMatchByIdResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/matchbroker/admin/delete/{matchId}':
+    delete:
+      tags:
+        - CatenaMatchBroker
+      operationId: catena.catena_match_broker.CatenaMatchBroker_AdminEndActiveMatch
+      parameters:
+        - name: matchId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchBroker.AdminEndActiveMatchResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/matchbroker/admin/allocators/available:
+    get:
+      tags:
+        - CatenaMatchBroker
+      operationId: catena.catena_match_broker.CatenaMatchBroker_AdminGetAvailableAllocators
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchBroker.AdminGetAvailableAllocatorsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/matchbroker/admin/allocators/configured:
+    get:
+      tags:
+        - CatenaMatchBroker
+      operationId: catena.catena_match_broker.CatenaMatchBroker_AdminGetConfiguredAllocators
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchBroker.AdminGetConfiguredAllocatorsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/matchbroker/admin/config:
+    get:
+      tags:
+        - CatenaMatchBroker
+      operationId: catena.catena_match_broker.CatenaMatchBroker_AdminXGetMatchBrokerConfig
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchBroker.AdminXGetMatchBrokerConfigResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/matchbroker/admin/reconfigure:
+    post:
+      tags:
+        - CatenaMatchBroker
+      operationId: catena.catena_match_broker.CatenaMatchBroker_AdminXReconfigureMatchBroker
+      parameters:
+        - name: fastSchedule
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: serverMaxLifetimeMinutes
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: matchPickupTimeSeconds
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: matchReadyTimeSeconds
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: matchMaxRunTimeMinutes
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: scheduleFrequencySeconds
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: delayAllocationSeconds
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchBroker.AdminXReconfigureMatchBrokerResponse'
         default:
           description: Error
           content:
@@ -2605,6 +2946,249 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/matchmaking/admin/config:
+    get:
+      tags:
+        - CatenaMatchmaking
+      operationId: catena.catena_matchmaking.CatenaMatchmaking_AdminXGetMatchmakerConfig
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchmaking.AdminXGetMatchmakerConfigResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    post:
+      tags:
+        - CatenaMatchmaking
+      operationId: catena.catena_matchmaking.CatenaMatchmaking_AdminXReconfigureMatchmaker
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaMatchmaking.AdminXReconfigureMatchmakerRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaMatchmaking.AdminXReconfigureMatchmakerResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/node_control/restart:
+    post:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminRestartNode
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminRestartNodeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/node_control/set_preferred_implementation_override:
+    post:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminSetPreferredImplementationOverride
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaNodeControl.AdminSetPreferredImplementationOverrideRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminSetPreferredImplementationOverrideResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/node_control/set_preferred_implementation_overrides:
+    get:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminGetPreferredImplementationOverrides
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminGetPreferredImplementationOverridesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/node_control/service_include:
+    put:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminAddServiceToInclude
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaNodeControl.AdminAddServiceToIncludeRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminAddServiceToIncludeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    delete:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminRemoveServiceToInclude
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaNodeControl.AdminRemoveServiceToIncludeRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminRemoveServiceToIncludeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/node_control/services_to_include:
+    get:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminGetServicesToInclude
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminGetServicesToIncludeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/node_control/service_exclude:
+    put:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminAddServiceToExclude
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaNodeControl.AdminAddServiceToExcludeRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminAddServiceToExcludeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    delete:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminRemoveServiceToExclude
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaNodeControl.AdminRemoveServiceToExcludeRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminRemoveServiceToExcludeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/node_control/services_to_exclude:
+    get:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_AdminGetServicesToExclude
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeControl.AdminGetServicesToExcludeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/node_control/healthz:
+    get:
+      tags:
+        - CatenaNodeControl
+      operationId: catena.catena_node_control.CatenaNodeControl_GetServiceHealth
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catena.Core.GetServiceHealthResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/node_inspection/services/discovered:
     get:
       tags:
@@ -2635,6 +3219,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaNodeInspection.ListEnabledServicesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/node_inspection/implementations/available:
+    get:
+      tags:
+        - CatenaNodeInspection
+      operationId: catena.catena_node_inspection.CatenaNodeInspection_GetAvailableImplementations
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeInspection.GetAvailableImplementationsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/node_inspection/implementations/active:
+    get:
+      tags:
+        - CatenaNodeInspection
+      operationId: catena.catena_node_inspection.CatenaNodeInspection_GetActiveImplementations
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeInspection.GetActiveImplementationsResponse'
         default:
           description: Error
           content:
@@ -3192,6 +3812,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaParties.AdminDeletePartyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/parties/delete-all:
+    delete:
+      tags:
+        - CatenaParties
+      operationId: catena.catena_parties.CatenaParties_AdminDeleteAllParties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaParties.AdminDeleteAllPartiesResponse'
         default:
           description: Error
           content:
@@ -4317,6 +4955,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/events/emit:
+    post:
+      tags:
+        - Events
+      operationId: catena.events.Events_AdminEmitUpdateEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Catena.Events.AdminEmitUpdateEventRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catena.Events.AdminEmitUpdateEventResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
 components:
   schemas:
     Catena.CatenaServerCatalog.ExecuteActionRequest:
@@ -4421,6 +5082,29 @@ components:
         description:
           type: string
       additionalProperties: false
+    Catena.Events.AdminEmitUpdateEventRequest:
+      type: object
+      properties:
+        nestedEvent:
+          $ref: '#/components/schemas/Catena.Events.Event'
+        recipientIds:
+          type: array
+          items:
+            type: string
+        eventTags:
+          type: array
+          items:
+            type: string
+        broadcast:
+          type: boolean
+          description: affects how an empty recipient list is treated when tags are present; required to broadcast
+      additionalProperties: false
+    Catena.Events.AdminEmitUpdateEventResponse:
+      type: object
+      properties:
+        broadcastSuccess:
+          type: boolean
+      additionalProperties: false
     Catena.Events.EmitUpdateEventRequest:
       type: object
       properties:
@@ -4434,9 +5118,9 @@ components:
           type: array
           items:
             type: string
-        alsoBroadcast:
+        broadcast:
           type: boolean
-          description: ignored when recipient_ids is non-empty; affects how an empty recipient list is treated when tags are present
+          description: affects how an empty recipient list is treated when tags are present; required to broadcast
       additionalProperties: false
     Catena.Events.EmitUpdateEventResponse:
       type: object
@@ -4469,6 +5153,10 @@ components:
           $ref: '#/components/schemas/Services.CatenaMatchmaking.NewMatchEvent'
         announcementEvent:
           $ref: '#/components/schemas/Services.CatenaAnnouncements.AnnouncementEvent'
+        accountsEvent:
+          $ref: '#/components/schemas/Services.CatenaAccounts.AccountsEvent'
+        friendsEvent:
+          $ref: '#/components/schemas/Services.CatenaFriends.FriendsEvent'
       additionalProperties: false
     Catena.Events.SubscribeToEventsByTagResponse:
       type: object
@@ -4951,10 +5639,38 @@ components:
           description: List of platforms that this account is linked to
       additionalProperties: false
       description: Bundled data that describes an account and its metadata.
-    Services.CatenaAccounts.CreateAccountRequest:
+    Services.CatenaAccounts.AccountsEvent:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/Services.CatenaAccounts.AccountsUpdateType'
+        accountId:
+          type: string
+        isNewAccount:
+          type: boolean
+        newPlatformType:
+          $ref: '#/components/schemas/Services.PublicCommon.Platform'
+        platforms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.PublicCommon.Platform'
+      additionalProperties: false
+    Services.CatenaAccounts.AccountsUpdateType:
+      enum:
+        - CREATE_OR_GET_ACCOUNT
+        - LINK_ACCOUNT_TO_PLATFORM
+        - 0
+        - 1
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': CreateOrGetAccount
+        '1': LinkAccountToPlatform
+    Services.CatenaAccounts.AdminCreateAccountRequest:
       type: object
       properties:
         displayName:
+          type: string
+        authRole:
           type: string
       additionalProperties: false
     Services.CatenaAccounts.CreateAccountResponse:
@@ -5071,6 +5787,14 @@ components:
           type: boolean
           description: indicator of success of linking existing account to new auth provider
       additionalProperties: false
+    Services.CatenaAccounts.ListAccountsResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaAccounts.Account'
+      additionalProperties: false
     Services.CatenaAccounts.PlatformAccountId:
       type: object
       properties:
@@ -5135,6 +5859,9 @@ components:
       additionalProperties: false
     Services.CatenaAccounts.UpdateAccountResponse:
       type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/Services.CatenaAccounts.Account'
       additionalProperties: false
     Services.CatenaAccounts.UpdateMetadataEntryRequest:
       type: object
@@ -5241,6 +5968,16 @@ components:
         policy:
           $ref: '#/components/schemas/Services.CatenaApiKeys.ApiKeyPolicy'
       additionalProperties: false
+    Services.CatenaApiKeys.AdminUpdateApiKeyRequest:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        policyId:
+          type: string
+      additionalProperties: false
     Services.CatenaApiKeys.AdminUpdateApiKeyResponse:
       type: object
       properties:
@@ -5311,16 +6048,23 @@ components:
       properties:
         type:
           $ref: '#/components/schemas/Services.CatenaAuthentication.AuthenticationUpdateType'
-        accountId:
+        catenaAccountId:
           type: string
+        platformAccountId:
+          type: string
+        platform:
+          $ref: '#/components/schemas/Services.PublicCommon.Platform'
       additionalProperties: false
     Services.CatenaAuthentication.AuthenticationUpdateType:
       enum:
         - LOGOUT
+        - LOGIN
         - 0
+        - 1
       description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
       x-enumDescriptions:
         '0': Logout
+        '1': Login
     Services.CatenaAuthentication.AwaitSessionResponse:
       type: object
       properties:
@@ -5591,6 +6335,30 @@ components:
         newCount:
           type: integer
           format: int64
+      additionalProperties: false
+    Services.CatenaEntitlements.AdminListActiveProvidersResponse:
+      type: object
+      properties:
+        orderProviders:
+          type: array
+          items:
+            type: string
+        externalItemProviders:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaEntitlements.AdminListSupportedProvidersResponse:
+      type: object
+      properties:
+        orderProviders:
+          type: array
+          items:
+            type: string
+        externalItemProviders:
+          type: array
+          items:
+            type: string
       additionalProperties: false
     Services.CatenaEntitlements.AdminLockoutFlags:
       type: object
@@ -6244,6 +7012,48 @@ components:
     Services.CatenaFriends.AcceptFriendRequestResponse:
       type: object
       additionalProperties: false
+    Services.CatenaFriends.AdminGetFriendsListRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Services.CatenaFriends.AdminGetFriendsListResponse:
+      type: object
+      properties:
+        friends:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaFriends.Friend'
+      additionalProperties: false
+    Services.CatenaFriends.AdminRemoveFriendRequest:
+      type: object
+      properties:
+        accountId1:
+          type: string
+        accountId2:
+          type: string
+      additionalProperties: false
+    Services.CatenaFriends.AdminRemoveFriendResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaFriends.AdminRemovePendingFriendRequestRequest:
+      type: object
+      properties:
+        senderAccountId:
+          type: string
+        receiverAccountId:
+          type: string
+      additionalProperties: false
+    Services.CatenaFriends.AdminRemovePendingFriendRequestResponse:
+      type: object
+      additionalProperties: false
     Services.CatenaFriends.DeclineFriendRequestRequest:
       type: object
       properties:
@@ -6271,13 +7081,57 @@ components:
           type: integer
           format: int64
       additionalProperties: false
-    Services.CatenaFriends.GetFriendListResponse:
+      description: Structures
+    Services.CatenaFriends.FriendsEvent:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/Services.CatenaFriends.FriendsEventType'
+        senderAccountId:
+          type: string
+        receiverAccountId:
+          type: string
+      additionalProperties: false
+    Services.CatenaFriends.FriendsEventType:
+      enum:
+        - UNSPECIFIED
+        - SEND_FRIEND_REQUEST
+        - ACCEPT_FRIEND_REQUEST
+        - 0
+        - 1
+        - 2
+      description: "Update Events\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': SendFriendRequest
+        '2': AcceptFriendRequest
+    Services.CatenaFriends.GetFriendsListRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Services.CatenaFriends.GetFriendsListResponse:
       type: object
       properties:
         friends:
           type: array
           items:
             $ref: '#/components/schemas/Services.CatenaFriends.Friend'
+      additionalProperties: false
+    Services.CatenaFriends.GetIncomingPendingRequestsRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
       additionalProperties: false
     Services.CatenaFriends.GetIncomingPendingRequestsResponse:
       type: object
@@ -6286,6 +7140,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Services.CatenaFriends.FriendRequest'
+      additionalProperties: false
+    Services.CatenaFriends.GetOutgoingPendingRequestsRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
       additionalProperties: false
     Services.CatenaFriends.GetOutgoingPendingRequestsResponse:
       type: object
@@ -6310,6 +7174,7 @@ components:
         receiverAccountId:
           type: string
       additionalProperties: false
+      description: Requests
     Services.CatenaFriends.SendFriendRequestResponse:
       type: object
       additionalProperties: false
@@ -6330,6 +7195,85 @@ components:
           type: integer
           format: int64
       additionalProperties: false
+    Services.CatenaMatchBroker.AdminEndActiveMatchResponse:
+      type: object
+      properties:
+        matchDeleted:
+          type: boolean
+      additionalProperties: false
+    Services.CatenaMatchBroker.AdminGetActiveMatchByIdResponse:
+      type: object
+      properties:
+        match:
+          $ref: '#/components/schemas/Catena.MatchBroker.Match'
+      additionalProperties: false
+    Services.CatenaMatchBroker.AdminGetAvailableAllocatorsResponse:
+      type: object
+      properties:
+        allocatorNames:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaMatchBroker.AdminGetConfiguredAllocatorsResponse:
+      type: object
+      properties:
+        allocators:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaMatchBroker.AllocatorConfiguration'
+      additionalProperties: false
+    Services.CatenaMatchBroker.AdminListActiveMatchesResponse:
+      type: object
+      properties:
+        matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Catena.MatchBroker.Match'
+      additionalProperties: false
+    Services.CatenaMatchBroker.AdminXGetMatchBrokerConfigResponse:
+      type: object
+      properties:
+        fastSchedule:
+          type: integer
+          format: int32
+        serverMaxLifetimeMinutes:
+          type: integer
+          format: int32
+        matchPickupTimeSeconds:
+          type: integer
+          format: int32
+        matchReadyTimeSeconds:
+          type: integer
+          format: int32
+        matchMaxRunTimeMinutes:
+          type: integer
+          format: int32
+        scheduleFrequencySeconds:
+          type: integer
+          format: int32
+        delayAllocationSeconds:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Services.CatenaMatchBroker.AdminXReconfigureMatchBrokerResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      additionalProperties: false
+    Services.CatenaMatchBroker.AllocatorConfiguration:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: string
+        rawAllocatorConfiguration:
+          type: string
+      additionalProperties: false
     Services.CatenaMatchBroker.ListQueuedMatchesResponse:
       type: object
       properties:
@@ -6337,6 +7281,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Catena.MatchBroker.Match'
+      additionalProperties: false
+    Services.CatenaMatchmaking.AdminXGetMatchmakerConfigResponse:
+      type: object
+      properties:
+        catenaMatchmakerConfig:
+          $ref: '#/components/schemas/Services.CatenaMatchmaking.CatenaMatchmakerConfig'
+        flexMatchConfig:
+          $ref: '#/components/schemas/Services.CatenaMatchmaking.FlexMatchConfig'
+        customMatchmakerConfig:
+          type: string
+      additionalProperties: false
+    Services.CatenaMatchmaking.AdminXReconfigureMatchmakerRequest:
+      type: object
+      properties:
+        config:
+          type: string
+      additionalProperties: false
+    Services.CatenaMatchmaking.AdminXReconfigureMatchmakerResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
       additionalProperties: false
     Services.CatenaMatchmaking.CancelMatchmakingRequest:
       type: object
@@ -6347,6 +7313,39 @@ components:
       additionalProperties: false
     Services.CatenaMatchmaking.CancelMatchmakingResponse:
       type: object
+      additionalProperties: false
+    Services.CatenaMatchmaking.CatenaMatchmakerConfig:
+      type: object
+      properties:
+        matchmakingQueues:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Services.CatenaMatchmaking.QueueConfig'
+        statusExpirationMinutes:
+          type: integer
+          format: int64
+        customHooks:
+          type: string
+      additionalProperties: false
+    Services.CatenaMatchmaking.FlexMatchConfig:
+      type: object
+      properties:
+        sqsQueueUrl:
+          type: string
+        gameliftConfig:
+          $ref: '#/components/schemas/Services.CatenaMatchmaking.GameLiftConfig'
+      additionalProperties: false
+    Services.CatenaMatchmaking.GameLiftConfig:
+      type: object
+      properties:
+        profile:
+          type: string
+        region:
+          type: string
+        accessKey:
+          type: string
+        secretKey:
+          type: string
       additionalProperties: false
     Services.CatenaMatchmaking.GetMatchmakingStatusResponse:
       type: object
@@ -6443,6 +7442,30 @@ components:
         match:
           $ref: '#/components/schemas/Catena.MatchBroker.Match'
       additionalProperties: false
+    Services.CatenaMatchmaking.QueueConfig:
+      type: object
+      properties:
+        queueName:
+          type: string
+        teams:
+          type: integer
+          format: int64
+        minPlayersPerTeam:
+          type: integer
+          format: int64
+        playersPerTeam:
+          type: integer
+          format: int64
+        ticketExpirationSeconds:
+          type: integer
+          format: int64
+        expirationAction:
+          type: string
+        customStrategy:
+          type: string
+        customHooks:
+          type: string
+      additionalProperties: false
     Services.CatenaMatchmaking.StartMatchmakingRequest:
       type: object
       properties:
@@ -6455,6 +7478,106 @@ components:
         ticketId:
           type: string
           description: The ID of the newly created matchmaking ticket.
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminAddServiceToExcludeRequest:
+      type: object
+      properties:
+        service:
+          type: string
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminAddServiceToExcludeResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminAddServiceToIncludeRequest:
+      type: object
+      properties:
+        service:
+          type: string
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminAddServiceToIncludeResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminGetPreferredImplementationOverridesResponse:
+      type: object
+      properties:
+        overrides:
+          type: object
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminGetServicesToExcludeResponse:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminGetServicesToIncludeResponse:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminRemoveServiceToExcludeRequest:
+      type: object
+      properties:
+        service:
+          type: string
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminRemoveServiceToExcludeResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminRemoveServiceToIncludeRequest:
+      type: object
+      properties:
+        service:
+          type: string
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminRemoveServiceToIncludeResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminRestartNodeResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminSetPreferredImplementationOverrideRequest:
+      type: object
+      properties:
+        interface:
+          type: string
+        implementation:
+          type: string
+        clear:
+          type: boolean
+      additionalProperties: false
+    Services.CatenaNodeControl.AdminSetPreferredImplementationOverrideResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaNodeInspection.AvailableImplementations:
+      type: object
+      properties:
+        implementations:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaNodeInspection.GetActiveImplementationsResponse:
+      type: object
+      properties:
+        activeImplementations:
+          type: object
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    Services.CatenaNodeInspection.GetAvailableImplementationsResponse:
+      type: object
+      properties:
+        availableImplementations:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Services.CatenaNodeInspection.AvailableImplementations'
       additionalProperties: false
     Services.CatenaNodeInspection.GetNodeHealthResponse:
       type: object
@@ -6527,6 +7650,13 @@ components:
       properties:
         party:
           $ref: '#/components/schemas/Services.CatenaParties.Party'
+      additionalProperties: false
+    Services.CatenaParties.AdminDeleteAllPartiesResponse:
+      type: object
+      properties:
+        partiesDeleted:
+          type: integer
+          format: int32
       additionalProperties: false
     Services.CatenaParties.AdminDeletePartyResponse:
       type: object
@@ -7538,10 +8668,18 @@ components:
         '98': Catena
         '99': Custom
 tags:
-  - name: CatenaTitles
-    description: CatenaTitles
+  - name: CatenaApiKeys
+    description: CatenaApiKeys
+  - name: CatenaAccounts
+    description: CatenaAccounts
+  - name: CatenaServerManager
+    description: The server manager service portion of the integrated broker. This is what game servers interact with to handle matches.
+  - name: CatenaAuthentication
+    description: CatenaAuthentication
   - name: CatenaSessions
     description: "A service that can be used to probe the session store directly for development or diagnostics.\r\nNot intended for regular production use!"
+  - name: CatenaTitles
+    description: CatenaTitles
   - name: CatenaServerReleases
     description: CatenaServerManagement
   - name: CatenaPlatformAuth
@@ -7550,17 +8688,11 @@ tags:
     description: CatenaParties
   - name: CatenaNodeInspection
     description: A service that can be used inspect the Catena node.
+  - name: CatenaNodeControl
+    description: A service that can be used control the Catena node.
   - name: CatenaMatchBroker
     description: "An integrated match broker service which sits between the matchmaker, clients, and game servers/hosting to coordinate capacity and notify clients when servers are ready to accept connections.\r\nThis implementation integrates the broker and capacity/server manager roles."
   - name: CatenaFriends
     description: CatenaFriends
-  - name: CatenaAuthentication
-    description: CatenaAuthentication
-  - name: CatenaApiKeys
-    description: CatenaApiKeys
-  - name: CatenaAccounts
-    description: CatenaAccounts
   - name: Events
     description: Events
-  - name: CatenaServerManager
-    description: The server manager service portion of the integrated broker. This is what game servers interact with to handle matches.
