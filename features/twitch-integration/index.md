@@ -18,8 +18,7 @@ If you have, feel free to skip ahead to relevant sections.
    - The result should look similar to `https://catena.reallycoolgame.example.com:5000/api/v1/authentication/PROVIDER_TWITCH_WEB/callback`
 3. [Create a Reward](https://dev.twitch.tv/docs/drops/#create-a-reward)
    1. If you have not yet created an item in Catena that you want to assign as the Twitch Drop, you should do so now.
-      - _Dev Q: Do we have a page for this?_
-      - TBD: Dashboard doc for this?
+      <!-- TODO: Add Link to Create an Item Dashboard Doc -->
    2. Once that item has been created, mark down its Catena Catalog Item Id.
    3. Back in the Twitch reward creation, there is an optional "Reward ID" field. Fill that field in with the Catena Catalog Item Id.
 4. [Create a Drops Campaign](https://dev.twitch.tv/docs/drops/#create-a-drops-campaign)
@@ -48,10 +47,31 @@ If you have, feel free to skip ahead to relevant sections.
 3. Fill in the `Client ID`, `Secret`, `GameID`, and `OrganizationID` fields with the information recorded from the [Twitch Setup](#Twitch-Setup) section.
 4. Fill in the `WebHookSecret` with a 10-100 character string of your choosing.
 5. Leave the `SkipSignatureVerification` field as `false`.
-   - Flipping this field to `true` will activate an emulated Twitch Drop layer meant for testing, and will not connect to Twitch proper.
 6. Ensure that the Twitch viewer account that will receive Twitch Drops is connected to a Catena Account.
-   - For instructions on how to do the above, please see [Catena Account Linking](this-page-doesn't-exist)
-     - _Dev Q: Does this page exist?_
+   <!-- TODO: Create an Account Linking document and link to it here -->
+
+## Verifying Drops w/ Catena
+We'll assume here that your Twitch Drops campaign is live and you've already had your two accounts (Creator/Streamer and Test Viewer) successfully earn the Drops through Twitch.
+What you'll need to do next is ensure that the Drops were successfully obtained by Catena.
+
+### Check the Admin Dashboard
+1. Under the `Account Data` tab, input the Catena Account ID that should have received the drop.
+2. If the item you set up previously is within the `Owned Items` section, that's a bingo.
+
+### If the above fails...
+1. Check the Catena logs.
+2. Check the Catena database files, specifically:
+   1. Check the `accounts_platforms` table within the `accounts.db` file, and ensure that the Test Viewer account has a Twitch `platform_type` registered.
+   2. Check the `twitch_account_mappings` table within the `twitch.db` file, and ensure that the Test Viewer account is linked there.
+   3. Check the `twitch_drops` table within the `twitch.db` file, and ensure that the drop (labeled as "entitlement") has been delivered.
+      - To confirm, you'll want to find the entry that has the appropriate `twitch_account_id` and `benefit_id`, where the `benefit_id` is the Catena Item Id for the item to be delivered.
+      - If the `entitlement_status` is not marked as `FULFILLED`, that confirms a failure somewhere in the pipeline, _after_ having received the drop.
+
+## Testing Internally with Catena
+> **Heads Up!**
+> 
+> If you follow this section of the guide, you will _not_ be connecting to Twitch directly.
+> This section of the guide utilizes an emulated layer meant to confirm that Catena alone is working as intended.
 
 ### Testing and Verifying the Catena Pipeline
 If you want to ensure that Catena is working as expected, in Step 5 of [Catena Setup](#catena-setup), you can flip the `SkipSignatureVerification` flag to `true`.
@@ -65,7 +85,7 @@ Additionally, you will need to include the following field in the `PreferredImpl
 ```
 After doing the above, and assuming that you have already created a Catena Item as per Step 3.1 of [Twitch Setup](#twitch-setup), you'll need to trigger the fake Twitch Drop from an outside source.
 For now, we'll use Postman.
-   - Dev Note: Should we offer some kind of http testing section in the dashboard or is that overkill?
+   <!-- TODO: Add some kind of local http testing in the dashboard -->
 
 #### Postman
 Using the address `localhost:5000/twitch/drop/callback` (or your specified `url:port` if appropriate), send a `POST` request with the following body:
@@ -104,21 +124,4 @@ Using the address `localhost:5000/twitch/drop/callback` (or your specified `url:
     ]
 }
 ```
-After sending the request, move to the next section of the guide to verify that it was received.
-
-## Verifying Drops w/ Catena
-We'll assume here that your Twitch Drops campaign is live and you've already had your two accounts (Creator/Streamer and Test Viewer) successfully earn the Drops through Twitch.
-What you'll need to do next is ensure that the Drops were successfully obtained by Catena.
-
-### Check the Admin Dashboard
-1. Under the `Account Data` tab, input the Catena Account ID that should have received the drop.
-2. If the item you set up previously is within the `Owned Items` section, that's a bingo.
-
-### If the above fails...
-1. Check the Catena logs.
-2. Check the Catena database files, specifically:
-   1. Check the `accounts_platforms` table within the `accounts.db` file, and ensure that the Test Viewer account has a Twitch `platform_type` registered.
-   2. Check the `twitch_account_mappings` table within the `twitch.db` file, and ensure that the Test Viewer account is linked there.
-   3. Check the `twitch_drops` table within the `twitch.db` file, and ensure that the drop (labeled as "entitlement") has been delivered.
-      - To confirm, you'll want to find the entry that has the appropriate `twitch_account_id` and `benefit_id`, where the `benefit_id` is the Catena Item Id for the item to be delivered.
-      - If the `entitlement_status` is not marked as `FULFILLED`, that confirms a failure somewhere in the pipeline, _after_ having received the drop.
+After sending the request, head back to the [Verifying Drops](#verifying-drops-w-catena) section to confirm that you've correctly received the drop.
