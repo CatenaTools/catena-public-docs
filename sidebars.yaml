@@ -133,3 +133,8 @@
   items:
     - page: dashboard/setup.md
       label: "Setup"
+- group: Other tools
+  page: tools/index.md
+  items:
+    - page: tools/catena-doc-gen.md
+      label: "Doc tool (catena-doc-gen)"
