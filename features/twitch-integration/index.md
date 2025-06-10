@@ -18,7 +18,7 @@ If you have, feel free to skip ahead to relevant sections.
    - The result should look similar to `https://catena.reallycoolgame.example.com:5000/api/v1/authentication/PROVIDER_TWITCH_WEB/callback`
 3. [Create a Reward](https://dev.twitch.tv/docs/drops/#create-a-reward)
    1. If you have not yet created an item in Catena that you want to assign as the Twitch Drop, you should do so now.
-      <!-- TODO: Add Link to Create an Item Dashboard Doc -->
+<!-- TODO: Add Link to Create an Item Dashboard Doc -->
    2. Once that item has been created, mark down its Catena Catalog Item Id.
    3. Back in the Twitch reward creation, there is an optional "Reward ID" field. Fill that field in with the Catena Catalog Item Id.
 4. [Create a Drops Campaign](https://dev.twitch.tv/docs/drops/#create-a-drops-campaign)
@@ -48,7 +48,7 @@ If you have, feel free to skip ahead to relevant sections.
 4. Fill in the `WebHookSecret` with a 10-100 character string of your choosing.
 5. Leave the `SkipSignatureVerification` field as `false`.
 6. Ensure that the Twitch viewer account that will receive Twitch Drops is connected to a Catena Account.
-   <!-- TODO: Create an Account Linking document and link to it here -->
+<!-- TODO: Create an Account Linking document and link to it here -->
 
 ## Verifying Drops w/ Catena
 We'll assume here that your Twitch Drops campaign is live and you've already had your two accounts (Creator/Streamer and Test Viewer) successfully earn the Drops through Twitch.
@@ -85,7 +85,7 @@ Additionally, you will need to include the following field in the `PreferredImpl
 ```
 After doing the above, and assuming that you have already created a Catena Item as per Step 3.1 of [Twitch Setup](#twitch-setup), you'll need to trigger the fake Twitch Drop from an outside source.
 For now, we'll use Postman.
-   <!-- TODO: Add some kind of local http testing in the dashboard -->
+<!-- TODO: Add some kind of local http testing in the dashboard -->
 
 #### Postman
 Using the address `localhost:5000/twitch/drop/callback` (or your specified `url:port` if appropriate), send a `POST` request with the following body:
