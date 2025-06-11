@@ -76,6 +76,8 @@
       label: "API Keys"
     - page: features/audit-logging/index.md
       label: "Audit Logging"
+    - page: features/friends/index.md
+      label: "Friends"
     - page: features/parties/index.md
       label: "Parties"
     - group: Matchmaking
