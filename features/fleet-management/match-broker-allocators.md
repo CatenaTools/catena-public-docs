@@ -57,6 +57,7 @@ It is suggested that `ReadyDeadlineSeconds` be set to the time required for the 
         "Region": "us-east-1",
         "ReadyDeadlineSeconds": 30,
         "FleetArn": "<the ARN of the GameLift fleet>",
+        "FleetLocation": "<Fleet location, needed for Anywhere fleets>",
         "AllowFleetGrowth": false,
         "MaxFleetSize": 1,
         "ProxyMatchesToGameLift": true
