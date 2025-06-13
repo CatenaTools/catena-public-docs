@@ -125,6 +125,49 @@ To see the dedicated server matchmaking in action, perform the steps in the foll
 3. Open 2 instances of the game Galactic Kittens, and log in with both to different test accounts (test1 and test2 will suffice)
 4. Click find match on both game instances, and watch as they are placed into a match hosted by the server!
 
+#### Gamelift Allocated Server
+
+In addition to using your dedicated server with Catena, you can use Gamelift to allocate your server while using Catena to perform the matchmaking. In the demo, we have an example set up so that you can run your dedicated server locally, but have it register with a gamelift fleet to be allocated when Catena requests a game session.
+
+To set up Gamelift so that Catena can use it to allocate servers, [More information can be found here](../../../features/fleet-management/match-broker-allocators.md). For our example, ensure that your Gamelift fleet is an Anywhere fleet, with a custom location set. With your Gamelift fleet configured, set the Catena config so that it will use Gamelift as your match broker:
+```json
+{
+  "Catena": {
+    ...
+    "MatchBroker": {
+      "FastSchedule": 1,
+      "ServerMaxLifetimeMinutes": 10,
+      "MatchPickupTimeSeconds": 90,
+      "MatchReadyTimeSeconds": 30,
+      "MatchMaxRunTimeMinutes": 120,
+      "ScheduleFrequencySeconds": 30,
+      "DelayAllocationSeconds": 30,
+      "Allocators": [
+        {
+          "Allocator": "CatenaGameLiftAllocator",
+          "AllocatorDescription": "GameLift allocator",
+          "Configuration": {
+            "Profile": "my-gamelift-profile",
+            "Region": "(your region, such as us-east-1)",
+            "ReadyDeadlineSeconds": 30,
+            "FleetArn": "(Copy Fleet ARN from your own fleet)",
+            "FleetLocation": "(Copy fleet location from your own fleet)",
+            "AllowFleetGrowth": false,
+            "MaxFleetSize": 1,
+            "ProxyMatchesToGameLift": true
+          }
+        }
+      ]
+    }
+    ...
+  }
+}
+```
+
+Once both Catena and the Gamelift fleet are set up, [Head back to the Catena Networking Demo](https://github.com/CatenaTools/catena-GalacticKittens-demo) and switch to the branch named `gamelift-test-integration`. Navigate to the scene `Assets/Scenes/CharacterSelection.unity` - you will notice that `CatenaSingleMatchGameServer` is disabled, and there is a new gameobject called `GameLiftServer`. Select this, and in the inspector fill out the fleet ID and location (which should come from GameLift), the Process name (this can be anything), and the IP address that you will host the server on. If you wish to run the server and connect to it from the same location, this should be your local IP `127.0.0.1` - if the server is hosted seperately from the connecting client, instead use the public IP of the server.
+
+Once done, Using your dedicated server requires the same steps as before - build and run your dedicated server, which should register itself with the Gamelift fleet. Then, with Catena running, open two instances of the game Galactic Kittens, and find a match! Catena will handle creating a session in the gamelift fleet, and sending the connection information over to the players once the session has been made. (Note: At this point, the session will remain active until the server becomes available and the session times out - in a real scenario, the server should inform gamelift when to terminate the fleet.)
+
 ### Entitlements
 
 While not integrated into the game itself, the main menu of the Galactic Kittens demo has functionality to display entitlements information, as well as debug functionality to prepare and execute offers - something that should normally only be done from a trusted game server.
