@@ -121,6 +121,20 @@ result, updating when appropriate.
 {% openapi-code-sample operationId="catena.catena_entitlements.CatenaEntitlements_GetAccountCatalogItems"
 descriptionFile="../../apis/catena-tools-core.yaml" /%}
 
+### The ASAP flag
+
+By default, both query RPCs will attempt to refresh/update any ownership information from 3rd party platforms such as
+Steam or Twitch before returning. Since this can incur overhead, especially if these services experience a disruption,
+these RPCs have an `ASAP` flag that, when set, will skip any ownership refresh.
+
+When the ASAP flag is set, Catena will only return the ownership information it has cached for the account. This
+ownership information could be out of date (or empty if the account is new).
+
+The recommended approach is to call either query RPC with a relatively short timeout and the ASAP flag set to false (the
+default). Then, if the RPC times out but _some_ result is necessary and using cached data is acceptable, call it again
+with the ASAP flag set to true. (Game developers should weigh the possibility that the data returned in this case it not
+up to date.)
+
 ## Attaching provider-specific data to items
 
 For some entitlement providers, additional item data is necessary. For example, when using the
