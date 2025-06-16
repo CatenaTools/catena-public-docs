@@ -98,3 +98,34 @@ If the game server takes longer than 30 seconds to start up and begin fetching m
   ]
 }
 ```
+
+## Unity Multiplay Allocator
+
+The `MultiplayServerAllocator` can start and manage game servers by utilizing Unity Multiplay game server fleets.
+
+The `RegionId` can be found in the fleet "Scaling settings" tab.
+
+`ReadyDeadlineSeconds` should be set to the longest time that it takes to boot and make a new machine and game server
+available. In testing, this has been found to be in excess of 7 minutes for Multiplay. It is recommended to keep some
+minimum number of servers available.
+
+```json
+"MatchBroker": {
+  "Allocators": [
+    {
+      "Allocator": "MultiplayServerAllocator",
+      "AllocatorDescription": "Multiplay allocator",
+      "Configuration": {
+        "KeyId": "<key ID>",
+        "SecretKey": "<secret key>",
+        "ProjectId": "<project ID>",
+        "EnvironmentId": "<environment ID>",
+        "BuildConfigurationId": <build configuration ID>,
+        "FleetId": "<fleet ID>",
+        "RegionId": "<region ID>",
+        "ReadyDeadlineSeconds": 480
+      }
+    }
+  ]
+}
+```
