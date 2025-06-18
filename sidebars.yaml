@@ -65,6 +65,10 @@
           label: "Orders"
         - page: features/entitlements/offers.md
           label: "Offers"
+        - group: "Item Providers"
+          items:
+            - page: features/entitlements/SteamAppExternalItemProvider.md
+              label: "Steam App ID"
     - group: "Fleet management"
       items:
         - page: features/fleet-management/match-broker.md
