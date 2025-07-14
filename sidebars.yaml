@@ -102,8 +102,11 @@
     - group: Matchmaking
       page: features/matchmaking/index.md
       items:
-        - page: features/matchmaking/catena-matchmaker.md
-          label: Catena Matchmaker
+        - group: Catena Matchmaker
+          page: features/matchmaking/catena-matchmaker.md
+          items:
+            - page: features/matchmaking/custom-strategies-hooks.md
+              label: Custom Strategies/Hooks
         - page: features/matchmaking/aws-flex-match.md
           label: AWS FlexMatch
     - page: features/parties/index.md
