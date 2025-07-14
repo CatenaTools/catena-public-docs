@@ -36,9 +36,7 @@ The Catena Matchmaker contains built-in **strategies** that will be selected aut
 #### (Optional) Custom Strategies
 Configuring custom **matchmaking strategies** is an advanced topic. If you are configuring the matchmaker for the first time, it is recommended you set up your proof of concept with Catena's built-in **strategies**.
 
-{% partial file="/_partials/coming-soon.md" /%}
-
-<!-- TODO: Include documentation on how to configure custom strategies -->
+If you wish to create your own custom strategies, or modify the existing strategy, refer to the [Strategies and Hooks](custom-strategies-hooks.md) documentation
 
 ### Events
 As **matchmaking tickets** progress through the Catena Matchmaker, events are emitted that either game clients or other Catena Services who are subscribed can ingest.
@@ -48,9 +46,7 @@ As **matchmaking tickets** progress through the Catena Matchmaker, events are em
 ### (Optional) Matchmaking Hooks
 Configuring custom **matchmaking hooks** is an advanced topic. If you are configuring the matchmaker for the first time, it is recommended you set up your proof of concept without custom **matchmaking hooks**.
 
-{% partial file="/_partials/coming-soon.md" /%}
-
-<!-- TODO: How to configure hooks -->
+If you wish to create your own custom hooks, or use/modify any existing custom hooks, refer to the [Strategies and Hooks](custom-strategies-hooks.md) documentation
 
 ## Configuring The Catena Matchmaker
 Tha Catena Matchmaker is configured using appsettings files in `catena-tools-core`.
