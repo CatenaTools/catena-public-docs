@@ -49,7 +49,7 @@ Configuring custom **matchmaking hooks** is an advanced topic. If you are config
 If you wish to create your own custom hooks, or use/modify any existing custom hooks, refer to the [Strategies and Hooks](custom-strategies-hooks.md) documentation
 
 ## Configuring The Catena Matchmaker
-Tha Catena Matchmaker is configured using appsettings files in `catena-tools-core`.
+The Catena Matchmaker is configured using appsettings files in `catena-tools-core`.
 
 ### Basic Example
 
