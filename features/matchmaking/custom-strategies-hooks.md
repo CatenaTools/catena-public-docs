@@ -23,7 +23,11 @@ While the default strategy is intented to be a good general solution, your game 
 
 Catena comes with a sample Custom Strategy, called `OneTicketPerTeamMatchmakingStrategy`. This strategy serves as an easier to read example of a Matchmaking Strategy, where the requirements are much more relaxed - only trying to fulfill the team number requirement, giving each team a single matchmaking ticket regardless of the number of players on that ticket. If aiming to create your own Custom Strategy, a good place to start would be to copy either this Matchmaking Strategy or the default one, and then modify it to fit your needs. If making a strategy from scratch, ensure that you inherit from `CatenaMatchmaker.MatchmakingStrategy`, and that you implement an override of `TryMakeMatch`.
 
-If using a custom strategy, you will need to modify the configuration to indicate which queues should use this strategy. Tha Catena Matchmaker is configured using appsettings files in `catena-tools-core`. Here's an example of setting up a matchmaking queue to use the `OneTicketPerTeamMatchmakingStrategy` strategy:
+When making a custom strategy, it's important to remember that they should ideally work quickly. Only one call to `TryMakeMatch` will be happening at a time, so if a strategy is slow or otherwise delaying for some reason, then it will block any matches being made in any of the queues.
+
+Additonally, you should typically only emit one match before leaving `TryMakeMatch`. This is for the reason listed above - if a call to `TryMakeMatch` ends up emitting a match, then it will wait for the match to be emitted before progressing. By emitting more than one match, you will likely be spending a longer time forming matches for the same queue, instead of trying to form matches for all the queues equally.
+
+If using a custom strategy, you will need to modify the configuration to indicate which queues should use this strategy. The Catena Matchmaker is configured using appsettings files in `catena-tools-core`. Here's an example of setting up a matchmaking queue to use the `OneTicketPerTeamMatchmakingStrategy` strategy:
 
 ```json
 {
@@ -55,7 +59,7 @@ If using a custom strategy, you will need to modify the configuration to indicat
 
 **Hooks** allow you to add extra logic to the matchmaking process both before and after the strategy. Hooks have 2 main functions: Adding extra validation to tickets and matches, or adding/modifying data to tickets and matches. Hooks do this by using the `IMatchmakingCustomHooks` interface, and defining the functions for `ValidateTicketMatchHook` and `NewMatchHook`.
 
-### Hook Ticket Validation
+### Ticket Validation
 
 `ValidateTicketMatchHook` is called twice before a ticket is used for matchmaking - once when creating the matchmaking ticket, and once again when starting the matchmaking with the created ticket. This function can be used to verify that tickets are valid, rejecting tickets that don't meet some set of requirements. This function can also be used to modify the data of a ticket with any additional information you might need. Catena comes with two example hooks that use the '' function to both verify and modify tickets - the `QueueAssignmentMatchmakingHook` and the `PartyMatchmakingHook`.
 
@@ -98,7 +102,7 @@ Hooks that use `ValidateTicketMatchHook` only work if the custom hook is defined
 }
 ```
 
-### Hook Match Validation
+### Match Validation
 
 After a match is made using a **Strategy**, it will then be put through the queue-specific hook by calling `NewMatchHook`. Similar to `ValidateTicketMatchHook`, you can use this function to either reject a match that doesn't meet some requirements, or to add data to the match. Catena comes with two hooks that use this functionality: The `SetTeamDataMatchmakingHook` and `SimpleP2PMatchmakingHooks`.
 
