@@ -830,6 +830,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/authentication/available-providers:
+    get:
+      tags:
+        - CatenaAuthentication
+      operationId: catena.catena_authentication.CatenaAuthentication_AdminGetAvailableProviders
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAuthentication.AdminGetAvailableProvidersResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/authentication/providers:
     get:
       tags:
@@ -2460,7 +2478,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
-  /api/v1/admin/friends/remove-pending:
+  /api/v1/admin/friends/request/create-pending:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_AdminCreatePendingFriendRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.AdminCreatePendingFriendRequestRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.AdminCreatePendingFriendRequestResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/friends/add:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_AdminAddFriend
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.AdminAddFriendRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.AdminAddFriendResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/friends/request/remove-pending:
     post:
       tags:
         - CatenaFriends
@@ -2523,6 +2587,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaFriends.AdminGetFriendsListResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/friends/request/incoming:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_AdminGetIncomingPendingRequests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.AdminGetIncomingPendingRequestsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.AdminGetIncomingPendingRequestsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/friends/request/outgoing:
+    post:
+      tags:
+        - CatenaFriends
+      operationId: catena.catena_friends.CatenaFriends_AdminGetOutgoingPendingRequests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaFriends.AdminGetOutgoingPendingRequestsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaFriends.AdminGetOutgoingPendingRequestsResponse'
         default:
           description: Error
           content:
@@ -3027,7 +3137,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
-  /api/v1/admin/node_control/set_preferred_implementation_overrides:
+  /api/v1/admin/node_control/get_preferred_implementation_overrides:
     get:
       tags:
         - CatenaNodeControl
@@ -3836,6 +3946,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/internal/parties/{partyId}':
+    get:
+      tags:
+        - CatenaParties
+      operationId: catena.catena_parties.CatenaParties_InternalGetPartyById
+      parameters:
+        - name: partyId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaParties.InternalGetPartyByIdResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/admin/platform_auth/remember_me:
     post:
       tags:
@@ -4440,6 +4574,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaSteamDiag.AdminDirectTransactionQueryTxnResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/steam_diag/direct/transaction/get_user_info:
+    post:
+      tags:
+        - CatenaSteamDiag
+      operationId: catena.catena_steam_diag.CatenaSteamDiag_AdminDirectTransactionGetUserInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaSteamDiag.AdminDirectTransactionGetUserInfoRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaSteamDiag.AdminDirectTransactionGetUserInfoResponse'
         default:
           description: Error
           content:
@@ -5441,12 +5598,16 @@ components:
         requirements:
           type: string
           description: 'TODO: define filtering rules that can be applied'
+        hintFlags:
+          $ref: '#/components/schemas/Catena.ServerManager.HintFlag'
       additionalProperties: false
     Catena.ServerManager.RequestMatchResponse:
       type: object
       properties:
         match:
           $ref: '#/components/schemas/Catena.MatchBroker.Match'
+        hintFlags:
+          $ref: '#/components/schemas/Catena.ServerManager.HintFlag'
       additionalProperties: false
     Catena.ServerManager.ServerInfo:
       type: object
@@ -5461,8 +5622,10 @@ components:
           items:
             $ref: '#/components/schemas/Catena.ServerManager.ServerMatchInfo'
           description: These are connection strings the server has returned
-        IsFull:
+        isFull:
           type: boolean
+        originatingAllocator:
+          type: string
       additionalProperties: false
     Catena.ServerManager.ServerMatchInfo:
       type: object
@@ -6024,6 +6187,14 @@ components:
     Services.CatenaAuthentication.AdminAddOrUpdateProviderConfigResponse:
       type: object
       additionalProperties: false
+    Services.CatenaAuthentication.AdminGetAvailableProvidersResponse:
+      type: object
+      properties:
+        providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaAuthentication.ProviderWithRawConfig'
+      additionalProperties: false
     Services.CatenaAuthentication.AdminGetProviderConfigResponse:
       type: object
       properties:
@@ -6168,6 +6339,14 @@ components:
           type: boolean
       additionalProperties: false
       description: Accepted auth provider configs.
+    Services.CatenaAuthentication.ProviderWithRawConfig:
+      type: object
+      properties:
+        provider:
+          $ref: '#/components/schemas/Services.CatenaAuthentication.Provider'
+        rawConfig:
+          type: string
+      additionalProperties: false
     Services.CatenaEntitlements.AdminAddCatalogItemPurchasePriceRequest:
       type: object
       properties:
@@ -6470,6 +6649,8 @@ components:
         existingAmount:
           type: integer
           format: int64
+        updatedPriceKey:
+          $ref: '#/components/schemas/Services.CatenaEntitlements.CatalogItemPriceKey'
       additionalProperties: false
     Services.CatenaEntitlements.AdminUpdateCatalogItemPurchasePriceResponse:
       type: object
@@ -6771,6 +6952,8 @@ components:
           type: array
           items:
             type: string
+        includeUnpublished:
+          type: boolean
       additionalProperties: false
     Services.CatenaEntitlements.PrepareOffersForProviderResponse:
       type: object
@@ -7012,6 +7195,28 @@ components:
     Services.CatenaFriends.AcceptFriendRequestResponse:
       type: object
       additionalProperties: false
+    Services.CatenaFriends.AdminAddFriendRequest:
+      type: object
+      properties:
+        accountId1:
+          type: string
+        accountId2:
+          type: string
+      additionalProperties: false
+    Services.CatenaFriends.AdminAddFriendResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaFriends.AdminCreatePendingFriendRequestRequest:
+      type: object
+      properties:
+        senderAccountId:
+          type: string
+        receiverAccountId:
+          type: string
+      additionalProperties: false
+    Services.CatenaFriends.AdminCreatePendingFriendRequestResponse:
+      type: object
+      additionalProperties: false
     Services.CatenaFriends.AdminGetFriendsListRequest:
       type: object
       properties:
@@ -7031,6 +7236,46 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Services.CatenaFriends.Friend'
+      additionalProperties: false
+    Services.CatenaFriends.AdminGetIncomingPendingRequestsRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Services.CatenaFriends.AdminGetIncomingPendingRequestsResponse:
+      type: object
+      properties:
+        incoming:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaFriends.FriendRequest'
+      additionalProperties: false
+    Services.CatenaFriends.AdminGetOutgoingPendingRequestsRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Services.CatenaFriends.AdminGetOutgoingPendingRequestsResponse:
+      type: object
+      properties:
+        outgoing:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaFriends.FriendRequest'
       additionalProperties: false
     Services.CatenaFriends.AdminRemoveFriendRequest:
       type: object
@@ -7752,6 +7997,12 @@ components:
         player:
           $ref: '#/components/schemas/Services.CatenaParties.Player'
       additionalProperties: false
+    Services.CatenaParties.InternalGetPartyByIdResponse:
+      type: object
+      properties:
+        party:
+          $ref: '#/components/schemas/Services.CatenaParties.Party'
+      additionalProperties: false
     Services.CatenaParties.JoinPartyWithInviteCodeRequest:
       type: object
       properties:
@@ -8225,6 +8476,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Services.CatenaSteamDiag.AdminDirectTransactionGetUserAgreementInfoAgreement'
+      additionalProperties: false
+    Services.CatenaSteamDiag.AdminDirectTransactionGetUserInfoRequest:
+      type: object
+      properties:
+        steamId:
+          type: integer
+          format: int64
+        appId:
+          type: integer
+          format: int32
+        ipAddress:
+          type: string
+      additionalProperties: false
+    Services.CatenaSteamDiag.AdminDirectTransactionGetUserInfoResponse:
+      type: object
+      properties:
+        state:
+          type: string
+        country:
+          type: string
+        currency:
+          type: string
+        status:
+          type: string
       additionalProperties: false
     Services.CatenaSteamDiag.AdminDirectTransactionQueryTxnRequest:
       type: object
