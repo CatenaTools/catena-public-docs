@@ -98,5 +98,34 @@ When using a combined session resolver+store, be sure to configure it as both th
 
 Read-write custom sessions are supported in two common ways:
 
-1. Where a custom header contains only a session ID and all operations on the session are conducted by accessing a separate data store - either directly or via a 3rd-party service.
-2. Where the entire session/token with data is contained within a custom header and serialization is performed in `ISessionResolver.SetSessionId()`.
+1. Where a custom header contains only a session ID and all operations on the session are conducted by accessing a
+   separate data store - either directly or via a 3rd-party service.
+2. Where the entire session/token with data is contained within a custom header and serialization is performed in
+   `ISessionResolver.SetSessionId()`.
+
+## Other examples
+
+`PseudoSessionProvider` can be used to inject account and session information from another trusted source with each call
+to Catena. This is useful when another backend service, which already provides authentication and account management,
+relies on Catena for other functions such as entitlements, matchmaking, or fleet management.
+
+The `PseudoSessionProvider` receives session and account information in designated headers along with each RPC made to
+Catena:
+
+* `external-account-id`: The unique account ID for the player
+* `external-display-name`: The display name for the player
+* `catena-provider-XYZ`: The player's account ID on another platform (where XYZ is the platform, ex: Steam, Apple, etc.)
+
+The `PseudoSessionProvider` works by combining several interfaces, and it must be set as the preferred implementation
+for all of them to function, ex:
+
+```json
+{
+  "PreferredImplementations": {
+    "ISessionStoreAccessor": "PseudoSessionProvider",
+    "ISessionResolver": "PseudoSessionProvider",
+    "ISessionTypeProvider": "PseudoSessionProvider",
+    "IAccountIdResolver": "PseudoSessionProvider"
+  }
+}
+```
