@@ -155,7 +155,9 @@ be discovered by the `CatenaNodeBuilder`.
 The services that should be started from any external libraries should also be specified in
 the <tooltip term="services list">services list</tooltip>.
 
-[Catena provides a separate example project for creating a module library.](https://github.com/CatenaTools/catena-tools-module-example)
+The [Catena experimental modules](https://github.com/CatenaTools/catena-tools-experimental-modules) repo and
+the [module library example project](https://github.com/CatenaTools/catena-tools-module-example) are good starting
+points to create a new module library.
 
 {% admonition type="info" %}
 The `CatenaNodeInspection` service can be used to interrogate which modules were discovered and which modules were
