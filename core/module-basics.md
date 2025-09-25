@@ -89,9 +89,9 @@ Dependencies are treated similar to top-level modules/services and may also decl
 be particularly useful if a service can be transient - and therefore scale with load - but must depend upon some
 subcomponent that must be a singleton.
 
-The `CatenaWarmbodyMatchmaker` and `CatenaMatchmakingService` are an example of this case; the service is transient but
-the actual matchmaking algorithm is a singleton. The `CatenaWarmbodyMatchmaker` is also an example of a module that is
-not a gRPC service.
+The `CatenaMatchmaker` and `CatenaMatchmakingService` are an example of this case; the service is transient but the
+actual matchmaking algorithm is a singleton. The `CatenaMatchmaker` is also an example of a module that is not a gRPC
+service.
 
 {% admonition type="info" %}
 Some core types such as the `ISessionStoreFactory` don't declare themselves as a singleton but are instead hardcoded
