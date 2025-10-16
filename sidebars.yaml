@@ -113,6 +113,8 @@
       label: "Parties"
     - page: features/twitch-integration/index.md
       label: "Twitch Integration"
+    - page: features/inline-encryption/index.md
+      label: "Inline secret encryption"
 - label: Scaling and Load Testing
   page: scaling/index.md
 - group: Catena API Explorer
