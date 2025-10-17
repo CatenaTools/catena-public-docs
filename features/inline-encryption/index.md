@@ -50,6 +50,21 @@ catena-tools-core --configEnv Development --config-encryption-key-file keyfile
 
 {% admonition type="info" %}
 When working with independent deployments or environments it may be beneficial to use a separate master key file for
-each deployment. This can help protect each deployment's master key file but it will also prohibit the free movement
+each deployment. This can help protect each deployment's master key file, but it will also prohibit the free movement
 of configuration files from one deployment to the other.
 {% /admonition %}
+
+### Partial string encryption
+
+Databases like PostgreSQL, Redis, Valkey, etc often have connection strings that contain a password field. Inline
+encryption can be used on the entire connection string, however, this renders the configuration less readable.
+
+Instead, Catena contains specific support for decrypting just the password field of connections strings for the
+databases it supports.
+
+For Redis and Valkey, any database which is written to use `ConnectionStringAsRedisConnectionString` will have the
+password decrypted automatically. This includes any Catena database implementations that use Redis.
+
+For PostgreSQL, any database written to use `IDatabaseAccessor` (or a derivative like
+`IDelayedMigrationDatabaseAccessor`), will have the password decrypted automatically. This includes any Catena database
+implementations that use PostgreSQL.
