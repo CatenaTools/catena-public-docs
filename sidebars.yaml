@@ -68,8 +68,25 @@
   page: ci_cd/index.md
 - group: Features
   items:
-    - page: features/authentication/index.md
-      label: "Authentication"
+    - group: "Authentication"
+      page: features/authentication/index.md
+      items:
+        - page: features/authentication/amazon.md
+          label: "Amazon"
+        - page: features/authentication/discord.md
+          label: "Discord"
+        - page: features/authentication/epic.md
+          label: "Epic Games"
+        - page: features/authentication/google.md
+          label: "Google"
+        - page: features/authentication/itch.md
+          label: "itch.io"
+        - page: features/authentication/microsoft.md
+          label: "Microsoft/Azure/Office 365"
+        - page: features/authentication/steam.md
+          label: "Steam"
+        - page: features/authentication/twitch.md
+          label: "Twitch"
     - page: features/accounts/index.md
       label: "Accounts"
     - page: features/api-keys/index.md

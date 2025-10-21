@@ -17,7 +17,7 @@ This page is dedicated to explaining key concepts for authentication with Catena
 
 ## Login Types
 
-Catena provides two types of authentication: **UNSAFE** and **PLATFORM**. These each use the same API, for simplicity's sake.
+Catena itself provides two types of authentication: **UNSAFE** and **PLATFORM**. These use the same API, for simplicity's sake.
 
 ### Unsafe Login
 **UNSAFE** login is designed to provide a low friction method for authenticating against Catena in development environments. This is done by specifying `PROVIDER_UNSAFE` in your authentication request and providing a username formatted with the `test` prefix, followed by two numbers (for example: `test01`).
@@ -35,7 +35,18 @@ To authenticate with an unsafe login, refer to the following code samples.
 {% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../../apis/catena-tools-core.yaml" /%}
 
 ### Platform Login
-{% partial file="/_partials/coming-soon.md" /%}
+
+Catena also supports logins with the following platforms:
+
+* [Amazon](amazon.md)
+* Apple
+* [Discord](discord.md)
+* [Epic Games](epic.md)
+* [Google](google.md)
+* [Itch.io](itch.md)
+* [Microsoft/Azure/Office 365](microsoft.md)
+* [Steam](steam.md)
+* [Twitch](twitch.md)
 
 ## Advanced Topics
 
