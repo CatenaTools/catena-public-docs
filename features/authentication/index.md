@@ -17,22 +17,13 @@ This page is dedicated to explaining key concepts for authentication with Catena
 
 ## Login Types
 
-Catena itself provides two types of authentication: **UNSAFE** and **PLATFORM**. These use the same API, for simplicity's sake.
+### Catena (standalone)
+Catena itself provides several standalone types of authentication:
 
-### Unsafe Login
-**UNSAFE** login is designed to provide a low friction method for authenticating against Catena in development environments. This is done by specifying `PROVIDER_UNSAFE` in your authentication request and providing a username formatted with the `test` prefix, followed by two numbers (for example: `test01`).
-
-To authenticate with an unsafe login, refer to the following code samples.
-
-{% admonition type="info" %}
-**Note**: A successful authentication request will return an empty response body. The `catena-session-id` response header is what we're looking for here.
-{% /admonition %}
-
-#### Code Sample
-{% openapi-code-sample operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../../apis/catena-tools-core.yaml" /%}
-
-#### Send Request from This Page
-{% replay-openapi operationId="catena.catena_authentication.CatenaAuthentication_LoginWithProvider" descriptionFile="../../apis/catena-tools-core.yaml" /%}
+* [UNSAFE](unsafe.md) - A low-friction method for authenticating in development environments
+* [CATENA](catena.md) - Username and password from a pre-defined list; good for administrators
+* [DEVICE](device.md) - Create a session from a known device ID; good for playtest systems or unique device IDs
+* [EMAIL_SIGN_UP](email_sign_up.md) - For players who have signed up with an email address.
 
 ### Platform Login
 

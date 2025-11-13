@@ -68,7 +68,18 @@
   page: ci_cd/index.md
 - group: Features
   items:
-    - group: "Authentication"
+    - group: "Catena (Standalone) Authentication"
+      page: ./features/authentication/index.md
+      items:
+        - page: features/authentication/unsafe.md
+          label: "Unsafe"
+        - page: features/authentication/catena.md
+          label: "Catena"
+        - page: features/authentication/device.md
+          label: "Device"
+        - page: features/authentication/email_sign_up.md
+          label: "Email/signup"
+    - group: "Platform Authentication"
       page: features/authentication/index.md
       items:
         - page: features/authentication/amazon.md
