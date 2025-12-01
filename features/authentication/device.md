@@ -6,6 +6,12 @@ This mechanism does not prescribe the identifier or format to be used. For examp
 
 ## Configuration
 
+{% admonition type="warning" %}
+Be sure to configure the [Catena platform auth service](catena-platform/index.md) when using this validator.
+
+The `ConnectionString` used by the DEVICE validator must match the `ConnectionString` used by the [Catena platform auth service](catena-platform/index.md) to enroll devices and authenticate.
+{% /admonition %}
+
 To use the device provider with the Catena authentication service, make sure it is enabled in the configuration and the database `ConnectionString` is configured.
 
 ```json

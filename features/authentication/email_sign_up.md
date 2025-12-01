@@ -4,6 +4,12 @@
 
 ## Configuration
 
+{% admonition type="warning" %}
+Be sure to configure the [Catena platform auth service](catena-platform/index.md) when using this validator.
+
+The `ConnectionString` used by the EMAIL_SIGN_UP validator must match the `ConnectionString` used by the [Catena platform auth service](catena-platform/index.md) for players to sign up and authenticate.
+{% /admonition %}
+
 To use the email sign up provider with the Catena authentication service, make sure it is enabled in the configuration and the database `ConnectionString` is configured.
 
 ```json
