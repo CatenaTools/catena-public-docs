@@ -301,6 +301,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/accounts/metadata/keys/search:
+    post:
+      tags:
+        - CatenaAccounts
+      summary: Get all metadata entries with keys matching search criteria
+      operationId: catena.catena_accounts.CatenaAccounts_GetMetadataEntriesByKeyRegex
+      parameters:
+        - name: accountId
+          in: query
+          schema:
+            type: string
+        - name: regex
+          in: query
+          schema:
+            type: string
+        - name: caseInsensitive
+          in: query
+          schema:
+            type: boolean
+        - name: invert
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/accounts/healthz:
     get:
       tags:
@@ -508,6 +544,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/accounts/metadata/keys/search:
+    post:
+      tags:
+        - CatenaAccounts
+      summary: Get all metadata entries with keys matching search criteria
+      operationId: catena.catena_accounts.CatenaAccounts_AdminGetMetadataEntriesByKeyRegex
+      parameters:
+        - name: accountId
+          in: query
+          schema:
+            type: string
+        - name: regex
+          in: query
+          schema:
+            type: string
+        - name: caseInsensitive
+          in: query
+          schema:
+            type: boolean
+        - name: invert
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/server/accounts:
     post:
       tags:
@@ -570,6 +642,135 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaAccounts.ServerLinkAccountResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/server/accounts/metadata:
+    post:
+      tags:
+        - CatenaAccounts
+      operationId: catena.catena_accounts.CatenaAccounts_ServerCreateMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaAccounts.CreateMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.CreateMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    put:
+      tags:
+        - CatenaAccounts
+      operationId: catena.catena_accounts.CatenaAccounts_ServerUpdateMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaAccounts.UpdateMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.UpdateMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    delete:
+      tags:
+        - CatenaAccounts
+      operationId: catena.catena_accounts.CatenaAccounts_ServerDeleteMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaAccounts.DeleteMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.DeleteMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    get:
+      tags:
+        - CatenaAccounts
+      operationId: catena.catena_accounts.CatenaAccounts_ServerGetMetadataEntry
+      parameters:
+        - name: accountId
+          in: query
+          schema:
+            type: string
+        - name: entryKey
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.GetMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/server/accounts/metadata/keys/search:
+    post:
+      tags:
+        - CatenaAccounts
+      summary: Get all metadata entries with keys matching search criteria
+      operationId: catena.catena_accounts.CatenaAccounts_ServerGetMetadataEntriesByKeyRegex
+      parameters:
+        - name: accountId
+          in: query
+          schema:
+            type: string
+        - name: regex
+          in: query
+          schema:
+            type: string
+        - name: caseInsensitive
+          in: query
+          schema:
+            type: boolean
+        - name: invert
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.GetMetadataEntriesResponse'
         default:
           description: Error
           content:
@@ -800,6 +1001,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaApiKeys.AdminDeleteApiKeyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/api_keys/healthz:
+    get:
+      tags:
+        - CatenaApiKeys
+      operationId: catena.catena_api_keys.CatenaApiKeys_GetServiceHealth
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catena.Core.GetServiceHealthResponse'
         default:
           description: Error
           content:
@@ -2109,6 +2328,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/server/entitlements/account/{accountId}/item/{catalogItemId}/set/{count}':
+    put:
+      tags:
+        - CatenaEntitlements
+      operationId: catena.catena_entitlements.CatenaEntitlements_ServerSetAccountCountableCatalogItem
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: catalogItemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaEntitlements.ServerSetAccountCountableCatalogItemResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   '/api/v1/server/entitlements/account/{accountId}/item/{catalogItemId}/increment/{count}':
     patch:
       tags:
@@ -2633,6 +2887,635 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaFriends.AdminGetOutgoingPendingRequestsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/global_metadata/entry/{entryKey}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_GetMetadataEntry
+      parameters:
+        - name: entryKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: namespace
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/global_metadata/entry/{namespace}/{entryKey}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_GetMetadataEntry
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entryKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/global_metadata/entries:
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_GetMetadataEntries
+      parameters:
+        - name: namespace
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/global_metadata/entries/{namespace}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_GetMetadataEntries
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/global_metadata/keys/search:
+    post:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_GetMetadataEntriesByKeyRegex
+      parameters:
+        - name: namespace
+          in: query
+          schema:
+            type: string
+        - name: regex
+          in: query
+          schema:
+            type: string
+        - name: caseInsensitive
+          in: query
+          schema:
+            type: boolean
+        - name: invert
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/global_metadata/healthz:
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_GetServiceHealth
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catena.Core.GetServiceHealthResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/global_metadata_namespaces:
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminListNamespaces
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.ListNamespacesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/global_metadata:
+    post:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminCreateMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaGlobalMetadata.CreateMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.CreateMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    put:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminUpdateMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaGlobalMetadata.UpdateMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.UpdateMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    delete:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminDeleteMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaGlobalMetadata.DeleteMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.DeleteMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/global_metadata/entry/{entryKey}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminGetMetadataEntry
+      parameters:
+        - name: entryKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: namespace
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/global_metadata/entry/{namespace}/{entryKey}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminGetMetadataEntry
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entryKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/global_metadata/entries:
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminGetMetadataEntries
+      parameters:
+        - name: namespace
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/global_metadata/entries/{namespace}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminGetMetadataEntries
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/global_metadata/keys/search:
+    post:
+      tags:
+        - CatenaGlobalMetadata
+      summary: Get all metadata entries with keys matching search criteria
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_AdminGetMetadataEntriesByKeyRegex
+      parameters:
+        - name: namespace
+          in: query
+          schema:
+            type: string
+        - name: regex
+          in: query
+          schema:
+            type: string
+        - name: caseInsensitive
+          in: query
+          schema:
+            type: boolean
+        - name: invert
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/server/global_metadata_namespaces:
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerListNamespaces
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.ListNamespacesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/server/global_metadata:
+    post:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerCreateMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaGlobalMetadata.CreateMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.CreateMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    put:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerUpdateMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaGlobalMetadata.UpdateMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.UpdateMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+    delete:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerDeleteMetadataEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaGlobalMetadata.DeleteMetadataEntryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.DeleteMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/server/global_metadata/entry/{entryKey}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerGetMetadataEntry
+      parameters:
+        - name: entryKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: namespace
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/server/global_metadata/entry/{namespace}/{entryKey}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerGetMetadataEntry
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entryKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntryResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/server/global_metadata/entries:
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerGetMetadataEntries
+      parameters:
+        - name: namespace
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/server/global_metadata/entries/{namespace}':
+    get:
+      tags:
+        - CatenaGlobalMetadata
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerGetMetadataEntries
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/server/global_metadata/keys/search:
+    post:
+      tags:
+        - CatenaGlobalMetadata
+      summary: Get all metadata entries with keys matching search criteria
+      operationId: catena.catena_global_metadata.CatenaGlobalMetadata_ServerGetMetadataEntriesByKeyRegex
+      parameters:
+        - name: namespace
+          in: query
+          schema:
+            type: string
+        - name: regex
+          in: query
+          schema:
+            type: string
+        - name: caseInsensitive
+          in: query
+          schema:
+            type: boolean
+        - name: invert
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaGlobalMetadata.GetMetadataEntriesResponse'
         default:
           description: Error
           content:
@@ -3371,6 +4254,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/node_inspection/schedule_tasks:
+    get:
+      tags:
+        - CatenaNodeInspection
+      operationId: catena.catena_node_inspection.CatenaNodeInspection_AdminXGetScheduledTasks
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeInspection.AdminXGetScheduledTasksResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/node_inspection/healthz:
     get:
       tags:
@@ -3419,6 +4320,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Services.CatenaNodeInspection.NodeIsHealthyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/node_inspection/self_log_snapshot:
+    get:
+      tags:
+        - CatenaNodeInspection
+      operationId: catena.catena_node_inspection.CatenaNodeInspection_AdminGetSelfLogSnapshot
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeInspection.AdminGetSelfLogSnapshotResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/node_inspection/self_log_stream:
+    get:
+      tags:
+        - CatenaNodeInspection
+      operationId: catena.catena_node_inspection.CatenaNodeInspection_AdminStreamSelfLog
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaNodeInspection.AdminStreamSelfLogResponse'
         default:
           description: Error
           content:
@@ -3946,30 +4883,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
-  '/api/v1/internal/parties/{partyId}':
-    get:
-      tags:
-        - CatenaParties
-      operationId: catena.catena_parties.CatenaParties_InternalGetPartyById
-      parameters:
-        - name: partyId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Services.CatenaParties.InternalGetPartyByIdResponse'
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/admin/platform_auth/remember_me:
     post:
       tags:
@@ -4079,54 +4992,275 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
-  /api/v1/fleets/deploy:
+    head:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminDeviceExistsForAuth
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminDeviceExistsForAuthResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/platform_auth/devices:
+    get:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminListDevicesForAuth
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminListDevicesForAuthResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/platform_auth/devices/search:
     post:
       tags:
-        - CatenaServerCatalog
-      summary: "ScheduleConfigOnHost allows a user to schedule a config as defined by the process monitor job specification on a \r\nspecific host based on the criteria specified within the job configuration."
-      operationId: catena.catena_server_catalog.CatenaServerCatalog_ScheduleConfigOnHost
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminSearchDevicesForAuth
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Catena.CatenaServerCatalog.ScheduleConfigOnHostRequest'
+              $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminSearchDevicesForAuthRequest'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Catena.CatenaServerCatalog.ScheduleConfigOnHostResponse'
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminSearchDevicesForAuthResponse'
         default:
           description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
-  /api/v1/fleets/hosts:
+  /api/v1/admin/platform_auth/sign_up:
+    post:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_SignUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaPlatformAuth.SignUpRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.SignUpResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/platform_auth/resend_verification:
+    post:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_ResendVerification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaPlatformAuth.ResendVerificationRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.ResendVerificationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/platform_auth/verify_email:
+    post:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_VerifyEmailAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaPlatformAuth.VerifyEmailAddressRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.VerifyEmailAddressResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  '/api/v1/admin/platform_auth/is_enabled/{feature}':
+    get:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_IsAuthFeatureEnabled
+      parameters:
+        - name: feature
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Services.CatenaPlatformAuth.PlatformAuthFeature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.IsAuthFeatureEnabledResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/platform_auth/email_users/list:
+    get:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminListEmailUsers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminListEmailUsersResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/platform_auth/email_users/search:
+    post:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminSearchEmailUsers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminSearchEmailUsersRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminSearchEmailUsersResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/platform_auth/email_users/delete:
+    post:
+      tags:
+        - CatenaPlatformAuth
+      operationId: catena.catena_platform_auth.CatenaPlatformAuth_AdminDeleteEmailUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminDeleteEmailUserRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaPlatformAuth.AdminDeleteEmailUserResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/fleets/deploy:
+    post:
+      tags:
+        - CatenaServerCatalog
+      summary: "ScheduleConfigOnHost allows a user to schedule a config as defined by the process monitor job specification on a \r\nspecific host based on the criteria specified within the job configuration."
+      operationId: catena.catena_server_catalog.CatenaServerCatalog_AdminScheduleConfigOnHost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Catena.CatenaServerCatalog.AdminScheduleConfigOnHostRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catena.CatenaServerCatalog.AdminScheduleConfigOnHostResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/admin/fleets/hosts:
     get:
       tags:
         - CatenaServerCatalog
       summary: List known hosts performs host filtering based on requirements
-      operationId: catena.catena_server_catalog.CatenaServerCatalog_ListKnownHosts
+      operationId: catena.catena_server_catalog.CatenaServerCatalog_AdminListKnownHosts
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Catena.CatenaServerCatalog.ListKnownHostsResponse'
+                $ref: '#/components/schemas/Catena.CatenaServerCatalog.AdminListKnownHostsResponse'
         default:
           description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
-  '/api/v1/fleets/hosts/{hostId}/action':
+  '/api/v1/admin/fleets/hosts/{hostId}/action':
     post:
       tags:
         - CatenaServerCatalog
-      operationId: catena.catena_server_catalog.CatenaServerCatalog_ExecuteAction
+      operationId: catena.catena_server_catalog.CatenaServerCatalog_AdminExecuteAction
       parameters:
         - name: hostId
           in: path
@@ -4137,14 +5271,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Catena.CatenaServerCatalog.ExecuteActionRequest'
+              $ref: '#/components/schemas/Catena.CatenaServerCatalog.AdminExecuteActionRequest'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Catena.CatenaServerCatalog.ExecuteActionResponse'
+                $ref: '#/components/schemas/Catena.CatenaServerCatalog.AdminExecuteActionResponse'
         default:
           description: Error
           content:
@@ -4452,18 +5586,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
-  /api/v1/sessions:
+  /api/v1/admin/sessions:
     get:
       tags:
         - CatenaSessions
-      operationId: catena.catena_sessions.CatenaSessions_ListSessions
+      operationId: catena.catena_sessions.CatenaSessions_AdminListSessions
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Services.CatenaSessions.ListSessionsResponse'
+                $ref: '#/components/schemas/Services.CatenaSessions.AdminListSessionsResponse'
         default:
           description: Error
           content:
@@ -5137,7 +6271,7 @@ paths:
                 $ref: '#/components/schemas/Google.Rpc.Status'
 components:
   schemas:
-    Catena.CatenaServerCatalog.ExecuteActionRequest:
+    Catena.CatenaServerCatalog.AdminExecuteActionRequest:
       type: object
       properties:
         hostId:
@@ -5145,8 +6279,32 @@ components:
         request:
           $ref: '#/components/schemas/Pxmon.ExecuteActionRequest'
       additionalProperties: false
-    Catena.CatenaServerCatalog.ExecuteActionResponse:
+    Catena.CatenaServerCatalog.AdminExecuteActionResponse:
       type: object
+      additionalProperties: false
+    Catena.CatenaServerCatalog.AdminListKnownHostsResponse:
+      type: object
+      properties:
+        hosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Catena.CatenaServerCatalog.Host'
+      additionalProperties: false
+    Catena.CatenaServerCatalog.AdminScheduleConfigOnHostRequest:
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/Pxmon.Config'
+      additionalProperties: false
+    Catena.CatenaServerCatalog.AdminScheduleConfigOnHostResponse:
+      type: object
+      properties:
+        hostId:
+          type: string
+        responses:
+          type: array
+          items:
+            type: string
       additionalProperties: false
     Catena.CatenaServerCatalog.Host:
       type: object
@@ -5187,30 +6345,6 @@ components:
           format: int64
       additionalProperties: false
       description: JobProcesses is a more detailed list of processes for a specific host.
-    Catena.CatenaServerCatalog.ListKnownHostsResponse:
-      type: object
-      properties:
-        hosts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Catena.CatenaServerCatalog.Host'
-      additionalProperties: false
-    Catena.CatenaServerCatalog.ScheduleConfigOnHostRequest:
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/Pxmon.Config'
-      additionalProperties: false
-    Catena.CatenaServerCatalog.ScheduleConfigOnHostResponse:
-      type: object
-      properties:
-        hostId:
-          type: string
-        responses:
-          type: array
-          items:
-            type: string
-      additionalProperties: false
     Catena.Core.ComponentHealth:
       type: object
       properties:
@@ -5462,12 +6596,15 @@ components:
       enum:
         - OVERWRITE
         - APPEND
+        - CREATE_IF_NECESSARY
         - 0
         - 1
+        - 2
       description: "When updating a metadata entry, the entry can either be overwritten (supported by all types) or appended (supported by string and json)\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
       x-enumDescriptions:
         '0': Overwrite
         '1': Append
+        '2': CreateIfNecessary
     Catena.MatchBroker.Match:
       type: object
       properties:
@@ -5577,9 +6714,14 @@ components:
           type: string
         connectionDetails:
           type: string
-          description: 'URI, IP+port, etc - not prescribed'
+          description: 'URI, IP+port, etc - not prescribed. Used as the default for any player not listed in per_player_connection_details'
         hintFlags:
           $ref: '#/components/schemas/Catena.ServerManager.HintFlag'
+        perPlayerConnectionDetails:
+          type: object
+          additionalProperties:
+            type: string
+          description: A connection string to use for any specific player in the match. May be left empty.
       additionalProperties: false
     Catena.ServerManager.MatchReadyResponse:
       type: object
@@ -6160,6 +7302,8 @@ components:
           type: string
         policy:
           $ref: '#/components/schemas/Services.CatenaApiKeys.ApiKeyPolicy'
+        createdBy:
+          type: string
       additionalProperties: false
     Services.CatenaApiKeys.ApiKeyPolicy:
       type: object
@@ -6172,6 +7316,8 @@ components:
           type: array
           items:
             type: string
+        createdBy:
+          type: string
       additionalProperties: false
     Services.CatenaApiKeys.TestApiKeyResponse:
       type: object
@@ -6290,6 +7436,7 @@ components:
         - PROVIDER_STEAM
         - PROVIDER_DEVICE
         - PROVIDER_REMEMBER_ME
+        - PROVIDER_EMAIL_SIGN_UP
         - PROVIDER_CATENA
         - PROVIDER_CUSTOM
         - 0
@@ -6306,6 +7453,7 @@ components:
         - 11
         - 12
         - 13
+        - 14
         - 98
         - 99
       description: "Accepted auth providers.\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
@@ -6324,6 +7472,7 @@ components:
         '11': Steam
         '12': Device
         '13': RememberMe
+        '14': EmailSignUp
         '98': Catena
         '99': Custom
     Services.CatenaAuthentication.ProviderConfig:
@@ -7082,6 +8231,13 @@ components:
     Services.CatenaEntitlements.ServerRemoveProviderCatalogItemDataResponse:
       type: object
       additionalProperties: false
+    Services.CatenaEntitlements.ServerSetAccountCountableCatalogItemResponse:
+      type: object
+      properties:
+        previousCount:
+          type: integer
+          format: int64
+      additionalProperties: false
     Services.CatenaEntitlements.SteamAppItemPolicy:
       enum:
         - STEAM_APP_ITEM_POLICY_UNSPECIFIED
@@ -7427,6 +8583,76 @@ components:
       additionalProperties: false
       description: Requests
     Services.CatenaFriends.SendFriendRequestResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.CreateMetadataEntryRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        entryKey:
+          type: string
+        entryValue:
+          $ref: '#/components/schemas/Catena.Groups.EntityMetadata'
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.CreateMetadataEntryResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.DeleteMetadataEntryRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        entryKey:
+          type: string
+        jsonHandlingType:
+          $ref: '#/components/schemas/Catena.Groups.DeleteJsonMetadataType'
+        propertiesToRemovePaths:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.DeleteMetadataEntryResponse:
+      type: object
+      properties:
+        entryDeleted:
+          type: boolean
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.GetMetadataEntriesResponse:
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Catena.Groups.EntityMetadata'
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.GetMetadataEntryResponse:
+      type: object
+      properties:
+        entryValue:
+          $ref: '#/components/schemas/Catena.Groups.EntityMetadata'
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.ListNamespacesResponse:
+      type: object
+      properties:
+        namespaces:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.UpdateMetadataEntryRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        entryKey:
+          type: string
+        entryValue:
+          $ref: '#/components/schemas/Catena.Groups.EntityMetadata'
+        updateOperationType:
+          $ref: '#/components/schemas/Catena.Groups.UpdateMetadataOperationType'
+      additionalProperties: false
+    Services.CatenaGlobalMetadata.UpdateMetadataEntryResponse:
       type: object
       additionalProperties: false
     Services.CatenaLeaderboards.LeaderboardResponse:
@@ -7806,6 +9032,28 @@ components:
     Services.CatenaNodeControl.AdminSetPreferredImplementationOverrideResponse:
       type: object
       additionalProperties: false
+    Services.CatenaNodeInspection.AdminGetSelfLogSnapshotResponse:
+      type: object
+      properties:
+        logEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaNodeInspection.LogEvent'
+      additionalProperties: false
+    Services.CatenaNodeInspection.AdminStreamSelfLogResponse:
+      type: object
+      properties:
+        logEvent:
+          $ref: '#/components/schemas/Services.CatenaNodeInspection.LogEvent'
+      additionalProperties: false
+    Services.CatenaNodeInspection.AdminXGetScheduledTasksResponse:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaNodeInspection.ScheduledTask'
+      additionalProperties: false
     Services.CatenaNodeInspection.AvailableImplementations:
       type: object
       properties:
@@ -7856,11 +9104,38 @@ components:
           items:
             type: string
       additionalProperties: false
+    Services.CatenaNodeInspection.LogEvent:
+      type: object
+      properties:
+        message:
+          type: string
+      additionalProperties: false
     Services.CatenaNodeInspection.NodeIsHealthyResponse:
       type: object
       properties:
         isHealthy:
           type: boolean
+      additionalProperties: false
+    Services.CatenaNodeInspection.ScheduledTask:
+      type: object
+      properties:
+        name:
+          type: string
+        group:
+          type: string
+        mostRecentTrigger:
+          $ref: '#/components/schemas/Services.CatenaNodeInspection.ScheduledTaskTrigger'
+        nextTrigger:
+          $ref: '#/components/schemas/Services.CatenaNodeInspection.ScheduledTaskTrigger'
+      additionalProperties: false
+    Services.CatenaNodeInspection.ScheduledTaskTrigger:
+      type: object
+      properties:
+        description:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
       additionalProperties: false
     Services.CatenaNodeInspection.ServiceHealth:
       type: object
@@ -8002,12 +9277,6 @@ components:
       properties:
         player:
           $ref: '#/components/schemas/Services.CatenaParties.Player'
-      additionalProperties: false
-    Services.CatenaParties.InternalGetPartyByIdResponse:
-      type: object
-      properties:
-        party:
-          $ref: '#/components/schemas/Services.CatenaParties.Party'
       additionalProperties: false
     Services.CatenaParties.JoinPartyWithInviteCodeRequest:
       type: object
@@ -8185,7 +9454,19 @@ components:
         party:
           $ref: '#/components/schemas/Services.CatenaParties.Party'
       additionalProperties: false
+    Services.CatenaPlatformAuth.AdminDeleteEmailUserRequest:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminDeleteEmailUserResponse:
+      type: object
+      additionalProperties: false
     Services.CatenaPlatformAuth.AdminDeleteLoginInfoResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminDeviceExistsForAuthResponse:
       type: object
       additionalProperties: false
     Services.CatenaPlatformAuth.AdminGetLoginInfoResponse:
@@ -8193,6 +9474,22 @@ components:
       properties:
         sessionData:
           type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminListDevicesForAuthResponse:
+      type: object
+      properties:
+        deviceIds:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminListEmailUsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaPlatformAuth.EmailUser'
       additionalProperties: false
     Services.CatenaPlatformAuth.AdminRegisterDeviceForAuthResponse:
       type: object
@@ -8203,11 +9500,99 @@ components:
     Services.CatenaPlatformAuth.AdminRemoveDeviceForAuthResponse:
       type: object
       additionalProperties: false
+    Services.CatenaPlatformAuth.AdminSearchDevicesForAuthRequest:
+      type: object
+      properties:
+        deviceFilter:
+          type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminSearchDevicesForAuthResponse:
+      type: object
+      properties:
+        deviceIds:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminSearchEmailUsersRequest:
+      type: object
+      properties:
+        emailAddressFilter:
+          type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.AdminSearchEmailUsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/Services.CatenaPlatformAuth.EmailUser'
+      additionalProperties: false
+    Services.CatenaPlatformAuth.EmailUser:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        verified:
+          type: boolean
+        lastVerified:
+          type: integer
+          format: int64
+        createdOn:
+          type: integer
+          format: int64
+      additionalProperties: false
+    Services.CatenaPlatformAuth.IsAuthFeatureEnabledResponse:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+      additionalProperties: false
+    Services.CatenaPlatformAuth.PlatformAuthFeature:
+      enum:
+        - 0
+        - 1
+      description: "\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
+      format: int32
+      x-enumDescriptions:
+        '0': Unspecified
+        '1': SignUp
     Services.CatenaPlatformAuth.RememberLoginInfoResponse:
       type: object
       properties:
         replayToken:
           type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.ResendVerificationRequest:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.ResendVerificationResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaPlatformAuth.SignUpRequest:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        password:
+          type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.SignUpResponse:
+      type: object
+      additionalProperties: false
+    Services.CatenaPlatformAuth.VerifyEmailAddressRequest:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        verificationCode:
+          type: string
+      additionalProperties: false
+    Services.CatenaPlatformAuth.VerifyEmailAddressResponse:
+      type: object
       additionalProperties: false
     Services.CatenaServerReleases.AdminCreateServerPatchRequest:
       type: object
@@ -8375,7 +9760,7 @@ components:
           items:
             $ref: '#/components/schemas/Services.CatenaServerReleases.ServerPatch'
       additionalProperties: false
-    Services.CatenaSessions.ListSessionsResponse:
+    Services.CatenaSessions.AdminListSessionsResponse:
       type: object
       properties:
         sessions:
@@ -8918,6 +10303,7 @@ components:
         - PLATFORM_AMAZON
         - PLATFORM_EPIC
         - PLATFORM_OFFICE365
+        - PLATFORM_PATREON
         - PLATFORM_CATENA
         - PLATFORM_CUSTOM
         - 0
@@ -8931,6 +10317,7 @@ components:
         - 8
         - 9
         - 10
+        - 11
         - 98
         - 99
       description: "All Catena supported platforms.\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
@@ -8946,9 +10333,12 @@ components:
         '8': Amazon
         '9': Epic
         '10': Office365
+        '11': Patreon
         '98': Catena
         '99': Custom
 tags:
+  - name: CatenaServerCatalog
+    description: "The CatenaServerCatalogService is responsible for collecting all known hosts via HostHeartBeats. These Heartbeats result in the service registering the host\r\nand tracking it for future queries/external use."
   - name: CatenaApiKeys
     description: CatenaApiKeys
   - name: CatenaAccounts
