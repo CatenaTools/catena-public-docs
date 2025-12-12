@@ -165,6 +165,10 @@
           label: "API keys"
         - page: core/auth/custom-sessions.md
           label: "Custom sessions"
+- group: Extending Services
+  items:
+    - page: core/writing-an-auth-validator.md
+      label: "Writing an auth validator"
 - group: Admin Dashboard
   page: dashboard/index.md
   items:
