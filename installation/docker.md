@@ -155,7 +155,33 @@ Docker is a tool used to create, deploy, and run applications using containers. 
 
 
     {% tab label="Linux" %}
-        {% partial file="/_partials/coming-soon.md" /%}
+        {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
+
+        ### 2. Install Docker
+        1. Install docker using your distro package manager or manually install "Docker CE" (Docker Engine on Linux) using the [instructions found here])(https://docs.docker.com/engine/install/).
+        2. Add your user to the docker group
+
+        ```bash
+        sudo usermod -aG docker $USER
+        ```
+
+        3. Proceed To [Run Catena](./docker.md#4.-run-catena)
+
+        ### 3. Run Catena
+        1. Navigate to the root directory of the Catena Project.
+        2. Use Docker Compose to run the project (this may take a while)
+
+        ```bash
+        docker compose up
+        ```
+
+        3. Check that Catena is running either by sending a request from this page using the provided interactive API, or by using cURL.
+
+        #### Send Request From This Page
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 {% /tabs %}
 
