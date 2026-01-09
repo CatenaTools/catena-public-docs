@@ -19,13 +19,37 @@ service (or a combined service) are required to make use of session types/roles.
 An authentication service can produce a new session by depending on `ISessionStoreAccessor` and calling `NewSession()`
 after a successful user login. The session ID assigned in this call uniquely represents the session.
 
+The session ID can be returned to a caller by depending on `ISessionResolver` and calling `SendSessionId()` on the RPC
+context.
+
+Here's an example combining these elements in a login RPC method. The `_sessionStoreAccessor` and `_sessionResolver` are
+members of the service that would be initialized in the constructor.
+
 ```C#
-string sessionId = IdentifiableUuid.Session.ToString();
-_sessionStoreAccessor.NewSession(
-    sessionId,
-    SessionDataKeys.PROVIDER_LOGIN_PAYLOAD,
-    payload
-);
+[AuthRequired(false)]
+public override Task<LoginResponse> Login(
+    LoginRequest request,
+    ServerCallContext context) {
+
+    // Check request/credentials here and continue to issue a new session
+
+    // Create the session ID
+    // This could be any string as long as it is unique
+    string sessionId = IdentifiableUuid.Session.ToString();
+
+    // Create a new store for the session containing the login payload
+    // The payload key and value could be custom but other services may expect these typical ones
+    _sessionStoreAccessor.NewSession(
+        sessionId,
+        SessionDataKeys.PROVIDER_LOGIN_PAYLOAD,
+        payload
+    );
+
+    // Hand off the session ID to it is retruned to the caller
+    await context.SendSessionId(_sessionResolver, SessionId);
+
+    return new LoginResponse();
+}
 ```
 
 ## Producing a session with an account role
