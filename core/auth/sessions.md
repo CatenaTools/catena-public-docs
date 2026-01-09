@@ -4,6 +4,8 @@ Sessions can be used authorize access to API calls which require them. A session
 after a successful login and expire after some time. A session can be referenced by its ID and may contain metadata that
 is accessed by services.
 
+The session ID is communicated between the Catena backend and game clients using the `catena-session-id` header.
+
 <!-- TODO: Need a topic that explains the separation between authentication and accounts. -->
 {% admonition type="info" %}
 A session produced by an authentication service typically represents a user but is only populated with account
