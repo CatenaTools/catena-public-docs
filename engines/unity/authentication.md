@@ -135,9 +135,9 @@ public class SceneManager : MonoBehaviour
     1. Get your device ID
         - This can be done in the unity editor using the toolbar option `Catena/Get Device ID`
     2. Use an admin account to register the device ID
-        - An admin can do this by using the `AdminRegisterDeviceForAuth` endpoint.
+        - An admin can do this using the Catena dashboard or using the`AdminRegisterDeviceForAuth` endpoint.
         - More information can be found at the [Catena Device Authentication page.](../../features/authentication/device)
-    3. Take the certificate ID, and store it.
+    3. Take the certificate, and store it.
         - To have it stored in a persistent data path that won't be included in a build, use the toolbar option `Catena/Set Device Certificate`
     4. Call to `CatenaPlayer.CompleteDeviceLogin`
         - By default, the function will check for a certificate stored using the `Catena/Set Device Certificate` option - but you can also manually pass in a certificate if you choose to implement this flow differently.
