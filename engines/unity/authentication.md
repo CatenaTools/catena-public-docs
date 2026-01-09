@@ -127,6 +127,23 @@ public class SceneManager : MonoBehaviour
     }
 }
 ```
+{% admonition type="info" %}
+    ### Device Authentication
+
+    For an easier workflow when working with dev setups, there is an option to authenticate using the device ID and a certificate. This will allow users to authenticate without needing to remember account information, or creating an account.
+    
+    1. Get your device ID
+        - This can be done in the unity editor using the toolbar option `Catena/Get Device ID`
+    2. Use an admin account to register the device ID
+        - An admin can do this by using the `AdminRegisterDeviceForAuth` endpoint.
+        - More information can be found at the [Catena Device Authentication page.](../../features/authentication/device)
+    3. Take the certificate ID, and store it.
+        - To have it stored in a persistent data path that won't be included in a build, use the toolbar option `Catena/Set Device Certificate`
+    4. Call to `CatenaPlayer.CompleteDeviceLogin`
+        - By default, the function will check for a certificate stored using the `Catena/Set Device Certificate` option - but you can also manually pass in a certificate if you choose to implement this flow differently.
+
+    The [Catena Networking Demo](./supplemental-materials/demo) has an example for setting up device login, with a button on the main menu that only appears in editor and allows logging in without a username - assuming the above steps are completed.
+{% /admonition %}
 
 ## What Next?
 Now that you've successfully authenticated a player you can now make authenticated calls against Catena, such as matchmaking players together.
