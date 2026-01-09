@@ -3,6 +3,9 @@
 API keys are typically used to authorize services instead of users and exist until they are revoked. An API key is
 created with a policy - a set of permissions that are granted to that API key.
 
+A game server or external service can utilize an API key by including the `catena-api-key` header for RPCs that require
+an API key.
+
 ## Requiring an API key
 
 A service RPC method can require an API key by utilizing the `AuthRequired` attribute with a set of permissions. When a service RPC
@@ -47,6 +50,8 @@ public override Task<SuperSecureThingResponse> SuperSecureThing(
 ```
 
 ## Defining a permission
+
+[//]: # (This section is linked in code and moving/rename requires coordination)
 
 Defining a permission on a service is done with the `UsesTrustedServerPermission` attribute on the service class
 including a name and a description. This forward declaration allows Catena to check that defined permissions are
