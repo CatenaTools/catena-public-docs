@@ -51,6 +51,8 @@ public override Task<SuperSecureThingResponse> SuperSecureThing(
 
 ## Defining a permission
 
+[//]: # (This section is linked in code and moving/rename requires coordination)
+
 Defining a permission on a service is done with the `UsesTrustedServerPermission` attribute on the service class
 including a name and a description. This forward declaration allows Catena to check that defined permissions are
 actually used, that no undefined permissions are required, and that permissions have a description. This is done to

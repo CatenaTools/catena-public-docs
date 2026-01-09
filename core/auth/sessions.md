@@ -120,6 +120,8 @@ public override Task<DeleteAccountResponse> AdminDeleteAccount(
 
 ## Accessing the session in the RPC method
 
+[//]: # (This section is linked in code and moving/rename requires coordination)
+
 When a service RPC method requires a session, it will receive an `AuthServerContext` in its `ServerCallContext`
 parameter. The original session information like the ID or session type can be accessed by casting back to
 the `AuthServerContext` using `ToAuthServerCallContext()`.
