@@ -84,6 +84,8 @@
       items:
         - page: features/authentication/amazon.md
           label: "Amazon"
+        - page: features/authentication/battlenet.md
+          label: "Battle.net"
         - page: features/authentication/discord.md
           label: "Discord"
         - page: features/authentication/epic.md
