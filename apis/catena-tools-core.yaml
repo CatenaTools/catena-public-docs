@@ -7437,6 +7437,7 @@ components:
         - PROVIDER_DEVICE
         - PROVIDER_REMEMBER_ME
         - PROVIDER_EMAIL_SIGN_UP
+        - PROVIDER_BATTLENET_WEB
         - PROVIDER_CATENA
         - PROVIDER_CUSTOM
         - 0
@@ -7454,6 +7455,7 @@ components:
         - 12
         - 13
         - 14
+        - 15
         - 98
         - 99
       description: "Accepted auth providers.\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
@@ -7473,6 +7475,7 @@ components:
         '12': Device
         '13': RememberMe
         '14': EmailSignUp
+        '15': BattlenetWeb
         '98': Catena
         '99': Custom
     Services.CatenaAuthentication.ProviderConfig:
@@ -10304,6 +10307,7 @@ components:
         - PLATFORM_EPIC
         - PLATFORM_OFFICE365
         - PLATFORM_PATREON
+        - PLATFORM_BATTLENET
         - PLATFORM_CATENA
         - PLATFORM_CUSTOM
         - 0
@@ -10318,6 +10322,7 @@ components:
         - 9
         - 10
         - 11
+        - 12
         - 98
         - 99
       description: "All Catena supported platforms.\r\nPrefer integer values in JSON-encoded requests to avoid generic parse errors due to typos."
@@ -10334,6 +10339,7 @@ components:
         '9': Epic
         '10': Office365
         '11': Patreon
+        '12': Battlenet
         '98': Catena
         '99': Custom
 tags:
