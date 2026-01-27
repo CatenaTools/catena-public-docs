@@ -86,6 +86,8 @@
           label: "Amazon"
         - page: features/authentication/battlenet.md
           label: "Battle.net"
+        - page: features/authentication/bungie.md
+          label: "Bungie"
         - page: features/authentication/discord.md
           label: "Discord"
         - page: features/authentication/epic.md
