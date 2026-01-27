@@ -32,6 +32,7 @@ Catena also supports logins with the following platforms:
 * [Amazon](amazon.md)
 * Apple
 * [Battle.net](battlenet.md)
+* [Bungie](bungie.md) 
 * [Discord](discord.md)
 * [Epic Games](epic.md)
 * [Google](google.md)
