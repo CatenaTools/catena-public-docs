@@ -4,6 +4,8 @@ Sessions can be used authorize access to API calls which require them. A session
 after a successful login and expire after some time. A session can be referenced by its ID and may contain metadata that
 is accessed by services.
 
+The session ID is communicated between the Catena backend and game clients using the `catena-session-id` header.
+
 <!-- TODO: Need a topic that explains the separation between authentication and accounts. -->
 {% admonition type="info" %}
 A session produced by an authentication service typically represents a user but is only populated with account
@@ -17,13 +19,37 @@ service (or a combined service) are required to make use of session types/roles.
 An authentication service can produce a new session by depending on `ISessionStoreAccessor` and calling `NewSession()`
 after a successful user login. The session ID assigned in this call uniquely represents the session.
 
+The session ID can be returned to a caller by depending on `ISessionResolver` and calling `SendSessionId()` on the RPC
+context.
+
+Here's an example combining these elements in a login RPC method. The `_sessionStoreAccessor` and `_sessionResolver` are
+members of the service that would be initialized in the constructor.
+
 ```C#
-string sessionId = IdentifiableUuid.Session.ToString();
-_sessionStoreAccessor.NewSession(
-    sessionId,
-    SessionDataKeys.PROVIDER_LOGIN_PAYLOAD,
-    payload
-);
+[AuthRequired(false)]
+public override Task<LoginResponse> Login(
+    LoginRequest request,
+    ServerCallContext context) {
+
+    // Check request/credentials here and continue to issue a new session
+
+    // Create the session ID
+    // This could be any string as long as it is unique
+    string sessionId = IdentifiableUuid.Session.ToString();
+
+    // Create a new store for the session containing the login payload
+    // The payload key and value could be custom but other services may expect these typical ones
+    _sessionStoreAccessor.NewSession(
+        sessionId,
+        SessionDataKeys.PROVIDER_LOGIN_PAYLOAD,
+        payload
+    );
+
+    // Hand off the session ID to it is retruned to the caller
+    await context.SendSessionId(_sessionResolver, SessionId);
+
+    return new LoginResponse();
+}
 ```
 
 ## Producing a session with an account role
@@ -93,6 +119,8 @@ public override Task<DeleteAccountResponse> AdminDeleteAccount(
 ```
 
 ## Accessing the session in the RPC method
+
+[//]: # (This section is linked in code and moving/rename requires coordination)
 
 When a service RPC method requires a session, it will receive an `AuthServerContext` in its `ServerCallContext`
 parameter. The original session information like the ID or session type can be accessed by casting back to
