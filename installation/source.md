@@ -72,7 +72,30 @@ Starting from scratch, running Catena from source on your machine is estimated t
     {% /tab %}
 
     {% tab label="Linux" %}
-        {% partial file="/_partials/coming-soon.md" /%}
+        {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
+
+        ### 2. Installing Required Dependencies
+        #### .NET 8 SDK
+        Catena is built with .NET 8.
+
+        1. Install .NET using your distro package manager or manually download and install. [More information is available from Microsoft](https://learn.microsoft.com/en-us/dotnet/core/install/linux)
+
+        ### 3. Run Catena
+        1. Open your terminal
+
+        2. Run Catena using the .NET SDK you installed
+
+        ```bash
+        dotnet run ctc --configEnv Development --project catena-tools-core
+        ```
+
+        3. Check that Catena is running either by sending a request from this page using the provided interactive API or by using cURL
+
+        #### Send Request from This Page
+        {% replay-openapi operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
+
+        #### Use cURL
+        {% openapi-code-sample operationId="catena.catena_node_inspection.CatenaNodeInspection_NodeIsHealthy" descriptionFile="../apis/catena-tools-core.yaml" /%}
     {% /tab %}
 {% /tabs %}
 
