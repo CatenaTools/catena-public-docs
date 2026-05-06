@@ -27,6 +27,10 @@ git clone git@github.com:CatenaTools/infrastructure.git
 {% partial file="/_partials/aws/create-an-aws-account.md" /%}
 
 #### 2b. Create Credentials
+> **Do not use the AWS account root user!**
+>
+> Do not use the AWS account root user to deploy or operate Catena. The root user has unrestricted access to all AWS services and resources in the account, including billing and account-level settings. Catena does not require root user privileges for deployment or operation.
+
 {% partial file="/_partials/aws/create-credentials.md" variables={
     iam_username: "catena_deployment"
 } /%}
