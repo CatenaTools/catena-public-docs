@@ -14,8 +14,11 @@
         - group: "Deploying Catena"
           items:
             - page: installation/heroku.md
-            - page: installation/aws-ec2.md
-              label: Deploying to AWS
+            - group: "Deploying to AWS"
+              page: installation/aws-ec2.md
+              items:
+                - page: installation/aws-public-resource-inventory.md
+                  label: "Public Resources Created by This Deployment"
 - group: Unity
   page: engines/unity/index.md
   items:
