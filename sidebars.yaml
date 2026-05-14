@@ -5,6 +5,7 @@
     - group: "How to Run Catena"
       page: installation/index.md
       items:
+        - page: installation/technical-prerequisites.md
         - group: "Running Catena Locally"
           items:
             - page: installation/docker.md
