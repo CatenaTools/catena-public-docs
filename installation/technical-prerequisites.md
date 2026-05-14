@@ -22,24 +22,7 @@ Most paths require:
 
 Some deployment paths may also require access to the Catena infrastructure repository.
 
-## Requirements to Build Catena
-
-Building Catena from source requires:
-
-| Requirement | Purpose |
-|---|---|
-| Git | Clone the Catena source repository |
-| Catena source repository access | Obtain Catena source code |
-| .NET 8 SDK | Build Catena |
-| Local command-line environment | Run build and development commands |
-
-Catena is built with .NET 8.
-
-For step-by-step instructions, see [Running From Source](../installation/source).
-
 ## Requirements to Run Catena
-
-Running Catena means starting the Catena application and any supporting services required by the selected configuration.
 
 Catena can be run directly from source or through Docker.
 
@@ -47,11 +30,12 @@ Catena can be run directly from source or through Docker.
 
 Running Catena from source requires:
 
-| Requirement | Purpose |
-|---|---|
-| .NET 8 SDK or runtime | Build and run Catena locally |
-| Local configuration | Provides environment-specific settings |
-| Local storage | Stores local development data where applicable |
+| Requirement | Purpose                      |
+|-------------|------------------------------|
+| .NET 8 SDK  | Build and run Catena locally |
+| Powershell  | Execute catena run commands  |
+
+For step-by-step instructions, see [Running From Source](../installation/source).
 
 ### Running With Docker
 
@@ -118,7 +102,7 @@ For step-by-step instructions, see [Deploying to Heroku](../installation/heroku)
 
 ### Custom Infrastructure Requirements
 
-Catena is not restricted to the documented deployment paths.
+Catena is not restricted to the these deployment paths.
 
 When deploying Catena to custom infrastructure, customers are responsible for ensuring that the environment provides the compute, runtime, network access, persistence, configuration, secrets management, logging, monitoring, backup, and operational access required by their deployment.
 
