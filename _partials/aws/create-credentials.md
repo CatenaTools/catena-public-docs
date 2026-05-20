@@ -5,7 +5,8 @@
 5. Name your user. For the purposes of these instructions, we'll call ours "{% $iam_username %}".
     - Leave the "Provide user access to the AWS Management Console" option unchecked. This user will only require programmatic access to AWS.
 6. On the next step, select "Attach policies directly"
-    - In the policies list, check the `AdministratorAccess` policy.
+    - In the policies list, select the `CatenaDeploymentPolicy` you made in the previous step.
+
 7. Proceed to the "Review and create" step. Your user should look something like this:
 
 [ ![review and create user](/images/install-catena/review-and-create-user.png) ](/images/install-catena/review-and-create-user.png)
