@@ -26,7 +26,11 @@ git clone git@github.com:CatenaTools/infrastructure.git
 #### 2a. Create an AWS Account
 {% partial file="/_partials/aws/create-an-aws-account.md" /%}
 
-#### 2b. Create Credentials
+#### 2b. Create IAM Policy
+
+{% partial file="/_partials/aws/examples-catena-deploy-policy.md" /%}
+
+#### 2c. Create Credentials
 > **Do not use the AWS account root user!**
 >
 > Do not use the AWS account root user to deploy or operate Catena. The root user has unrestricted access to all AWS services and resources in the account, including billing and account-level settings. Catena does not require root user privileges for deployment or operation.
@@ -35,7 +39,7 @@ git clone git@github.com:CatenaTools/infrastructure.git
     iam_username: "catena_deployment"
 } /%}
 
-#### 2c. Configure Your Domain
+#### 2d. Configure Your Domain
 This guide requires using [Route53](https://aws.amazon.com/route53/) for your domain name.
 
 1. Register a new domain name or migrate an existing one
@@ -43,7 +47,7 @@ This guide requires using [Route53](https://aws.amazon.com/route53/) for your do
     - If you have an existing domain name, refer to [this Route53 documentation about making Route53 the DNS service for an existing domain](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html).
 2. If a "Hosted Zone" for your domain was not automatically created, refer to [this Route53 documentation about creating hosted zones](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingHostedZone.html).
 
-#### 2d. Create an S3 Bucket
+#### 2e. Create an S3 Bucket
 [S3](https://aws.amazon.com/s3/), or Simple Storage Service, is where Catena's Infrastructure as Code will store information about the state of your deployment. This state can be accessed by other developers on your team to ensure that updates they make to your infrastructure are compatible with what is currently deployed.
 
 1. Navigate to the [S3 portion](https://us-east-1.console.aws.amazon.com/s3/home) of the AWS console
@@ -54,7 +58,7 @@ This guide requires using [Route53](https://aws.amazon.com/route53/) for your do
 **Make note of the AWS Region on this page. You will need it later.**
 {% /admonition %}
 
-#### 2e. Install Dependencies
+#### 2f. Install Dependencies
 
 ##### AWS CLI
 {% partial file="/_partials/aws/install-aws-cli.md" variables={
