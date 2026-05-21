@@ -49,6 +49,8 @@ This guide requires using [Route53](https://aws.amazon.com/route53/) for your do
 1. Navigate to the [S3 portion](https://us-east-1.console.aws.amazon.com/s3/home) of the AWS console
 2. Click "Create bucket"
 3. Keep the default settings for all options
+   * Amazon S3 encrypts new objects at rest by [default using server-side encryption with Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html) managed keys, also known as SSE-S3.
+   * This will provide Encryption at Rest for your S3 bucket out of the box.
 4. Name your bucket. We'll call ours `catena-terraform-state`
 {% admonition type="warning" %}
 **Make note of the AWS Region on this page. You will need it later.**
@@ -192,6 +194,8 @@ Terraform creates an array of resources in your AWS account. These include:
 * An [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) that gives our EC2 instance a static IPv4 address
 * [Route53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html) records that update DNS resolution for our deployment
 * An [EC2 Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) that Catena is deployed to
+* An encrypted Amazon EBS volume used by that EC2 instance for operating system, application, and local data-store files.
+  * This deployment encrypts its local database files at rest by storing them on an encrypted Amazon EBS volume.
 
 If you would like to see the details for each of these resources, you can look through the `aws/catena-core/main.tf` file in the Catena Infrastructure repository for more details.
 
@@ -203,7 +207,7 @@ Once these resources are provisioned, an init script is run on the EC2 instance 
     - Configures a few necessary environment variables
     - Exposes this app to the outside world
 5. Installs Redis and runs it
-6. Configures persistent database storage (SQLite)
+6. Configures persistent database storage using SQLite on the encrypted EBS volume
 
 If you would like to see the details for this init script, you can view it at the `aws/catena-core/ec2/templates/init.sh.tftpl` file in the Catena Infrastructure repository for more details.
 
