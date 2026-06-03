@@ -11,13 +11,14 @@ The `catena_deploy` user will have this `CatenaDeploymentPolicy` policy attached
 
 Replace the following placeholders before attaching the policy:
 
-| Placeholder | Example                                 | Description |
-|---|-----------------------------------------|---|
-| `<ACCOUNT_ID>` | `144518428993`  | AWS account ID where Catena will be deployed |
-| `<REGION>` | `us-east-1`  | AWS region used for the deployment |
-| `<TERRAFORM_STATE_BUCKET>` | `catena-terraform-state`  | S3 bucket used for Terraform state |
-| `<TERRAFORM_STATE_KEY_PREFIX>` | `ec2-gameserver/terraform.tfstate`  | Prefix/path used for this deployment’s Terraform state |
-| `<CATENA_EC2_ROLE_NAME>` | `catena-gameserver-ec2-role`  | IAM role name Terraform creates or uses for the Catena EC2 instance |
+| Placeholder                          | Example                                 | Description                                                                     |
+|--------------------------------------|-----------------------------------------|---------------------------------------------------------------------------------|
+| `<ACCOUNT_ID>`                       | `144518428993`                          | AWS account ID where Catena will be deployed                                    |
+| `<REGION>`                           | `us-east-1`                             | AWS region used for the deployment                                              |
+| `<TERRAFORM_STATE_BUCKET>`           | `catena-terraform-state`                | SS3 bucket used for Terraform remote state                                          |
+| `<TERRAFORM_STATE_PREFIX>`           | `catena-core/*`                         | S3 prefix Terraform may list while checking state and lock objects              |
+| `<TERRAFORM_STATE_KEY>`              | `catena-core/terraform.tfstate`         | Exact path used for this deployment’s Terraform state                           |
+| `<CATENA_EC2_ROLE_NAME>`             | `catena-gameserver-ec2-role`            | IAM role name Terraform creates or uses for the Catena EC2 instance             |
 | `<CATENA_EC2_INSTANCE_PROFILE_NAME>` | `catena-gameserver-ec2-instance-profile` | IAM instance profile name Terraform creates or uses for the Catena EC2 instance |
 
 ```json
@@ -30,7 +31,14 @@ Replace the following placeholders before attaching the policy:
       "Action": [
         "s3:ListBucket"
       ],
-      "Resource": "arn:aws:s3:::<TERRAFORM_STATE_BUCKET>"
+      "Resource": "arn:aws:s3:::<TERRAFORM_STATE_BUCKET>",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "<TERRAFORM_STATE_PREFIX>"
+          ]
+        }
+      }
     },
     {
       "Sid": "TerraformStateObjectAccess",
@@ -40,7 +48,17 @@ Replace the following placeholders before attaching the policy:
         "s3:PutObject",
         "s3:DeleteObject"
       ],
-      "Resource": "arn:aws:s3:::<TERRAFORM_STATE_BUCKET>/<TERRAFORM_STATE_KEY_PREFIX>/*"
+      "Resource": "arn:aws:s3:::<TERRAFORM_STATE_BUCKET>/<TERRAFORM_STATE_KEY>"
+    },
+    {
+      "Sid": "TerraformStateLockAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::<TERRAFORM_STATE_BUCKET>/<TERRAFORM_STATE_KEY>.tflock"
     },
     {
       "Sid": "ReadEC2State",
