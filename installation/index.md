@@ -20,11 +20,7 @@ Run Catena With Docker on Your Machine
 
 Alternatively, you can deploy Catena to live environment such as Heroku or AWS.
 
-{% cards columns=2 %}
-{% card title="Heroku" to="./heroku.md" %}
-Use this method if you prefer the quickest and easiest deployment.
-{% /card %}
-
+{% cards columns=1 %}
 {% card title="AWS (Single Node)" to="./aws-ec2.md" %}
 Use this method if you prefer to run your infrastructure on AWS.
 {% /card %}
