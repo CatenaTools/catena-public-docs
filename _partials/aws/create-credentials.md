@@ -14,7 +14,8 @@
 8. Create the user
 9. Navigate to the user's details
 10. Select "Security credentials"
-11. Under the "Access keys" section, select "Create access key"
+11. Under the "Access keys" section, select "Create access key" to create secret keys for the "{% $iam_username %}" IAM user
+    - These keys will later be passed to the AWS CLI (and by extension Terraform) so that the IAM user can authenticate as "{% $iam_username %}" when provisioning resources in AWS.
 12. Select "Third-party service"
     {% admonition type="info" %}
     Note: AWS will recommend an alternative option. For ease, we will ignore this for the time being. Select "I understand the above recommendation and want to proceed to create an access key".

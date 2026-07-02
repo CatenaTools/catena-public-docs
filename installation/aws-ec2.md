@@ -67,6 +67,10 @@ This guide requires using [Route53](https://aws.amazon.com/route53/) for your do
     profile_name: "catena_deploy"
 } /%}
 
+    {% admonition type="info" %}
+    Note: This is going to store the credentials on your local machine in `~/.aws/credentials` on Linux or `%USERPROFILE%\.aws\credentials` on Windows.
+    {% /admonition %}
+
 ##### Terraform
 {% partial file="/_partials/aws/terraform.md" /%}
 
@@ -95,8 +99,10 @@ In order to deploy Catena, you will need to generate an SSH key.
 {% /tabs %}
 
 This will generate two files, each of which will be used by Terraform when deploying Catena:
-* `catena_deploy_key`
-* `catena_deploy_key.pub`
+* `catena_deploy_key` - Private Key that stays local to your machine, will be referenced later when deploying to the instance (see step 3 below).
+* `catena_deploy_key.pub` - Public Key that Terraform uploads to AWS as an EC2 key pair during `terraform apply`, provisioning SSH access to the instance it creates.
+
+These files will be created on your local machine in `%USERPROFILE%\.ssh\` on Windows or `~/.ssh/` on Linux
 
 ### 3. Deploy Catena
 Now that you have everything prepped, it's time to actually deploy Catena.
