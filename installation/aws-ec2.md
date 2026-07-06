@@ -15,8 +15,26 @@ Starting from scratch, deploying Catena to AWS on a single EC2 instance is estim
 ## What is an Amazon VPC?
 [VPC](https://aws.amazon.com/vpc/) stands for Virtual Private Cloud. It is an Amazon service that allows users to create isolated virtual networks within the Amazon Web Services (AWS) cloud. It provides control over network configuration, including IP address management, subnets, and security settings for AWS resources.
 
+## What is an Elastic IP?
+An [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) is a static, public IPv4 address that stays fixed even if the EC2 instance behind it is stopped, restarted, or replaced. This deployment uses one so your domain always resolves to the same address, regardless of what happens to the underlying instance.
+
+## A Note on AWS Service Limits
+
+New AWS accounts have default quotas you might run into over time, especially if you're running multiple parallel deployments.
+
+- **Elastic IPs: quota of 5 per Region by default** for any new account. If we try a 6th parallel deployment in the same account/region, it will fail to provision until we either request an increase or free up an existing EIP. You can request a higher quota anytime via the [Service Quotas console](https://console.aws.amazon.com/servicequotas/home/services/ec2/quotas/). **Note:** Quota increase is free, however you will be charged for each allocated EIP.
+- **VPCs: 5 per Region by default**, also adjustable with no direct per-VPC charge.
+- **On-Demand EC2 vCPUs**: new accounts often start with a low default. Check your account's current value before choosing a larger instance size than the default `t2.small`. `t2.small` itself is not in the free tier so be aware of that cost before deployment.
+
+Check your current usage and request increases in advance via the [Service Quotas console](https://console.aws.amazon.com/servicequotas/home/services/ec2/quotas/) — approval isn't always instant.
+
+
 ## Where can Catena be Deployed?
 Catena can be deployed into any AWS region that supports Amazon EC2 instances running in an Amazon VPC. AWS Regions that support both Amazon EC2 and Amazon VPC include US East (N. Virginia), US West (N. California), AWS GovCloud (US-East), AWS GovCloud (US-West), Asia Pacific (Hong Kong), and South America (São Paulo).
+
+    {% admonition type="info" %}
+    **Running this guide as instructed will incur charges.** Free Tier EC2 coverage applies only to `t2.micro` instance sizes. We recommended `t2.small` for this deployment. `t2.small` and any larger size incurs cost from the first hour it runs. Budget accordingly if you're running this alongside other AWS usage, and tear down deployments you're no longer using (`terraform destroy`) rather than leaving them running idle
+    {% /admonition %}
 
 ## Deployment Instructions
 {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
@@ -37,6 +55,8 @@ git clone git@github.com:CatenaTools/infrastructure.git
 {% partial file="/_partials/aws/examples-catena-deploy-policy.md" /%}
 
 #### 2c. Create Credentials
+We are going to setup the catena_deployment IAM user. The catena_deployment user will be used by Terraform to provision your AWS infrastructure — it's only used at deploy/update time and will never be used by the running Catena application.
+
 > **Do not use the AWS account root user!**
 >
 > Do not use the AWS account root user to deploy or operate Catena. The root user has unrestricted access to all AWS services and resources in the account, including billing and account-level settings. Catena does not require root user privileges for deployment or operation.
@@ -148,7 +168,7 @@ The default value set, t2.small (2 vCPU / 2 GB RAM), is suitable for development
 | `t2.small` (default)                       | 2 vCPU / 2 GB                          | Development, staging, small production workloads                                    |
 | `t2.medium`                           | 2 vCPU / 4 GB                             | Early production with moderate concurrent sessions                                              |
 | `t2.large`           | 2 vCPU / 8 GB                | Higher player counts or additional plugins/modules                                          |
-
+**Remember** None of these sizes come with the free AWS tier, running with the default value will incur charges here
 
 If you consistently exhaust CPU credits (visible via the `CPUCreditBalance` CloudWatch metric once deployed), move up a size.
 
