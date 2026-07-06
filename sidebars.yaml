@@ -145,8 +145,13 @@
           items:
             - page: features/matchmaking/custom-strategies-hooks.md
               label: Custom Strategies/Hooks
-        - page: features/matchmaking/aws-flex-match.md
-          label: AWS FlexMatch
+        - group: AWS Flex Match
+          page: features/matchmaking/aws-flex-match.md
+          items: 
+            - page: features/matchmaking/aws-flex-match-existing-deployment.md
+              label: Exisitng AWS Deployment
+            - page: features/matchmaking/aws-flex-match-new-deployment.md
+              label: First AWS Deployment
     - page: features/parties/index.md
       label: "Parties"
     - page: features/twitch-integration/index.md

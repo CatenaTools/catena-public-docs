@@ -18,6 +18,14 @@ If you would like to learn more about how Catena handles dedicated game servers,
 
 [AWS FlexMatch](https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-intro.html), also known as "Amazon GameLift Servers FlexMatch" is Amazon's offering for matchmaking players.
 
+### A Note on AWS Service Limits and Costs
+
+GameLift matchmaking configurations and rule sets are subject to account-level quotas. If you plan to run many logical matchmaking queues, check your current limits in the [Service Quotas console](https://console.aws.amazon.com/servicequotas/home/services/gamelift/quotas/) before provisioning.
+
+FlexMatch also bills for usage, even in standalone mode with no GameLift-hosted servers involved — you're charged for matchmaking hours and player packages processed, not just for the AWS resources this guide provisions. See [FlexMatch pricing](https://aws.amazon.com/gamelift/servers/pricing/flexmatch-pricing/) for current rates, and note that costs scale with matchmaking traffic, not with how this deployment is configured.
+
+If you're deploying FlexMatch alongside a new `catena-core` EC2 deployment, also see the [service limits note in the AWS EC2 guide](../../installation/aws-ec2.md#a-note-on-aws-service-limits) — the same Elastic IP/VPC quotas apply there.
+
 ## Getting Started
 
 {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
@@ -28,28 +36,8 @@ To configure FlexMatch, you will also need to clone Catena's Infrastructure as C
 git clone git@github.com:CatenaTools/infrastructure.git
 ```
 
-### 2. Preparations
-
-#### 2a. Create an AWS Account
-{% partial file="/_partials/aws/create-an-aws-account.md" /%}
-
-#### 2b. Create Credentials
-{% partial file="/_partials/aws/create-credentials.md" variables={
-    iam_username: "catena_matchmaking"
-} /%}
-
-#### 2c. Install Dependencies
-
-##### AWS CLI
-{% partial file="/_partials/aws/install-aws-cli.md" variables={
-    profile_name: "catena_gamelift"
-} /%}
-
 ##### Terraform
 {% partial file="/_partials/aws/terraform.md" /%}
-
-### 3. Configure FlexMatch
-Now that you have everything prepped, it's time to configure FlexMatch in your AWS account. We will be using Terraform to configure the various components necessary for FlexMatch to operate. These include:
 
 **Matchmaking Ruleset(s)**
 
@@ -67,95 +55,6 @@ Now that you have everything prepped, it's time to configure FlexMatch in your A
 
 [AWS SQS](https://aws.amazon.com/sqs/) gives applications a way to subscribe to events that are sent to SNS topics. This is how Catena listens for matchmaking events for specific matchmaking tickets.
 
-#### 3a. Provision Resources
-1. Navigate to the Catena Infrastructure repository you cloned earlier.
-2. Navigate to the `aws/flex-match/` directory
-3. Initialize Terraform
-
-```bash
-terraform init
-```
-
-4. If you would like to customize the matchmaking queues that are available, edit the `matchmaking_queues` variable in `variables.tf`. For every queue name, you will need to define a corresponding ruleset in the `rule_sets/` directory. For more information on rule sets, refer to the [match rulesets](https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-rulesets.html) documentation from Amazon.
-
-5. (Optional) Run a Terraform plan. This will preview all of the AWS resources that are about to be provisioned.
-
-```bash
-terraform plan
-```
-
-6. Run a Terraform apply. This will preview all of the AWS resource that are about to be provisioned, and prompt you if you'd like to proceed.
-
-```bash
-terraform apply
-```
-
-You should see a long list of output, with something resembling the following code block at the end.
-
-_Note: This is just example output._
-
-```bash
-Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
-
-Outputs:
-
-sqs_queue_url = "https://sqs.us-east-1.amazonaws.com/000000000000/matchmaking-events"
-```
-
-7. Keep note of the `sqs_queue_url` that it output, as it will be used to configure your running instance of Catena.
-
-#### 3b. Configure Catena
-Once you have your resources provisioned, you can configure Catena. Catena is configured using appsettings files in `catena-tools-core`. You will need the following items for Catena to work with FlexMatch:
-
-```json
-{
-    "Catena": {
-        ...
-        "Matchmaker": {
-            "FlexMatch": {
-                "SQSQueueUrl": "<your_sqs_url_from_terraform_output>",
-                "GameLiftConfig": {
-                    "Profile": "<your_aws_profile_from_aws_cli>",
-                    "Region": "<your_aws_region_from_aws_cli>"
-                }
-            }
-        }
-        ...
-    },
-    "PreferredImplementations": {
-        ...
-        "ICatenaMatchmaker": "!AwsFlexMatch"
-        ...
-    }
-}
-```
-
-Alternatively, you can expose your access key/secret key directly, though you _should not_ check these values into source control.
-
-```json
-{
-    "Catena": {
-        ...
-        "Matchmaker": {
-            "FlexMatch": {
-                "SQSQueueUrl": "<your_sqs_url_from_terraform_output>",
-                "GameLiftConfig": {
-                    "AccessKey": "<your_aws_access_key>",
-                    "SecretKey": "<your_aws_secret_key>",
-                    "Region": "<your_aws_region_from_aws_cli>"
-                }
-            }
-        }
-        ...
-    },
-    "PreferredImplementations": {
-        ...
-        "ICatenaMatchmaker": "!AwsFlexMatch"
-        ...
-    }
-}
-```
-
 ## How The Matchmaker Works
 
 ### Tickets
@@ -169,4 +68,4 @@ As **matchmaking tickets** progress through Catena and ultimately through FlexMa
 {% partial file="/_partials/matchmaking/events.md" /%}
 
 ## What Next?
-{% partial file="/_partials/matchmaking/what-next.md" /%}
+{% partial file="/_partials/matchmaking/fresh-new.md" /%}
