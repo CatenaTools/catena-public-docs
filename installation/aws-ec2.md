@@ -131,7 +131,34 @@ This deployment configuration utilizes [Dokku](https://dokku.com/), which allows
 {% /tabs %}
 
 5. Modify `backend.hcl` with your S3 bucket name, the region of your S3 bucket, and the profile you created when configuring the AWS CLI
-6. Modify `vars.tfvars` with your own values for your deployment
+6. Modify `vars.tfvars` with your own values for your deployment.
+
+A few of these configuration values are worth a closer look before you proceed:
+
+### ec2_instance_size
+
+This deployment runs Catena Core, Redis, and SQLite together on a single instance, so sizing depends primarily on expected concurrent session load rather than heavy compute needs.
+
+The default value set, t2.small (2 vCPU / 2 GB RAM), is suitable for development, staging, and small-scale production.
+
+| Instance Size                       | vCPU / RAM                                 | Recommended For                                                                     |
+|------------------------------------|-----------------------------------------|---------------------------------------------------------------------------------|
+| `t2.small` (default)                       | 2 vCPU / 2 GB                          | Development, staging, small production workloads                                    |
+| `t2.medium`                           | 2 vCPU / 4 GB                             | Early production with moderate concurrent sessions                                              |
+| `t2.large`           | 2 vCPU / 8 GB                | Higher player counts or additional plugins/modules                                          |
+
+
+If you consistently exhaust CPU credits (visible via the `CPUCreditBalance` CloudWatch metric once deployed), move up a size.
+
+### ec2_ami
+The default value is the Ubuntu 22.04 LTS AMI ID for `us-east-1`. AMI IDs are region-specific — if you set aws_region to anything other than `us-east-1`, you'll need to find the matching Ubuntu 22.04 LTS AMI ID for your chosen region (e.g. via the [AWS AMI Locator](https://cloud-images.ubuntu.com/locator/ec2/) or run `aws ec2 describe-images` in the CLI), or Terraform will fail to find that AMI in your target region.
+
+#### Root Volume Size
+The EC2 instance's root EBS volume is fixed at 50 GB and is not currently exposed as a `vars.tfvars` variable. That 50 GB covers the OS, Dokku, your application, and SQLite database growth for most basic deployments.
+
+If you need a different size, edit the `root_block_device` size value directly in `main.tf` (in the `aws/catena-core` module) before running `terraform apply`. EBS also supports resizing an existing volume without downtime if you need to grow it later — see [AWS's guide on modifying EBS volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requesting-ebs-volume-modifications.html).
+
+
 7. Initialize Terraform
 
 ```bash
