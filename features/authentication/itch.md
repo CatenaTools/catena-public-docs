@@ -20,13 +20,23 @@ For example, in `appsettings.Development.json`:
 {
   "Catena": {
     "Authentication": {
-      "PROVIDER_ITCH_WEB": {
-        "ClientID": "<your client ID>",
-        "ClientSecret": "<your client secret>",
-        "RedirectUri": "/api/v1/authentication/PROVIDER_ITCH_WEB/callback",
-        "IsEnabled": true
+      "Validators": {
+        "PROVIDER_ITCH_WEB": {
+          "ClientID": "<your client ID>",
+          "ClientSecret": "<your client secret>",
+          "RedirectUri": "/api/v1/authentication/PROVIDER_ITCH_WEB/callback",
+          "IsEnabled": true
+        }
       }
     }
   }
 }
 ```
+Make sure your `appsettings.Development.json` is added to .gitignore
+
+{% admonition type="warning" %} Do not commit real `ClientID`/`ClientSecret` values to version of `appsettings.json` or `appsettings.Production.json` — these files are part of your deployed source and shouldn't hold production secrets. Use `appsettings.Development.json` for local testing only. {% /admonition %}
+
+### Setting secrets in production
+{% partial file="/_partials/aws/manage-secrets-production.md" variables={
+    json_path: "Catena__Authentication__Validators__PROVIDER_ITCH_WEB"
+}  /%}

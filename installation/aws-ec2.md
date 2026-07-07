@@ -73,10 +73,6 @@ This guide requires using [Route53](https://aws.amazon.com/route53/) for your do
     profile_name: "catena_deploy"
 } /%}
 
-    {% admonition type="info" %}
-    Note: This is going to store the credentials on your local machine in `~/.aws/credentials` on Linux or `%USERPROFILE%\.aws\credentials` on Windows.
-    {% /admonition %}
-
 ##### Terraform
 {% partial file="/_partials/aws/terraform.md" /%}
 

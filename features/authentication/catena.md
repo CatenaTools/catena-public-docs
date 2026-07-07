@@ -10,9 +10,11 @@ To use the CATENA provider with the Catena authentication service, make sure it 
 {
   "Catena": {
     "Authentication": {
-      "PROVIDER_CATENA": {
-        "PlainPasswordFile": "/path/to/a/password/file",
-        "IsEnabled": true
+      "Validators": {
+        "PROVIDER_CATENA": {
+          "PlainPasswordFile": "/path/to/a/password/file",
+          "IsEnabled": true
+        }
       }
     }
   }
