@@ -18,9 +18,11 @@ To use the device provider with the Catena authentication service, make sure it 
 {
   "Catena": {
     "Authentication": {
-      "PROVIDER_DEVICE": {
-        "ConnectionString": "Data Source=Build/SqliteDatabase/email_sign_up.db;Foreign Keys=True",
-        "IsEnabled": true
+      "Validators": {
+        "PROVIDER_DEVICE": {
+          "ConnectionString": "Data Source=Build/SqliteDatabase/email_sign_up.db;Foreign Keys=True",
+          "IsEnabled": true
+        }
       }
     }
   }

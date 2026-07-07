@@ -16,9 +16,11 @@ To use the email sign up provider with the Catena authentication service, make s
 {
   "Catena": {
     "Authentication": {
-      "PROVIDER_EMAIL_SIGN_UP": {
-        "ConnectionString": "Data Source=Build/SqliteDatabase/email_sign_up.db;Foreign Keys=True",
-        "IsEnabled": true
+      "Validators": {
+        "PROVIDER_EMAIL_SIGN_UP": {
+          "ConnectionString": "Data Source=Build/SqliteDatabase/email_sign_up.db;Foreign Keys=True",
+          "IsEnabled": true
+        }
       }
     }
   }

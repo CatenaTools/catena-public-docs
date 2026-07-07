@@ -10,8 +10,10 @@ To use the unsafe provider with the Catena authentication service, make sure it 
 {
   "Catena": {
     "Authentication": {
-      "PROVIDER_UNSAFE": {
-        "IsEnabled": true
+      "Validators": {
+        "PROVIDER_UNSAFE": {
+          "IsEnabled": true
+        }
       }
     }
   }

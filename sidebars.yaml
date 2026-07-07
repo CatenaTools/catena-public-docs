@@ -20,6 +20,8 @@
               items:
                 - page: installation/aws-public-resource-inventory.md
                   label: "Public Resources Created by This Deployment"
+                - page: installation/aws-secret-management.md
+                  label: "Managing Secret Values"
 - group: Unity
   page: engines/unity/index.md
   items:

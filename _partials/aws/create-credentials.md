@@ -22,6 +22,7 @@
     {% /admonition %}
 13. Proceed to the next step and set an optional description tag
 14. Create your access key
+    - Make note of the "Access key" and "Secret access key" as you will need these later.
 {% admonition type="warning" %}
-**Make note of your "Access key" and "Secret access key". You will need them later.**
+**Treat these credentials like a password — anyone with them can act as the "{% $iam_username %}" user in your AWS account. Never paste these into chat messages, tickets, or plaintext notes. If your organization uses a password manager (1Password, Bitwarden, etc.), we suggest storing them there rather than in a temporary note.**
 {% /admonition %}
