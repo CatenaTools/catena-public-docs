@@ -22,3 +22,9 @@ administrative access to trusted networks.
 
 Redis and SQLite are installed on the EC2 instance for this deployment. They
 should not be directly exposed to the public internet.
+
+## AWS Architecture Diagram for Resources Created by This Deployment
+
+![Catena AWS Architecture Diagram](/images/CatenaAwsArchitecture.jpg)
+
+_For a bigger image, right click and "Open Image in New Tab"_
