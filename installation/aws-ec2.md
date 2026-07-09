@@ -12,6 +12,12 @@ Starting from scratch, deploying Catena to AWS on a single EC2 instance is estim
 ## What Is Amazon EC2?
 [EC2](https://aws.amazon.com/ec2/) stands for Elastic Cloud Compute. It is Amazon's offering for creating and running virtual machines, called _instances_, in the cloud.
 
+## What is an Amazon VPC?
+[VPC](https://aws.amazon.com/vpc/) stands for Virtual Private Cloud. It is an Amazon service that allows users to create isolated virtual networks within the Amazon Web Services (AWS) cloud. It provides control over network configuration, including IP address management, subnets, and security settings for AWS resources.
+
+## Where can Catena be Deployed?
+Catena can be deployed into any AWS region that supports Amazon EC2 instances running in an Amazon VPC. AWS Regions that support both Amazon EC2 and Amazon VPC include US East (N. Virginia), US West (N. California), AWS GovCloud (US-East), AWS GovCloud (US-West), Asia Pacific (Hong Kong), and South America (São Paulo).
+
 ## Deployment Instructions
 {% partial file="/_partials/install-catena/obtain-catena-source.md" /%}
 
