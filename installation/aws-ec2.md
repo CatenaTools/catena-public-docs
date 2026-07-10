@@ -240,7 +240,7 @@ Terraform creates an array of resources in your AWS account. These include:
 * An encrypted Amazon EBS volume used by that EC2 instance for operating system, application, and local data-store files.
   * This deployment encrypts its local database files at rest by storing them on an encrypted Amazon EBS volume.
 
-If you would like to see the details for each of these resources, you can look through the `aws/catena-core/main.tf` file in the Catena Infrastructure repository for more details.
+If you would like to see the configuration for each of these resources, you can look through the `aws/catena-core/main.tf` file in the [Catena Infrastructure repository](https://github.com/CatenaTools/infrastructure) for more details.
 
 Once these resources are provisioned, an init script is run on the EC2 instance that:
 1. Installs [Dokku](https://dokku.com/)
