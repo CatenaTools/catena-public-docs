@@ -247,7 +247,6 @@ The following services store data that may be considered sensitive:
 |----------------------|------------------|
 | CatenaAccounts       | SqlLite          |
 | CatenaApiKeys        | SqlLite          |
-| CatenaAuthentication | SqlLite          |
 | CatenaPlatformAuth   | SqlLite          |
 | CatenaSessions       | SqlLite / Redis  |
 
