@@ -22,6 +22,8 @@
                   label: "Public Resources Created by This Deployment"
                 - page: installation/aws-secret-management.md
                   label: "Managing Secret Values"
+                - page: installation/troubleshooting-common-issues.md
+                  label: "Common Issues"
 - group: Unity
   page: engines/unity/index.md
   items:
