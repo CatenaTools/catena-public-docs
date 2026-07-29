@@ -26,20 +26,20 @@ Replace the following placeholders before attaching the policy:
   "Version": "2012-10-17",
   "Statement": [
     {
-			"Sid": "TerraformStateBucketManagement",
-			"Effect": "Allow",
-			"Action": [
-				"s3:ListBucket",
-				"s3:GetObject",
-				"s3:PutObject",
-				"s3:DeleteObject"
-			],
-			"Resource": [
-				"arn:aws:s3:::<TERRAFORM_STATE_BUCKET>",
-				"arn:aws:s3:::<TERRAFORM_STATE_BUCKET>/<TERRAFORM_STATE_KEY>"
-				"arn:aws:s3:::<TERRAFORM_STATE_BUCKET>/<TERRAFORM_STATE_KEY>.tflock"
-			]
-		},
+      "Sid": "TerraformStateBucketManagement",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::<TERRAFORM_STATE_BUCKET>",
+        "arn:aws:s3:::<TERRAFORM_STATE_BUCKET>/<TERRAFORM_STATE_KEY>",
+        "arn:aws:s3:::<TERRAFORM_STATE_BUCKET>/<TERRAFORM_STATE_KEY>.tflock"
+      ]
+    },
     {
       "Sid": "ReadEC2State",
       "Effect": "Allow",
@@ -145,22 +145,22 @@ Replace the following placeholders before attaching the policy:
       ]
     },
     {
-		  "Sid": "AttachOnlyCatenaManagedPolicies",
-		  "Effect": "Allow",
-		  "Action": [
+      "Sid": "AttachOnlyCatenaManagedPolicies",
+      "Effect": "Allow",
+      "Action": [
         "iam:AttachRolePolicy", 
         "iam:DetachRolePolicy"
         ],
-		  "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/*catena-ec2-role*",
-		  "Condition": {
-		    "ArnLike": {
-		      "iam:PolicyARN": [
-				"arn:aws:iam::<ACCOUNT_ID>:policy/*catena*",
-				"arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-				]
-		    }
-		  }
-		},
+      "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/*catena-ec2-role*",
+      "Condition": {
+        "ArnLike": {
+          "iam:PolicyARN": [
+        "arn:aws:iam::<ACCOUNT_ID>:policy/*catena*",
+        "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        ]
+        }
+      }
+    },
     {
       "Sid": "PassOnlyCatenaEc2Role",
       "Effect": "Allow",
@@ -187,73 +187,73 @@ Replace the following placeholders before attaching the policy:
         }
       }
     },
-		{
-		  "Sid": "ManageCatenaBackupBucket",
-		  "Effect": "Allow",
-		  "Action": [
-			"s3:CreateBucket",
-			"s3:DeleteBucket",
-			"s3:GetBucketLocation",
-			"s3:GetBucketVersioning",
-			"s3:PutBucketVersioning",
-			"s3:GetBucketPolicy",
-			"s3:PutBucketPolicy",
-			"s3:DeleteBucketPolicy",
-			"s3:GetBucketTagging",
-			"s3:PutBucketTagging",
-			"s3:GetBucketPublicAccessBlock",
-			"s3:PutBucketPublicAccessBlock",
-			"s3:GetLifecycleConfiguration",
-			"s3:PutLifecycleConfiguration",
-			"s3:GetEncryptionConfiguration",
-			"s3:PutEncryptionConfiguration"
-		  ],
-		  "Resource": "arn:aws:s3:::catena-backup"
-		},
     {
-			"Sid": "ManageCatenaPolicies",
-			"Effect": "Allow",
-			"Action": [
-				"iam:CreatePolicy",
-				"iam:DeletePolicy",
-				"iam:GetPolicy",
-				"iam:GetPolicyVersion",
-				"iam:ListPolicyVersions",
-				"iam:CreatePolicyVersion",
-				"iam:DeletePolicyVersion",
-				"iam:TagPolicy",
-				"iam:ListEntitiesForPolicy"
-			],
-			"Resource": [
-				"arn:aws:iam::<ACCOUNT_ID>:policy/*catena-backup-policy"
-			]
-		},
+      "Sid": "ManageCatenaBackupBucket",
+      "Effect": "Allow",
+      "Action": [
+      "s3:CreateBucket",
+      "s3:DeleteBucket",
+      "s3:GetBucketLocation",
+      "s3:GetBucketVersioning",
+      "s3:PutBucketVersioning",
+      "s3:GetBucketPolicy",
+      "s3:PutBucketPolicy",
+      "s3:DeleteBucketPolicy",
+      "s3:GetBucketTagging",
+      "s3:PutBucketTagging",
+      "s3:GetBucketPublicAccessBlock",
+      "s3:PutBucketPublicAccessBlock",
+      "s3:GetLifecycleConfiguration",
+      "s3:PutLifecycleConfiguration",
+      "s3:GetEncryptionConfiguration",
+      "s3:PutEncryptionConfiguration"
+      ],
+      "Resource": "arn:aws:s3:::catena-backup"
+    },
     {
-			"Sid": "CatenaBackupBucketManagement",
-			"Effect": "Allow",
-			"Action": [
-				"s3:CreateBucket",
-				"s3:ListBucket",
-				"s3:GetObject",
-				"s3:PutObject",
-				"s3:DeleteObject",
-				"s3:DeleteBucket",
-				"s3:GetBucketPolicy",
-				"s3:GetBucketAcl",
-				"s3:GetBucketCORS",
-				"s3:GetBucketWebsite",
-				"s3:GetBucketVersioning",
-				"s3:GetAccelerateConfiguration",
-				"s3:GetBucketRequestPayment",
-				"s3:GetBucketLogging",
-				"s3:GetLifecycleConfiguration",
-				"s3:GetReplicationConfiguration",
-				"s3:GetEncryptionConfiguration",
-				"s3:GetBucketObjectLockConfiguration",
-				"s3:GetBucketTagging"
-			],
-			"Resource": "arn:aws:s3:::*-catena-backup"
-		},
+      "Sid": "ManageCatenaPolicies",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreatePolicy",
+        "iam:DeletePolicy",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:ListPolicyVersions",
+        "iam:CreatePolicyVersion",
+        "iam:DeletePolicyVersion",
+        "iam:TagPolicy",
+        "iam:ListEntitiesForPolicy"
+      ],
+      "Resource": [
+        "arn:aws:iam::<ACCOUNT_ID>:policy/*catena-backup-policy"
+      ]
+    },
+    {
+      "Sid": "CatenaBackupBucketManagement",
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:DeleteBucket",
+        "s3:GetBucketPolicy",
+        "s3:GetBucketAcl",
+        "s3:GetBucketCORS",
+        "s3:GetBucketWebsite",
+        "s3:GetBucketVersioning",
+        "s3:GetAccelerateConfiguration",
+        "s3:GetBucketRequestPayment",
+        "s3:GetBucketLogging",
+        "s3:GetLifecycleConfiguration",
+        "s3:GetReplicationConfiguration",
+        "s3:GetEncryptionConfiguration",
+        "s3:GetBucketObjectLockConfiguration",
+        "s3:GetBucketTagging"
+      ],
+      "Resource": "arn:aws:s3:::*-catena-backup"
+    }
   ]
 }
 ```
