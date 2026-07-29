@@ -263,17 +263,19 @@ This policy is a starting point for the documented single-EC2 deployment. Your o
 Here is a table breaking down all the Sids used in the starting point deployment policy above:
 | SID                          | Description                                                                     |
 |--------------------------------------|---------------------------------------------------------------------------------|
-| `TerraformStateBucketList`/ `TerraformStateObjectAccess`/ `TerraformStateLockAccess `   | Lets Terraform read/write its own state file and lock in S3
+| `TerraformStateBucketManagement `   | Lets Terraform read/write its own state file and lock in S3
+| `ReadEC2State` | Allows access to EC2 console logs
 | `ManageCatenaEC2VpcAndNetworkResources ` | Create the VPC, subnets, gateway, routing, security group
 | `ManageCatenaEC2InstanceAndAddressResources `  | Create/manage the EC2 instance and its Elastic IP  
 | `ManageCatenaRoute53Records` | Point your domain at the new instance             |
 | `ManageCatenaEc2IamRoleAndInstanceProfile `   | Create the second IAM role below 
-| `ManageCatenaPolicies `   | 		Create, read, version, tag, and delete the runtime IAM policy for backup  | 
-| `PassOnlyCatenaEc2Role `             | Lets Terraform hand that role to EC2 — scoped so it can't pass any other role
-| `UseEC2InstanceConnectForCatenaHost ` | Lets you SSH in via EC2 Instance Connect later 
 | `AttachOnlyCatenaManagedPolicies` | Lets terraform attach/detach policies to the EC2 instance role, but restricted to only Catena-managed policies and the specific AWS managed policy
-| `ManageCatenaBackupBucket` | Create and configure the S3 bucket used for database backups (Versioning, lifecycle policy, encryption, public access)
-| `ManageCatenaBackupBucketObjects` | Read, Write, delete, and list objects within the backup bucket
+| `UseEC2InstanceConnectForCatenaHost ` | Lets you SSH in via EC2 Instance Connect later 
+| `ManageCatenaBackupBucket` | Read, Write, delete, and list objects within the backup bucket
+| `PassOnlyCatenaEc2Role `             | Lets Terraform hand that role to EC2 — scoped so it can't pass any other role
+| `ManageCatenaPolicies `   | 		Create, read, version, tag, and delete the runtime IAM policy for backup  | 
+| `CatenaBackupBucketManagement` | Create and configure the S3 bucket used for database backups (Versioning, lifecycle policy, encryption, public access)
+
 
 
 If Terraform reports an access denied error during `terraform plan` or `terraform apply`, review the missing action and update the policy intentionally rather than attaching `AdministratorAccess`.

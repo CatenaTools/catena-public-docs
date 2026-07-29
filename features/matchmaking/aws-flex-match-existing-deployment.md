@@ -27,23 +27,6 @@ You don't need a new IAM user. We can use the identities we created earlier for 
 
 ```json
 {
-  "Sid": "AttachOnlyCatenaManagedPolicies",
-  "Effect": "Allow",
-  "Action": [
-      "iam:AttachRolePolicy",
-      "iam:DetachRolePolicy"
-  ],
-  "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/*catena-ec2-role*",
-  "Condition": {
-      "ArnLike": {
-          "iam:PolicyARN": [
-              "arn:aws:iam::<ACCOUNT_ID>:policy/*catena*",
-              "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-          ]
-      }
-  }
-},
-{
   "Sid": "CloudControlApiForGameLiftResources",
   "Effect": "Allow",
   "Action": [
@@ -110,22 +93,6 @@ You don't need a new IAM user. We can use the identities we created earlier for 
     "gamelift:DescribeMatchmakingConfigurations"
   ],
   "Resource": "*"
-},
-{
-  "Sid": "ManageCatenaFlexMatchRuntimePolicy",
-  "Effect": "Allow",
-  "Action": [
-    "iam:CreatePolicy", 
-    "iam:DeletePolicy", 
-    "iam:GetPolicy",
-    "iam:GetPolicyVersion", 
-    "iam:ListPolicyVersions",
-    "iam:CreatePolicyVersion", 
-    "iam:DeletePolicyVersion",
-    "iam:TagPolicy", 
-    "iam:ListEntitiesForPolicy"
-  ],
-  "Resource": "arn:aws:iam::414845328991:policy/*catena-flexmatch-runtime-policy"
 }
 ```
 > **Note:** GameLift matchmaking actions don't support resource-level ARN scoping — AWS requires `"Resource": "*"` for these specific actions.
@@ -163,7 +130,6 @@ This will enable `catena_deployment` to provision FlexMatch's resources.
 Here is the breakdown of the deployment SIDs:
 | SID                          | Purpose                                 | 
 |--------------------------------------|-----------------------------------------|
-| `AttachOnlyCatenaManagedPolicies` | 		(existing deployments only)	Attach and detach policies to the Catena EC2 instance role. Scoped only to catena policies and the one required AmazonSSMMangedInstanceCore  | 
 | `CloudControlApiForGameLiftResources` | 		Create, read, update, delete, and poll the status of resources managed through AWS Cloud Control API. Terraforms awscc provider routes all operations through Cloud Control.  | 
 | `ManageCatenaSnsNotificationTopic` | 	Create and configure the SNS topic FlexMatch uses to publish matchmaking events | 
 | `ManageCatenaSqsNotificationQueue` | 	Create and configure the SQS queue subscribed to that topic, which Catena polls for matchmaking updates |                                            |
