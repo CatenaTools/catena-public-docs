@@ -19,7 +19,7 @@ The individual Catena Sqlite3 and Redis databases can be manually backed up and 
 ### Catena Sqlite3 Backup
 
 1. Login to EC2 instance console
-    Navigate to the EC2 instance in AWS console (link to Julian's insructions)
+    Navigate to the EC2 instance in AWS console (link to Julian's instructions)
     Click the 'Connect' button
         This will give you a shell on the EC2 instance (Catena host) as the 'ubuntu' user
 2. Make backups of Sqlite3 database files using the SqLite3 Online Backup API from the command line
@@ -45,7 +45,7 @@ Note:
 ### Catena Sqlite3 Backup Restore
 
 1. Login to EC2 instance console
-    Navigate to the EC2 instance in AWS console (link to Julian's insructions)
+    Navigate to the EC2 instance in AWS console (link to Julian's instructions)
     Click the 'Connect' button
         This will give you a shell on the EC2 instance (Catena host) as the 'ubuntu' user
 
@@ -69,7 +69,7 @@ Note:
 ### Catena Redis Backup
 
 1. Login to EC2 instance console
-    Navigate to the EC2 instance in AWS console (link to Julian's insructions)
+    Navigate to the EC2 instance in AWS console (link to Julian's instructions)
     Click the 'Connect' button
         This will give you a shell on the EC2 instance (Catena host) as the 'ubuntu' user
 2. Make backups of the Redis database using dokku commands from the command line
@@ -77,7 +77,7 @@ Note:
         `sudo dokku redis:list`
             (to get dokku service name, for example: catena-redis)
         `sudo dokku redis:export <service> > data.dump`
-            This creates a backup of the redis darabase to data.dump
+            This creates a backup of the redis database to data.dump
 3. Copy backup files to the 'catena-backup' S3 bucket
     Issue the command:
         `aws s3 cp /path/to/your/file s3://catena-backup/`
@@ -94,7 +94,7 @@ Note:
 ### Catena Redis Backup Restore
 
 1. Login to EC2 instance console
-    Navigate to the EC2 instance in AWS console (link to Julian's insructions)
+    Navigate to the EC2 instance in AWS console (link to Julian's instructions)
     Click the 'Connect' button
         This will give you a shell on the EC2 instance (Catena host) as the 'ubuntu' user
 
