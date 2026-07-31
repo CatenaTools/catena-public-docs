@@ -412,3 +412,9 @@ Restart the app and confirm it starts cleanly with the restored data:
 ssh -i <your-key> dokku@<your-domain> ps:restart <app-name>
 ssh -i <your-key> dokku@<your-domain> ps:report <app-name>
 ```
+
+## Support
+
+Catena does not currently offer set technical support tiers or standard Service Level Agreements (SLAs). Support, response times, and any associated terms are arranged on a per-contract basis.
+
+To request support, contact [it@wolfjawstudios.com](mailto:it@wolfjawstudios.com).

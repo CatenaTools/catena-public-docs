@@ -54,3 +54,9 @@ Catena's licensing is tailored per customer based on your deployment scale and n
 Catena is self-hosted and source-available, so you control your own infrastructure costs directly. No surprise usage-based billing beyond what the host charges for resources. 
 
 Our recommended deployment approach is via AWS. To determine the usage costs of the deployment, use the [Cost Calculator provided by AWS](https://calculator.aws/#/). (Regional pricing will apply)
+
+## Support
+
+Catena does not currently offer set technical support tiers or standard Service Level Agreements (SLAs). Support, response times, and any associated terms are arranged on a per-contract basis.
+
+To request support, contact [it@wolfjawstudios.com](mailto:it@wolfjawstudios.com).
