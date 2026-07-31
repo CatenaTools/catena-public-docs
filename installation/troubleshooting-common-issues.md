@@ -369,3 +369,46 @@ Validate infrastructure hasn't drifted from whats deployed.
 ```bash
 terraform plan -var-file="vars.tfvars"
 ```
+
+# Backup and Recovering Catena
+
+This guide walks through backing up, tearing down and rebuilding a Catena deployment, restoring your data from an existing backup afterward. Assuming some fault or error state that occured. 
+
+## 1. Create or Confirm You Have a Backup
+
+Before tearing anything down, confirm or create a backup. See [Backup and Recovery](../installation/aws-backup-management.md) for how backups are created and managed (manual `sqlite3 .backup`, or automatic EBS snapshots).
+
+## 2. Tear Down the Existing Deployment
+
+```bash
+cd aws/catena-core
+terraform destroy -var-file="vars.tfvars"
+```
+
+## 3. Redeploy
+
+```bash
+terraform apply -var-file="vars.tfvars"
+```
+
+Follow the standard post-deploy steps:
+```bash
+ssh-keygen -R <your-domain>
+git push dokku main
+./set-dokku-secrets.sh <your-domain>
+```
+
+## 4. Restore Your Backup
+
+Follow the restore steps for whichever backup method you used — see [Backup and Recovery](../installation/aws-backup-management.md):
+
+- **Manual backup**: restore the SQLite database file to the new instance.
+- **EBS snapshot**: attach the snapshot as the instance's data volume.
+
+## 5. Confirm Recovery
+
+Restart the app and confirm it starts cleanly with the restored data:
+```bash
+ssh -i <your-key> dokku@<your-domain> ps:restart <app-name>
+ssh -i <your-key> dokku@<your-domain> ps:report <app-name>
+```
