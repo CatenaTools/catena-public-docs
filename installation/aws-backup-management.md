@@ -9,7 +9,7 @@ markdown:
 ## Periodic Backups of EC2 host
 
 The Catena EC2 instance uses the EBS volume created during terraform deploy for it's persistent storage.
-Periodic snapshots (daily/weekly/monthly/ect) of the Catena deployment's EC2 host can be made using the [AWS EBS 
+Periodic snapshots (daily/weekly/monthly/etc) of the Catena deployment's EC2 host can be made using the [AWS EBS 
 snapshot procedures outlined in AWS documentation](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html)
 
 ## Manual Backup/Restore of Catena Databases
