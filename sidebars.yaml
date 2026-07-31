@@ -24,6 +24,8 @@
                   label: "Managing Secret Values"
                 - page: installation/aws-backup-management.md
                   label: "Managing Backups"
+                - page: installation/upgrade-procedure.md
+                  label: "Upgrade Procedure"
                 - page: installation/troubleshooting-common-issues.md
                   label: "Common Issues"
 - group: Unity
