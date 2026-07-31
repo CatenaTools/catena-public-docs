@@ -19,7 +19,7 @@ The individual Catena Sqlite3 and Redis databases can be manually backed up and 
 ### Catena Sqlite3 Backup
 
 1. Login to EC2 instance console  
-	Navigate to the EC2 instance in AWS console (link to Julian's instructions)  
+	Navigate to the EC2 instance in [AWS console](troubleshooting-common-issues#finding-things-in-the-aws-console)  
 	Click the 'Connect' button  
 		This will give you a shell on the EC2 instance (Catena host) as the 'ubuntu' user  
 2. Make backups of Sqlite3 database files using the SqLite3 Online Backup API from the command line  
