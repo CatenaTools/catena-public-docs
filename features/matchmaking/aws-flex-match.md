@@ -22,7 +22,7 @@ If you would like to learn more about how Catena handles dedicated game servers,
 
 GameLift matchmaking configurations and rule sets are subject to account-level quotas. If you plan to run many logical matchmaking queues, check your current limits in the [Service Quotas console](https://console.aws.amazon.com/servicequotas/home/services/gamelift/quotas/) before provisioning.
 
-FlexMatch also bills for usage, even in standalone mode with no GameLift-hosted servers involved — you're charged for matchmaking hours and player packages processed, not just for the AWS resources this guide provisions. See [FlexMatch pricing](https://aws.amazon.com/gamelift/servers/pricing/flexmatch-pricing/) for current rates, and note that costs scale with matchmaking traffic, not with how this deployment is configured.
+FlexMatch also bills for usage, even in standalone mode with no GameLift-hosted servers involved — you're charged for matchmaking hours and player packages processed, not just for the AWS resources this guide provisions. See [FlexMatch pricing](https://aws.amazon.com/gamelift/servers/pricing/flexmatch-pricing/) for current rates, and note that costs scale with matchmaking traffic, not with how this deployment is configured. To determine exact costs, you can use the [Cost Calculator provided by AWS](https://calculator.aws/#/) to detmine exact pricing for your targeted region(s).
 
 If you're deploying FlexMatch alongside a new `catena-core` EC2 deployment, also see the [service limits note in the AWS EC2 guide](../../installation/aws-ec2.md#a-note-on-aws-service-limits) — the same Elastic IP/VPC quotas apply there.
 

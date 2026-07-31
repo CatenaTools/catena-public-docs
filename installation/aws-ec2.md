@@ -18,7 +18,7 @@ Starting from scratch, deploying Catena to AWS on a single EC2 instance is estim
 ## What is an Elastic IP?
 An [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) is a static, public IPv4 address that stays fixed even if the EC2 instance behind it is stopped, restarted, or replaced. This deployment uses one so your domain always resolves to the same address, regardless of what happens to the underlying instance.
 
-## A Note on AWS Service Limits
+## A Note on AWS Service Limits and Costs
 
 New AWS accounts have default quotas you might run into over time, especially if you're running multiple parallel deployments.
 
@@ -28,6 +28,7 @@ New AWS accounts have default quotas you might run into over time, especially if
 
 Check your current usage and request increases in advance via the [Service Quotas console](https://console.aws.amazon.com/servicequotas/home/services/ec2/quotas/) — approval isn't always instant.
 
+Most of the services used for Catena deployments will incur some charge. Deployment is not a free process, to determine costs for running your instance, use the [Cost Calculator provided by AWS](https://calculator.aws/#/). See all the [Public Services Created by this Deployment](./aws-public-resource-inventory.md) for a full list.
 
 ## Where can Catena be Deployed?
 Catena can be deployed into any AWS region that supports Amazon EC2 instances running in an Amazon VPC. AWS Regions that support both Amazon EC2 and Amazon VPC include US East (N. Virginia), US West (N. California), AWS GovCloud (US-East), AWS GovCloud (US-West), Asia Pacific (Hong Kong), and South America (São Paulo).

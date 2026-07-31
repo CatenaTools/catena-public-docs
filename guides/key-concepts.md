@@ -46,3 +46,11 @@ Catena provides SDKs for Unity, Unreal, or Proprietary Game Engines.
 You must run Catena yourself, but you have plenty of options for how to do that. It can be run as a modular monolith on your workstation, on a single bare metal machine, on a single VM in the cloud, or as a production grade distributed system with its modules broken up into microservices.
 
 Get up and running in a few minutes with [Getting Started: How to Run Catena](../installation/index.md).
+
+## Pricing
+
+Catena's licensing is tailored per customer based on your deployment scale and needs. Contact our sales team at [catena@wolfjawstudios.com](mailto:catena@wolfjawstudios.com) for a quote
+
+Catena is self-hosted and source-available, so you control your own infrastructure costs directly. No surprise usage-based billing beyond what the host charges for resources. 
+
+Our recommended deployment approach is via AWS. To determine the usage costs of the deployment, use the [Cost Calculator provided by AWS](https://calculator.aws/#/). (Regional pricing will apply)
