@@ -23,6 +23,8 @@ administrative access to trusted networks.
 Redis and SQLite are installed on the EC2 instance for this deployment. They
 should not be directly exposed to the public internet.
 
+Some of these resources come with a cost. Be sure to use the provided [Cost Calculator from AWS](https://calculator.aws/#/) to determine the exact costs for your targeted region(s).
+
 ## AWS Architecture Diagram for Resources Created by This Deployment
 
 ![Catena AWS Architecture Diagram](/images/CatenaAwsArchitecture.jpg)
