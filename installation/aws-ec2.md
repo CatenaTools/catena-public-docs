@@ -28,7 +28,9 @@ New AWS accounts have default quotas you might run into over time, especially if
 
 Check your current usage and request increases in advance via the [Service Quotas console](https://console.aws.amazon.com/servicequotas/home/services/ec2/quotas/) — approval isn't always instant.
 
-Most of the services used for Catena deployments will incur some charge. Deployment is not a free process, to determine costs for running your instance, use the [Cost Calculator provided by AWS](https://calculator.aws/#/). See all the [Public Services Created by this Deployment](./aws-public-resource-inventory.md) for a full list.
+Most of the services used for Catena deployments will incur some charge for AWS services. Deployment is not a free process, to determine costs for running your instance, use the [Cost Calculator provided by AWS](https://calculator.aws/#/). See all the [Public Services Created by this Deployment](./aws-public-resource-inventory.md) for a full list.
+
+Catena's licensing is tailored per customer based on your deployment scale and needs. Contact our sales team at [catena@wolfjawstudios.com](mailto:catena@wolfjawstudios.com) for a quote.
 
 ## Where can Catena be Deployed?
 Catena can be deployed into any AWS region that supports Amazon EC2 instances running in an Amazon VPC. AWS Regions that support both Amazon EC2 and Amazon VPC include US East (N. Virginia), US West (N. California), AWS GovCloud (US-East), AWS GovCloud (US-West), Asia Pacific (Hong Kong), and South America (São Paulo).
