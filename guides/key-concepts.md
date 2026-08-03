@@ -49,7 +49,7 @@ Get up and running in a few minutes with [Getting Started: How to Run Catena](..
 
 ## Pricing
 
-Catena's licensing is tailored per customer based on your deployment scale and needs. Contact our sales team at [catena@wolfjawstudios.com](mailto:catena@wolfjawstudios.com) for a quote
+Catena's licensing is tailored per customer based on your deployment scale and needs. Contact our sales team at [catena@wolfjawstudios.com](mailto:catena@wolfjawstudios.com) for a quote.
 
 Catena is self-hosted and source-available, so you control your own infrastructure costs directly. No surprise usage-based billing beyond what the host charges for resources. 
 
