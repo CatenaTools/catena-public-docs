@@ -27,6 +27,7 @@ The individual Catena Sqlite3 and Redis databases can be manually backed up and 
 	The database directories are mounted into the Catena container from the EC2 host under:  
 		Sqlite3:  
 			`/var/lib/dokku/data/storage/platform/Database/SqliteDatabase`  
+  
 	Issue the command:  
 		```bash
 		sudo sqlite3 source.db ".backup target.db"  
@@ -59,6 +60,7 @@ Note:
 	The database directories are mounted into the Catena container from the EC2 host under:  
 		Sqlite3:  
 			`/var/lib/dokku/data/storage/platform/Database/SqliteDatabase`  
+  
 	Issue the command:  
 		```bash
 		aws s3 cp s3://source-bucket/path/to/file .  
@@ -89,7 +91,7 @@ Note:
 		```bash
 		sudo dokku redis:list  
 		sudo dokku redis:export <service> > data.dump  
-		```bash
+		```
 		This creates a backup of the redis database to data.dump
 
 #### 3. Copy backup files to the 'catena-backup' S3 bucket  
