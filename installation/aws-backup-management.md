@@ -121,7 +121,7 @@ Note:
 #### 2. Copy backup from the 'catena-backup' S3 bucket to the Catena database directory  
 	Issue the command:  
 		```bash
-		aws s3 cp s3://source-bucket/path/to/file .`  
+		aws s3 cp s3://source-bucket/path/to/file .  
 		```
 
 #### 3. Restore the database backup copy to the live database  
