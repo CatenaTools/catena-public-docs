@@ -14,7 +14,6 @@
               label: Running From Source
         - group: "Deploying Catena"
           items:
-            - page: installation/heroku.md
             - group: "Deploying to AWS"
               page: installation/aws-ec2.md
               items:
