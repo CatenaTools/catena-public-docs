@@ -200,3 +200,5 @@
   items:
     - page: tools/catena-doc-gen.md
       label: "Doc tool (catena-doc-gen)"
+    - page: tools/grpcurl.md
+      label: "gRPCurl"
