@@ -177,6 +177,8 @@
       label: "Choosing modules/services"
     - page: core/writing-a-module.md
       label: "Writing a module/service"
+    - page: core/adding-an-sql-database.md
+      label: "Adding an SQL database"
     - group: "Auth framework"
       page: core/auth/index.md
       items:
