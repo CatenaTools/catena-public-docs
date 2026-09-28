@@ -164,6 +164,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Google.Rpc.Status'
+  /api/v1/accounts/unlink:
+    post:
+      tags:
+        - CatenaAccounts
+      summary: UnlinkAccountFromPlatform
+      operationId: catena.catena_accounts.CatenaAccounts_UnlinkAccountFromPlatform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services.CatenaAccounts.UnlinkAccountFromPlatformRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Services.CatenaAccounts.UnlinkAccountFromPlatformResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
   /api/v1/accounts/metadata:
     post:
       tags:
@@ -7091,6 +7115,23 @@ components:
         accountLinked:
           type: boolean
           description: indicator of success of linking existing account to new auth provider
+      additionalProperties: false
+    Services.CatenaAccounts.UnlinkAccountFromPlatformRequest:
+      type: object
+      properties:
+        platformType:
+          $ref: '#/components/schemas/Services.PublicCommon.Platform'
+        platformAccountId:
+          type: string
+          description: The platform-specific account ID to unlink.
+      additionalProperties: false
+
+    Services.CatenaAccounts.UnlinkAccountFromPlatformResponse:
+      type: object
+      properties:
+        accountUnlinked:
+          type: boolean
+          description: Indicates whether the platform account was successfully unlinked.
       additionalProperties: false
     Services.CatenaAccounts.ListAccountsResponse:
       type: object
